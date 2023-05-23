@@ -50,11 +50,11 @@ def fit_acph2(
     4. If `cv > 1`, then `m3` is set as `10/9 * m3_min`, where `m3_min` value
         is defined as the boundary of BI (see Figure 2 in [1]).
 
-    The same rules for selecting moments `m2` and `m3` apply if less then
+    The same rules for selecting moments `m2` and `m3` apply if less than
     three moments were provided and `strict = False`.
 
-    If more then three moments are provided to the algorithm, 4-th and higher
-    order moments are not used in estimation. However, the alogirhtm computes
+    If more than three moments are provided to the algorithm, 4-th and higher
+    order moments are not used in estimation. However, the algorithm computes
     relative errors for these moments from the fitted ACPH(2).
     
     If any moment is less or equal to zero, or if pow(CV, 2) <= 0,
@@ -84,7 +84,7 @@ def fit_acph2(
     errors : np.ndarray
         tuple containing relative errors for moments of the distribution found.
         The number of errors is equal to the number of moments passed: if 
-        more then three moments were given, errors will be estimated for all
+        more than three moments were given, errors will be estimated for all
         of them. If strict = False and one or two moments were passed,
         then errors will be computed only for these one or two moments.
     """
