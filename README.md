@@ -1,5 +1,27 @@
 # pyqumo - queueing models in Python
 
+## Package status
+
+Current version is pre-release development.
+What will be changed prior to 1.0.0 release:
+
+- C++ code will be moved closer to the modules using it
+- merge `sim` and `cqumo.sim` packages
+- reorganize `algorithms` and `fitting`
+- move unstable code that is subject to changes into separate `experimental` package
+- split large modules like `arrivals` and `randoms` into smaller modules (interface will be kept)
+- Sphinx documentation
+- GitHub actions for automatic testing
+
+What will *hopefully* put into the release:
+
+- Windows 10+ support
+
+Expected release date: **01 june 2023**
+
+If you need the package, please contact me directly via larioandr@gmail.com or post an issue.
+
+
 ## How to install for development
 
 1. Install prerequisites
