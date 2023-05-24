@@ -7,3 +7,4 @@ scipy>=1.6.1
 tqdm>=4.57.0
 sphinx
 pydata-sphinx-theme
+sphinx_design

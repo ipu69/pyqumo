@@ -1,3 +1,10 @@
+"""
+*************
+pyqumo.matrix
+*************
+
+Matrix manipulation routines.
+"""
 from typing import Union, Tuple, Iterable, Sequence, Optional
 
 from numpy import ndarray, asarray, float64, ones, diag, zeros, eye

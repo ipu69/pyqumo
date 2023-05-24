@@ -17,6 +17,9 @@ release = '1.0.0'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.mathjax',
+    'sphinx_design',
 ]
 
 templates_path = ['_templates']
@@ -29,8 +32,9 @@ exclude_patterns = []
 
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
+html_css_files = ['pyqumo.css']
 
-html_logo = '_static/logo.jpg'
+html_logo = '_static/pyqumo_logo_slim.png'
 html_favicon = '_static/favicon.ico'
 
 html_theme_options = {

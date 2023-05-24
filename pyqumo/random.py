@@ -1,3 +1,10 @@
+"""
+*************
+pyqumo.random
+*************
+
+Random variables and distributions.
+"""
 from functools import lru_cache, cached_property
 from typing import Union, Sequence, Callable, Mapping, Tuple, Iterator, \
     Optional, Iterable

@@ -1,3 +1,10 @@
+"""
+***************
+pyqumo.arrivals
+***************
+
+Module provides models for arrival and service random processes.
+"""
 from abc import ABC
 from functools import cached_property, lru_cache
 from typing import Union, Sequence
@@ -241,7 +248,7 @@ class MarkovArrival(RandomProcess):
         ----------
         shape : int
             Number of phases
-        :param : float
+        rate : float
             Rate at each phase
         """
         d0 = cbdiag(shape, [
