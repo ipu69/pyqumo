@@ -1,4 +1,4 @@
 .. automodule:: pyqumo.random
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   :no-members:
+   :no-inherited-members:
+   :no-special-members:

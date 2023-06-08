@@ -1,4 +1,8 @@
 """
+==========================================================================================
+MAP fitting with independent approximation of PH and lag (:mod:`pyqumo.fitting.horvath05`)
+==========================================================================================
+
 This module contains MAP fitting algorithm based on  Horvath et.al. paper [1].
 
 According to this approach, we first fit stationary PH distribution of the MAP

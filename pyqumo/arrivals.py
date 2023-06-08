@@ -1,6 +1,6 @@
 """
-pyqumo.arrivals (:mod:`pyqumo.arrivals`)
-========================================
+Random arrival processes (:mod:`pyqumo.arrivals`)
+=================================================
 
 Module provides models for arrival and service random processes.
 These processes model random time intervals between successive arrivals
@@ -8,11 +8,12 @@ or service duration.
 
 .. autosummary::
    :toctree: generated/
+   :nosignatures:
 
-   RandomProcess -- abstract base class for any random process
-   GIProcess -- general independent random process model
-   Poisson -- random GI-process with exponentially distributed values
-   MarkovArrival -- correlated random Markovian process
+   RandomProcess
+   GIProcess
+   Poisson
+   MarkovArrival
 
 Background information
 ----------------------
@@ -61,26 +62,31 @@ from pyqumo.errors import MatrixShapeError
 
 
 class RandomProcess(ABC, Distribution):
+    """
+    Abstract base class for any random process.
+    """
 
     @lru_cache
     def lag(self, n: int) -> float:
         """
-        Get auto-correlation coefficient with lag n of the random process.
+        Return auto-correlation coefficient with lag n.
 
-        Notes
-        -----
+        Value of lag-n autocorrelation is defined as:
 
-        :math:`r_k = (E[X_{t+n} - m_1][X_{t} - m_1]) / s^2`, where `m_1` -
-        mean value and :math:`s^2` - variance (dispersion).
+        .. math::
+            r_k = (E[X_{t+n} - m_1][X_{t} - m_1]) / s^2,
+
+        where :math:`m_1` - mean value and :math:`s^2` - variance (dispersion).
 
         Parameters
         ----------
         n : int
-            Time lag (number of steps).
+            Time lag - number of steps between intervals
 
         Returns
         -------
         value : float
+            Auto-correlation coefficient
 
         Raises
         ------
@@ -97,17 +103,26 @@ class RandomProcess(ABC, Distribution):
         """
         Get lag-n autocorrelation. In this method it can be assumed that
         `n` is a non-zero positive integer.
+
+        This method must be implemented in inherited classes.
         """
         raise NotImplementedError
 
     def copy(self) -> 'RandomProcess':
+        """
+        Return a deep copy of the object.
+
+        This method must be implemented in inherited classes.
+        """
         raise NotImplementedError
 
 
 class GIProcess(RandomProcess):
     """
-    GI-arrival model. Samples of this kind of process are built from a
-    known distribution, and they don't change over lifetime.
+    General independent (GI) random process model.
+
+    Samples of this kind of process are built from a known distribution,
+    and they don't change over lifetime.
 
     Poisson process is an example of GI-process with exponential arrivals.
     """

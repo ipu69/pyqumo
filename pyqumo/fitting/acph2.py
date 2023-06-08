@@ -1,19 +1,81 @@
 """
-This module contain implementation of ACPH(2) moments matching fitting
-algorithm defined in [1].
+==============================================================================
+Fitting ACPH(2) matching the first three moments (:mod:`pyqumo.fitting.acph2`)
+==============================================================================
 
-It defines three routines for fitting and bounds checking:
+.. currentmodule:: pyqumo.fitting.acph2
 
-- fit_acph2()
-- get_acph2_m2_min()
-- get_acph2_m3_bounds()
+Functions
+=========
 
-[1] Telek, Miklós & Heindl, Armin. (2003). Matching Moments For Acyclic 
-Discrete And Continuous Phase-Type Distributions Of Second Order. 
-International Journal of Simulation Systems, Science & Technology. 3.
+.. autosummary::
+    :toctree: generated/
+
+    fit_acph2
+    get_acph2_m2_min
+    get_acph2_m3_bounds
+
+
+Details
+=======
+
+Implementation of ACPH(2) moments matching fitting algorithm defined in
+[TeHe03]_. Canonical acyclic PH-distribution with two states have the form:
+
+.. math::
+    S = \\left( \\begin{matrix}
+            -\\lambda_1 & \\lambda_1 \\\\
+            0 & -\\lambda_2
+        \\end{matrix} \\right)
+    \\qquad
+    \\overline{\\tau} =
+        \\left(\\begin{matrix} p & 1 - p \\end{matrix}\\right),
+
+where :math:`S` is an infinitesimal generator and :math:`\\tau` is a vector
+of initial probabilities. These values are computed from the equations:
+
+.. math::
+    p = \\frac{-B + 6 m_1 D + \\sqrt{A}}{B + \\sqrt{A}}, \\\\
+    \\lambda_1 = \\frac{B - \\sqrt{A}}{C}, \\\\
+    \\lambda_2 = \\frac{B + \\sqrt{A}}{C},
+
+where
+
+.. math::
+    A = B^2 - 6CD, \\\\
+    B = 3 m_1 m_2 - m_3, \\\\
+    C = 3 m_2^2 - 2 m_1 m_3 \\\\
+    D = 2 m_1^2 - m_2.
+
+
+
+
+References
+==========
+
+.. [TeHe03] Telek, Miklós & Heindl, Armin. (2003). Matching Moments For Acyclic
+            Discrete And Continuous Phase-Type Distributions Of Second Order.
+            International Journal of Simulation Systems, Science & Technology.
+            3.
 """
 from typing import Sequence, Tuple
 import numpy as np
+# \begin
+# {equation}
+# S = \left(\begin
+# {matrix}
+# -\lambda_1 & \lambda_1 \ \
+#     0 & -\lambda_2
+# \end
+# {matrix}\right),
+# \qquad
+# \overline
+# {\tau} = \left(\begin
+# {matrix}
+# p_1 & 1 - p_1\end
+# {matrix}\right).
+# \end
+# {equation}
 
 from pyqumo.errors import BoundsError
 from pyqumo.random import PhaseType
@@ -24,10 +86,11 @@ def fit_acph2(
     strict: bool = True
 ) -> Tuple[PhaseType, np.ndarray]:
     """
-    Fit ACPH(2) distribution matching three first moments.
+    Fit ACPH(2) distribution by :math:`M_1, M_2, M_3`
 
-    Algorithm and moments values bounds are provided in [1]. See Table 1 for
-    boundaries on M2 and M3, Figure 1 for graphical display of the boundaries
+    Algorithm and moments values bounds are provided in.
+    See Table 1 for boundaries on M2 and M3, Figure 1 for graphical display of
+    the boundaries
     and Table 3 for formulas to compute PH distribution parameters from
     valid M1, M2 and M3.
 
@@ -37,16 +100,16 @@ def fit_acph2(
 
     1. If `cv^2 := (m1^2 / m2 - 1) <= 0.5`, then `m2` and `m3` are set equal to
         `m2 = 1.5 * m1^2` and `m3 = 3 * m1^3` respectively (as for Erlang-2).
-    
-    2. If `0.5 < cv^2 < 1.0`, then `m2` is OK. However, if `m3` is out of 
+
+    2. If `0.5 < cv^2 < 1.0`, then `m2` is OK. However, if `m3` is out of
         bounds (region BII or BIII, see Figure 2 in [1]), then `m3` is selected
-        to be `m3 = 0.5 * (m3_lower + m3_upper)`, where `m3_lower` and 
+        to be `m3 = 0.5 * (m3_lower + m3_upper)`, where `m3_lower` and
         `m3_upper` are boundaries of BII and BIII, see Table 1 [1] and
         `get_acph2_m3_bounds()`.
-    
-    3. If `cv == 1`, then m3` is set as for exponential distribution: 
+
+    3. If `cv == 1`, then m3` is set as for exponential distribution:
         `m3 = 6 * m1^3`
-    
+
     4. If `cv > 1`, then `m3` is set as `10/9 * m3_min`, where `m3_min` value
         is defined as the boundary of BI (see Figure 2 in [1]).
 
@@ -56,7 +119,7 @@ def fit_acph2(
     If more than three moments are provided to the algorithm, 4-th and higher
     order moments are not used in estimation. However, the algorithm computes
     relative errors for these moments from the fitted ACPH(2).
-    
+
     If any moment is less or equal to zero, or if pow(CV, 2) <= 0,
     the `ValueError` exception is raised.
 
@@ -69,21 +132,21 @@ def fit_acph2(
     strict : bool, optional
         Flag indicating whether raise an error if ACPH(2) can not be found
         due to moment values laying out of bounds.
-    
+
     Raises
     ------
     ValueError
         raise this when moments are less or equal to 0, or if pow(CV, 2) <= 0
     BoundsError
         raise if strict = True and moments values
-    
+
     Returns
     -------
     ph : PhaseType
         ACPH(2) distribution
     errors : np.ndarray
         tuple containing relative errors for moments of the distribution found.
-        The number of errors is equal to the number of moments passed: if 
+        The number of errors is equal to the number of moments passed: if
         more than three moments were given, errors will be estimated for all
         of them. If strict = False and one or two moments were passed,
         then errors will be computed only for these one or two moments.
@@ -92,22 +155,22 @@ def fit_acph2(
     # - if strict = True and len(moments) < 3, raise ValueError
     # - if strict = False, however, try to find some m2 and m3 values
     #   to use in estimation.
-    # 
+    #
     # If CV2 falls into region between (BII, BIII), use M3 value in the medium.
     # If CV2 > 1, use M3 from a line that is as 10/9 m3 lower bound.
     #
-    # If in non-strict mode only M1 is provided, treat as exponential 
+    # If in non-strict mode only M1 is provided, treat as exponential
     # distribution and set M2 and M3 accordingly.
     if (n := len(moments)) < 3:
         if strict:
             raise ValueError(f"Expected three moments, but {n} found")
         if n == 0:
             raise ValueError(f"At least one moment needed, but 0 found")
-        
+
         # If not strict and at least one moment provided, try to find m2, m3.
         m1 = moments[0]
         m2 = 2 * m1**2 if n < 2 else moments[1]
-        
+
         # M3 selection depends on pow(CV, 2)
         cv2 = m2 / m1**2 - 1
         if cv2 <= 0.5:  # tread as Erlang: M3 = k(k+1)(k+2) / pow(k/m1, 3), k=2
@@ -120,7 +183,7 @@ def fit_acph2(
         m1 = moments[0]
         m2 = moments[1]
         m3 = moments[2]
-    
+
     # Validate mandatory moments relations:
     # - each moment must be positive real value
     # - pow(CV, 2) must be positive
@@ -148,7 +211,7 @@ def fit_acph2(
                 f"\tmin. M3 = {m3_min}\n"
                 f"\tmax. M3 = {m3_max}"
             )
-    
+
     # If strict = False, tune moments to put them into the valid bounds:
     if not strict:
         # If pow(CV, 2) < 0.5, then set M2 and M3 as for Erlang-2 distribution:
@@ -170,7 +233,7 @@ def fit_acph2(
     c = 3 * m2**2 - 2 * m1 * m3
     b = 3 * m1 * m2 - m3
     a = (b**2 - 6 * c * d) ** 0.5  # in paper no **0.5, but this is useful
-    
+
     # Define subgenerator and probabilities vector elements
     if c > 0:
         p = (-b + 6 * m1 * d + a) / (b + a)
@@ -184,10 +247,10 @@ def fit_acph2(
         p = 0
         l1 = 1 / m1
         l2 = 1 / m1
-    
+
     # Build the distribution and compute estimation errors:
     ph = PhaseType(
-        sub=np.asarray([[-l1, l1], [0.0, -l2]]), 
+        sub=np.asarray([[-l1, l1], [0.0, -l2]]),
         p=np.asarray([p, 1 - p]))
     errors = [abs(m - ph.moment(i+1)) / m for i, m in enumerate(moments)]
     return ph, np.asarray(errors)
@@ -195,9 +258,9 @@ def fit_acph2(
 
 def get_acph2_m2_min(m1: float) -> float:
     """
-    Get minimum value of m2 (second moment) for ACPH(2) fitting.
+    Find minimum :math:`M_1` for the given mean value for any valid ACPH(2).
 
-    According to [1], M2 has only lower bound since pow(CV, 2) should be 
+    According to [1], M2 has only lower bound since pow(CV, 2) should be
     greater or equal to 0.5.
 
     If m1 < 0, then `ValueError` is raised.
@@ -218,12 +281,12 @@ def get_acph2_m2_min(m1: float) -> float:
 
 def get_acph2_m3_bounds(m1: float, m2: float) -> Tuple[float, float]:
     """
-    Get minimum and maximum possible values of the 3-rd moment for ACPH(2).
+    Find min and max :math:`m_3` for the given :math:`m_1,m_2` for ACPH(2).
 
     Bounds are specified in Table 1 and Figure 2 in [1]. When CV > 1,
-    only lowest bound exist, while for 0.5 < pow(CV, 2) < 1 both lower and 
-    upper bounds are defined, and they are very tight. 
-    When CV = 1, M3 is fixed for exponential distribution (singular point), 
+    only lowest bound exist, while for 0.5 < pow(CV, 2) < 1 both lower and
+    upper bounds are defined, and they are very tight.
+    When CV = 1, M3 is fixed for exponential distribution (singular point),
     so both bounds are equal.
 
     If arguments are such that CV**2 < 0.5 (i.e. m2 < 1.5 * m1**2), then
@@ -250,14 +313,14 @@ def get_acph2_m3_bounds(m1: float, m2: float) -> Tuple[float, float]:
     # If CV > 1, then only lower bound exists:
     if cv2 > 1:
         return 3/2 * m1**3 * (1 + cv2)**2, np.inf
-    
+
     # If CV**2 >= 0.5, but <= 1, both bounds exist:
     if 0.5 <= cv2 <= 1:
         return (
             3 * m1**3 * (3 * cv2 - 1 + 2**0.5 * (1 - cv2)**1.5),
             6 * m1**3 * cv2
         )
-    
+
     # If CV**2 < 0.5, M3 is undefined:
     raise ValueError(
         f"Expected CV >= sqrt(0.5), but CV = {cv2**0.5} "

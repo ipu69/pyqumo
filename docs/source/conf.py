@@ -26,6 +26,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
+    'sphinx.ext.inheritance_diagram',
     'matplotlib.sphinxext.plot_directive',
     'sphinx_design',
     'myst_nb',
@@ -34,7 +35,8 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_patterns = []
-
+autosummary_generate = True
+autodoc_typehints = 'signature'
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

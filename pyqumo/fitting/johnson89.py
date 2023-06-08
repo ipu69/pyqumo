@@ -1,4 +1,8 @@
 """
+==========================================================================
+MEr(N) fitting by three moments matching (:mod:`pyqumo.fitting.johnson89`)
+==========================================================================
+
 This module contains an implementation of the PH fitting algorithm using a
 mixture of two Erlang distribution with common order N by three moments match.
 The method is defined in paper [1].
