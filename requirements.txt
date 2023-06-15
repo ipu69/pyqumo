@@ -1,7 +1,10 @@
 -e .
-Cython>=0.29.21
+Cython>=0.29.34
 matplotlib>=3.3.4
-numpy>=1.20.1
-pandas>=1.2.2
+numpy>=1.24.3
+pandas>=2.0.1
 scipy>=1.6.1
 tqdm>=4.57.0
+sphinx
+pydata-sphinx-theme
+sphinx_design

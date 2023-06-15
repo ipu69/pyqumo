@@ -58,9 +58,8 @@ def solve_iterative(
     """
     Solve MAP/PH/1/N -> */PH/1/N -> ... */PH/1/N model analytically.
 
-    If `reducer` is not None, then this function is applied
-    to each departure process prior to sending it to the arrival to the
-    next station.
+    If `reducer` is not None, then this function is applied to each departure
+    process prior to sending it to the next station.
 
     If `reduce_arrival = True`, then `reducer()` is applied
     to the first arrival as well (`inp.arrival`).
@@ -74,10 +73,12 @@ def solve_iterative(
     reducer : None or Callable[[MarkovArrival], MarkovArrival]
         if not None, this function is applied to each departure
     reduce_arrival : bool, optional (default: False)
-        if True, reduce arrival process as well
+        if True, reduce arrival process
+    reduce_departure : bool, optional (default: False)
+        if True, reduce departure process
     max_precise_order : int (default: 8000)
         if looking for precise solution, will ignore matrices with number
-        of rows (or columns) larger then this value
+        of rows (or columns) larger than this value
 
     Returns
     -------

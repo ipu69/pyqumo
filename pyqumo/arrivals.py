@@ -1,3 +1,51 @@
+"""
+Random arrival processes (:mod:`pyqumo.arrivals`)
+=================================================
+
+Module provides models for arrival and service random processes.
+These processes model random time intervals between successive arrivals
+or service duration.
+
+.. autosummary::
+   :toctree: generated/
+   :nosignatures:
+
+   RandomProcess
+   GIProcess
+   Poisson
+   MarkovArrival
+
+Background information
+----------------------
+
+Random processes used in common queueing systems model time intervals between
+successive packets or batches arrivals, as well as the time taken to serve a
+packet.
+
+Consider new packets arrive in the system at timestamps
+:math:`t_0, t_1, t_2, \\dots, t_n, t_{n+1}, \\dots`. Then, i-th interval is
+:math:`x_i = t_{i} - t_{i-1}`. If all intervals :math:`\\{ x_i \\}` have the
+same random distributions and don't depend on previous values, the process
+is called *general independent process*, or GI-process. We model it with
+:class:`pyqumo.arrivals.GIProcess`. Any distribution from :mod:`pyqumo.random`
+may be used for intervals in this type of process.
+
+A typical example of GI-processes is Poisson process - a random process,
+in which all inter-arrival intervals have exponential distribution with the
+fixed rate :math:`\\lambda`. Since this random process is very important in
+queueing theory and used very often, we implement it in
+:class:`pyqumo.arrivals.Poisson`.
+
+On the other hand, intervals :math:`x_i` and :math:`x_{i+k}, k > 0`
+may be correlated. This is the case when the process have some inner (hidden)
+state space and make state transitions after each event. For instance,
+consider a process in which odd intervals are always equal :math:`T` and
+even intervals are exponentially distributed with parameter :math:`\\lambda`.
+
+In current version, PyQumo supports only one type of correlated
+processes - Markovian arrival process (:class:`pyqumo.arrivals.MarkovArrival`).
+
+"""
 from abc import ABC
 from functools import cached_property, lru_cache
 from typing import Union, Sequence
@@ -14,26 +62,31 @@ from pyqumo.errors import MatrixShapeError
 
 
 class RandomProcess(ABC, Distribution):
+    """
+    Abstract base class for any random process.
+    """
 
     @lru_cache
     def lag(self, n: int) -> float:
         """
-        Get auto-correlation coefficient with lag n of the random process.
+        Return auto-correlation coefficient with lag n.
 
-        Notes
-        -----
+        Value of lag-n autocorrelation is defined as:
 
-        :math:`r_k = (E[X_{t+n} - m_1][X_{t} - m_1]) / s^2`, where `m_1` -
-        mean value and :math:`s^2` - variance (dispersion).
+        .. math::
+            r_k = (E[X_{t+n} - m_1][X_{t} - m_1]) / s^2,
+
+        where :math:`m_1` - mean value and :math:`s^2` - variance (dispersion).
 
         Parameters
         ----------
         n : int
-            Time lag (number of steps).
+            Time lag - number of steps between intervals
 
         Returns
         -------
         value : float
+            Auto-correlation coefficient
 
         Raises
         ------
@@ -50,17 +103,26 @@ class RandomProcess(ABC, Distribution):
         """
         Get lag-n autocorrelation. In this method it can be assumed that
         `n` is a non-zero positive integer.
+
+        This method must be implemented in inherited classes.
         """
         raise NotImplementedError
 
     def copy(self) -> 'RandomProcess':
+        """
+        Return a deep copy of the object.
+
+        This method must be implemented in inherited classes.
+        """
         raise NotImplementedError
 
 
 class GIProcess(RandomProcess):
     """
-    GI-arrival model. Samples of this kind of process are built from a
-    known distribution, and they don't change over lifetime.
+    General independent (GI) random process model.
+
+    Samples of this kind of process are built from a known distribution,
+    and they don't change over lifetime.
 
     Poisson process is an example of GI-process with exponential arrivals.
     """
@@ -241,7 +303,7 @@ class MarkovArrival(RandomProcess):
         ----------
         shape : int
             Number of phases
-        :param : float
+        rate : float
             Rate at each phase
         """
         d0 = cbdiag(shape, [

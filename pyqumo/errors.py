@@ -1,3 +1,10 @@
+"""
+*************
+pyqumo.errors
+*************
+
+Definitions of specific errors and exceptions.
+"""
 from typing import Optional, Tuple, Union
 
 from numpy import inf, ndarray

@@ -1,26 +1,48 @@
 """
-This module contains MAP fitting algorithm based on  Horvath et.al. paper [1].
+====================================================================
+Moments matching MAP fitting with independent approximation of lag-k
+====================================================================
 
-According to this approach, we first fit stationary PH distribution of the MAP
-process, and then use optimization techniques to find D1 matrix such that
-it approximates the given lag-k autocorrelation.
+.. currentmodule:: pyqumo.fitting.horvath05
 
-MAP process with matrices D0 and D1 has stationary PH distribution with
-generator D0 and initial probability distribution :math:`p` that is equal
-to stationary distribution of the embedded DTMC with matrix
-:math:=(-D_0^{-1})D_1`. MAP moments are completely defined by this PH, so
-matrix D1 itself defines only lag-k autocorrelation. Thus we can fit PH
-distribution using any kind of EM or moments matching technique, and then
-find D1 matrix using the given autocorrelation. See more details in [1].
+Algorithm for moments matching MAP fitting based on [HoBuTe05]_.
+
+Functions
+=========
+
+.. autosummary::
+    :toctree: generated/
+
+    fit_map_horvath05
+    optimize_lag1
+
+Overview
+=========
+
+According to this approach, we first fit stationary :math:`PH`-distribution of
+the :math:`MAP`-process, and then use optimization techniques to find
+:math:`D_1` matrix, such that it approximates the given lag-1 autocorrelation.
+
+:math:`MAP(D_0, D_1)` has stationary PH distribution with generator :math:`D_0`
+and initial probability distribution :math:`p` that is equal to stationary
+distribution of the embedded DTMC with matrix :math:`T=(-D_0^{-1})D_1`.
+:math:`MAP` moments are completely defined by this :math:`PH`, so matrix
+:math:`D_1` itself defines only lag-k autocorrelation. Thus we can fit
+:math:`PH` distribution using any kind of EM or moments matching technique,
+and then find :math:`D_1` matrix using the given autocorrelation.
+For details, see [HoBuTe05]_.
 
 In this implementation we use `scipy.optimize.minimize` to look for the
-D1 matrix and find lag-1 boundaries.
+:math:`D_1` matrix and find lag-1 boundaries.
 
-[1] Horvath, G., Buchholz, P., & Telek, M. (2005). A MAP fitting approach
-with independent approximation of the inter-arrival time distribution and
-the lag correlation. Second International Conference on the Quantitative
-Evaluation of Systems (QEST’05), 124–133.
-https://doi.org/10.1109/QEST.2005.1
+References
+==========
+
+.. [HoBuTe05] Horvath, G., Buchholz, P., & Telek, M. (2005). A MAP fitting
+              approach with independent approximation of the inter-arrival time
+              distribution and the lag correlation.
+              Second International Conference on the Quantitative Evaluation of
+              Systems (QEST’05), 124–133. https://doi.org/10.1109/QEST.2005.1
 """
 import warnings
 from typing import Optional, Tuple
@@ -39,25 +61,33 @@ def fit_map_horvath05(
         n_iters: int = 3,
         tol: float = .01) -> Tuple[MarkovArrival, np.ndarray]:
     """
-    Fit Markov arrival process using approach from [1].
+    Fit Markov arrival process using approach from [HoBuTe05]_.
 
-    Internally, calls `optimize_lag1()` function to find D1 matrix that
-    defines a MAP with D0 equal to `ph.s` (generator of PH distribution).
-    See its documentation for details.
+    Internally, calls :py:func:`optimize_lag1` function to find :math:`D_1`
+    matrix that defines a :math:`MAP(D_0, D_1)`, where :math:`D_0 = PH.S`
+    (generator of the :math:`PH`-distribution).
+
+    See :py:class:`pyqumo.random.PhaseType` for
+    details.
 
     Parameters
     ----------
-    ph : PhaseType
+    ph : :py:class:`pyqumo.random.PhaseType`
         stationary distribution of the
-    lag1 : float, optional (default: 0.0)
-    n_iters : int, optional (default: 3)
-    tol: float, optional (default: .01)
+    lag1 : float
+        log-1 autocorrelation (optional, default: 0.0)
+    n_iters : int,
+        optional (default: 3)
+    tol: float
         this is the tolerance that is used to validate MAP D0 and D1
+        (optional, default: 0.01)
 
     Returns
     -------
-    arrival: MarkovArrival
+    arrival: :py:class:`pyqumo.arrivals.MarkovArrival`
+        fitted :math:`MAP`
     errors: ndarray
+        relative fitting error for lag-1, lag-2, etc. (right now, only lag-1)
     """
     m = ph.order
     opt_ret = optimize_lag1(ph, optype='opt', lag1=lag1, n_iters=n_iters)
@@ -81,29 +111,30 @@ def optimize_lag1(
         lag1: Optional[float] = None,
         n_iters: int = 3) -> scipy.optimize.OptimizeResult:
     """
-    Solve optimization problem of either fitting D1 matrix, or search for
-    minimal or maximum possible lag-1 autocorrelation for a given PH.
+    Solve optimization problem of either fitting :math:`D_1` matrix, or search
+    for the minimum or maximum possible lag-1 autocorrelation for a given
+    :math:`PH`.
 
-    PH-distribution has generator :math:`S=D_0`, its initial probability
+    :math:`PH`-distribution has generator :math:`S=D_0`, its initial probability
     distribution is equal to stationary distribution of the embedded DTMC
     stationary distribution.
 
     This function can solve three tasks:
 
-    1) Find D1 such that its lag-1 autocorrelation is close to the given
-    value (`optype = "opt"`)
-    2) Find minimum possible lag-1 autocorrelation value (`optype = "min"`)
-    3) Find maximum possible lag-1 autocorrelation value (`optype = "max"`)
+    1. Find :math:`D_1` such that its lag-1 autocorrelation is close to the
+       given value (``optype = "opt"``).
+    2. Find minimum possible lag-1 autocorrelation value (``optype = "min"``).
+    3. Find maximum possible lag-1 autocorrelation value (``optype = "max"``).
 
     In the second and the third cases the return value will hold the boundary
-    value in the field `fun`. In the first case `fun` field will hold
+    value in the field ``fun``. In the first case `fun` field will hold
     a square error of the approximated lag-1.
 
     Algorithm will make several attempts to find a solution using different
-    initial D1 values. For the first time it will start from a matrix D1
-    that appears in MAP representation of the given PH (i.e., when lag-1
-    is zero). Number of other attempts is given in `n_iters` argument.
-    Initial points will be selected as possible solutions of simplex
+    initial :math:`D_1` values. For the first time it will start from a matrix
+    :math:`D_1` that appears in MAP representation of the given :math:`PH`
+    (i.e., when lag-1 is zero). Number of other attempts is given in ``n_iters``
+    argument. Initial points will be selected as possible solutions of simplex
     method when solving a dummy linear problem on the same linear feasible
     region.
 
@@ -111,18 +142,21 @@ def optimize_lag1(
 
     Parameters
     ----------
-    ph : PhaseType
+    ph : :py:class:`pyqumo.random.PhaseType``
         stationary phase-type distribution of MAP
-    optype : "opt", "min" or "max"
+    optype : ``"opt"``, ``"min"`` or ``"max"``
         type of optimization problem
-    lag1 : float, optional
-        used when `optype = "opt"`, lag-1 autocorrelation to approximate
-    n_iters : int, optional (default: 3)
+    lag1 : float
+        used when ``optype = "opt"``, lag-1 autocorrelation to approximate
+        (optional, default: 0)
+    n_iters : int
+        number of attempts to solve the optimization problem with random
+        initial vectors (optional, default: 3)
 
     Returns
     -------
     results : scipy.optimize.OptimizeResult
-        result is returned by `scipy.optimize.minimize()` function.
+        result is returned by ``scipy.optimize.minimize()`` function.
     """
     # Extract props:
     m = ph.order

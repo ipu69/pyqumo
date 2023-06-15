@@ -1,3 +1,44 @@
+"""
+Random distributions (:mod:`pyqumo.random`)
+===========================================
+
+Module provides models for random variables distributions.
+These models are used in random arrivals (see :mod:`pyqumo.arrivals`).
+
+Concrete distributions defined in this module are:
+
+.. autosummary::
+    :toctree: generated/
+    :nosignatures:
+
+    Const
+    Uniform
+    Normal
+    Exponential
+    Erlang
+    HyperExponential
+    HyperErlang
+    Choice
+    CountableDistribution
+    PhaseType
+    SemiMarkovAbsorb
+
+The common base class is :class:`Distribution`. All distributions are made up
+from combinations of various mixins:
+
+.. autosummary::
+    :toctree: generated/
+    :nosignatures:
+
+    Distribution
+    AbstractCdfMixin
+    ContinuousDistributionMixin
+    DiscreteDistributionMixin
+    MixtureDistribution
+    AbsorbMarkovPhasedEvalMixin
+    EstStatsMixin
+    KdePdfMixin
+"""
 from functools import lru_cache, cached_property
 from typing import Union, Sequence, Callable, Mapping, Tuple, Iterator, \
     Optional, Iterable
@@ -20,6 +61,12 @@ default_randoms_factory = RandomsFactory()
 
 
 class Distribution:
+    """
+    Base class for all distributions.
+
+    Class :class:`Distribution` defines basic properties that should implement
+    any real distribution like :attr:`mean` or :attr:`cv`.
+    """
     def __init__(self, factory: RandomsFactory = None):
         self._factory = factory or default_randoms_factory
 
@@ -33,28 +80,31 @@ class Distribution:
     @cached_property
     def mean(self) -> float:
         """
-        Get mean value of the random variable.
+        Return mean value.
         """
         return self._moment(1)
 
     @cached_property
     def rate(self) -> float:
         """
-        Get rate (1/mean)
+        Return rate (1/mean)
         """
         return 1 / self.mean
 
     @cached_property
     def var(self) -> float:
         """
-        Get variance (dispersion) of the random variable.
+        Return variance (dispersion) of the random variable.
+
+        .. math::
+            Var(X) = E[(X - E[x])^2]
         """
         return self._moment(2) - self._moment(1)**2
 
     @cached_property
     def std(self) -> float:
         """
-        Get standard deviation of the random variable.
+        Return standard deviation of the random variable.
         """
         return self.var ** 0.5
 
@@ -236,17 +286,17 @@ class Uniform(ContinuousDistributionMixin, AbstractCdfMixin, Distribution):
 
     Notes
     -----
-
     PDF function :math:`f(x) = 1/(b-a)` anywhere inside ``[a, b]``,
-     and zero otherwise. CDF function `F(x)` is equal to 0 for ``x < a``,
-     1 for ``x > b`` and :math:`F(x) = (x - a)/(b - a)` anywhere inside
-     ``[a, b]``.
+    and zero otherwise. CDF function `F(x)` is equal to 0 for ``x < a``,
+    1 for ``x > b`` and :math:`F(x) = (x - a)/(b - a)` anywhere inside
+    ``[a, b]``.
 
     Moment :math:`m_n` for any natural number n is computed as:
 
-    .. math:: m_n = 1/(n+1) (a^0 b^n + a^1 b^{n-1} + ... + a^n b^0).
+    .. math::
+        m_n = 1/(n+1) (a^0 b^n + a^1 b^{n-1} + ... + a^n b^0).
 
-    Variance :math:`Var(x) = (b - a)^2 / 12.
+    Variance :math:`Var(x) = (b - a)^2 / 12`.
     """
     def __init__(self, a: float = 0, b: float = 1,
                  factory: RandomsFactory = None):
@@ -750,16 +800,14 @@ class AbsorbMarkovPhasedEvalMixin:
     To use this mixin, distribution need to implement:
 
     - `states` (property): returns an iterable. Calling an item should
-    return a sample value of the time spent in the state, size `N`. Signature
-    of each item `__call__()` method should support `size` parameter.
-
+        return a sample value of the time spent in the state, size `N`. Signature
+        of each item `__call__()` method should support `size` parameter.
     - `init_probs` (property): initial probability distribution, should have
-    the same dimension as `time` sequence (`N`).
-
+        the same dimension as `time` sequence (`N`).
     - `trans_probs` (property): matrix of transitions probabilities, should
-    have shape `(N+1)x(N+1)`, last state - absorbing.
-
+        have shape `(N+1)x(N+1)`, last state - absorbing.
     - `order` (property): should return the number of transient states (`N`)
+
     """
     @property
     def order(self) -> int:
@@ -1143,8 +1191,8 @@ class CountableDistribution(DiscreteDistributionMixin,
             If provided, specifies the maximum possible value. Any value
             above it will have zero probability. If this argument is provided,
             `precision` is ignored. If `prob` is given in array form,
-             this argument is ignored, and max value is assigned to
-             the length of `prob` array minus one. By default `np.inf`.
+            this argument is ignored, and max value is assigned to
+            the length of `prob` array minus one. By default `np.inf`.
         moments : sequence of floats, optional
             Optional explicit moments values. If given, they will be
             used instead of estimating over first 0, 1, ..., N values.
@@ -1400,7 +1448,7 @@ class EstStatsMixin:
     sampled data. It expects that the derived class provides:
 
     - `num_stats_samples` property: number of samples should to be used
-    in moments estimation.
+        in moments estimation.
     """
     @property
     def num_stats_samples(self) -> int:
@@ -1431,7 +1479,7 @@ class KdePdfMixin:
     It requires:
 
     - `num_kde_samples` property: number of samples should to be used
-    in KDE building. Should not be too large since KDE will work VERY slowly.
+        in KDE building. Should not be too large since KDE will work VERY slowly.
     """
     @property
     def num_kde_samples(self) -> int:

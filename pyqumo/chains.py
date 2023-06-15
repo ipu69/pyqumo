@@ -1,3 +1,10 @@
+"""
+*************
+pyqumo.chains
+*************
+
+Module provides models for discrete-time and continuous-time Markov chains.
+"""
 from functools import cached_property
 from typing import Union, Sequence, Iterable, Optional, Tuple, Iterator
 

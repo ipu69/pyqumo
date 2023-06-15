@@ -1,3 +1,10 @@
+"""
+************
+pyqumo.stats
+************
+
+Statistical utility functions.
+"""
 import numpy as np
 
 
@@ -90,20 +97,28 @@ def lag(source, maxn=1):
 
 
 def normalize_moments(moments, k=None):
-    # TODO: add unit test
     """
     Normalizes moments using a given or computed coefficient.
 
-    Args:
-        moments (array-like): an array of the first moments
-        k (scalar, callable or None): a coefficient. If None, it will be $M1$
-            if only one moment is given or $\frac{M2}{M1}$. If scalar,
-            this scalar will be used. If callable, it will be called as
-            `k(moments)` to get the coefficient.
+    Parameters
+    ----------
+    moments : array-like
+        an array of the first moments
 
-    Returns: tuple (ndarray, mu), where the first component is normalized
-     moments, the second is the coefficient being used.
+    k : scalar, callable or None
+        a coefficient. If `None`, it will be :math:`m_1` if only one
+        moment is given, or :math:`\\frac{m_2}{m_1}`.
+        If scalar, this scalar will be used. If callable, it will be called
+        as ``k(moments)`` to get the coefficient.
+
+    Returns
+    -------
+        normalized_moments : ndarray
+            normalized moments vector,
+        mu : float
+            the coefficient being used.
     """
+    # TODO: add unit test
     if k is None:
         try:
             mu = moments[1] / moments[0]
