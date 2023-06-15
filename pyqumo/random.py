@@ -20,6 +20,7 @@ Concrete distributions defined in this module are:
     HyperErlang
     Choice
     CountableDistribution
+    PhaseType
     SemiMarkovAbsorb
 
 The common base class is :class:`Distribution`. All distributions are made up

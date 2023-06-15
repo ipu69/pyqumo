@@ -1,16 +1,179 @@
 """
-==========================================================================
-MEr(N) fitting by three moments matching (:mod:`pyqumo.fitting.johnson89`)
-==========================================================================
+=====================================
+Fitting MEn(2) matching three moments
+=====================================
 
-This module contains an implementation of the PH fitting algorithm using a
-mixture of two Erlang distribution with common order N by three moments match.
-The method is defined in paper [1].
+Module: :py:mod:`pyqumo.fitting.johnson89`
 
-[1] Mary A. Johnson & Michael R. Taaffe (1989) Matching moments to phase
-    distributions: Mixtures of erlang distributions of common order,
-    Communications in Statistics. Stochastic Models, 5:4, 711-743,
-    DOI: 10.1080/15326348908807131
+Implementation of the PH moments matching fitting algorithm using a mixture of
+two Erlang distributions with common order N using three moments.
+This method was proposed by Johnson & Taaffe in paper [JoTa89]_.
+
+Functions
+=========
+
+.. autosummary::
+    :toctree: generated/
+
+    fit_mern2
+    get_mern2_props
+
+
+Overview
+========
+
+Method proposed by Johnson & Taaffe in [JoTa89]_ allows to find :math:`PH`-
+distribution in the form of a mixture of two Erlang distributions with the
+same shape :math:`n` and different rates (:math:`ME_n(2)`):
+
+.. graphviz::
+
+   digraph foo {
+        rankdir=LR;
+        node [shape=point label=""]; 0;
+        node [shape=circle label="A1"]; 1 3;
+        node [shape=circle label="A2"]; 4 6;
+        node [shape=plaintext label="..."] 2 5;
+        node [shape=doublecircle label="" fixedsize=true width=.2 height=.2];42;
+      0 -> 1 [label="p"];
+      1 -> 2;
+      2 -> 3;
+      3 -> 42;
+      0 -> 4 [label="1-p"];
+      4 -> 5;
+      5 -> 6;
+      6 -> 42;
+   }
+
+Fitting algorithm
+-----------------
+
+Firstly, we need to estimate the minimal order of Erlang chains :math:`n^*` as
+
+.. math::
+    n^* = \\lceil \\max\\{
+        \\frac{1}{c_v^2},
+        \\frac{-\\gamma + 1/c_v^3 + 1/c_v + 2c_v}{\\gamma - (c_v - 1/c_v)}
+    \\} \\rceil
+
+Any order :math:`n \\geqslant n^*` is eligible, so choose one. Later we may
+need to increase :math:`n` if :math:`\\lambda_1 / \\lambda_2` is too large or
+too small, or if :math:`p` or :math:`1-p` is too close to zero.
+See [JoTa89]_ for details.
+
+Then, we find :math:`\\lambda_i` and :math:`p`:
+
+.. math::
+    \\lambda_{1,2}^{-1} &= \\frac{-B \\pm \\sqrt{B^2 - 4AC}}{2A} \\\\
+    p &= \\frac{m_1/n - \\lambda_2^{-1}}{\\lambda_1^{-1} - \\lambda_2^{-1}}
+
+where
+
+.. math::
+
+    A &= n (n+2) m_1 y \\\\
+    B &= -(nx + \\frac{n(n+2)}{n+1}y^2 + (n+2)m_1^2y) \\\\
+    C &= m_1 x \\\\
+    x &= m_1 m_3 - \\frac{n+2}{n+1}m_2^2 \\\\
+    y &= m_2 - \\frac{n+1}{n}m_1^2
+
+
+Area of MEn(2) existence
+------------------------
+
+The method allows to find a distribution for any feasible :math:`m_1, m_2, m_3`.
+Consider values :math:`m_1, m_2, m_3`, such that there exists a :math:`PH`-
+distribution :math:`\\xi` with :math:`E[\\xi^k] = m_k`,
+:math:`k = 1,2,3`. Then, this method will find a :math:`ME_n(2)`
+distribution :math:`\\xi'`, such that :math:`E[\\xi'^k] = m_k`,
+:math:`k = 1,2,3`.
+
+The feasibility area can be easily defined on :math:`(c_v - 1/c_v, \\gamma)`
+plane as an area :math:`c_v - 1/c_v < \\gamma`, where
+
+.. math::
+    \\gamma &= E[(\\frac{X - m_1}{\\sigma})^3] \\\\
+    \\sigma &= \\sqrt{m_2 - m_1^2}
+
+(see :ref:`acph-men2-area` for illustration)
+
+However, the number of states in the Erlang chains may be huge, especially
+when :math:`c_v < 1`. See [JoTa89]_ for details. The figure below illustrates
+growth of :math:`n`, :math:`\\max\\{p, 1 - p\\}` and
+:math:`\\max\\{\\lambda_1/\\lambda_2, \\lambda_2/\\lambda_1\\}`.
+
+.. plot::
+
+    >>> from itertools import product
+    >>> import matplotlib as mpl
+    >>> from matplotlib import pyplot as plt
+    >>> from pyqumo.fitting.johnson89 import fit_mern2
+    >>> from pyqumo.stats import get_noncentral_m2, get_noncentral_m3
+    >>>
+    >>> x2cv = lambda x: (x + pow(x**2 + 4, 0.5)) / 2
+    >>>
+    >>> GRID_SIZE = 200
+    >>> X = np.linspace(-10, 10, GRID_SIZE)  # c - 1/c values
+    >>> Y = np.linspace(-10, 10, GRID_SIZE)  # skewness values, not all feasible
+    >>> CV = np.asarray([x2cv(x) for x in X])
+    >>> PLANE_SHAPE = (GRID_SIZE, GRID_SIZE)
+    >>> COORDS = list(product(range(GRID_SIZE), range(GRID_SIZE)))
+    >>> MEAN = 1.0
+    >>>
+    >>> distributions = [[
+    ...     fit_mern2([MEAN, get_noncentral_m2(MEAN, cv),
+    ...                get_noncentral_m3(MEAN, cv, y)])[0]
+    ...     if y > x else None for (x, cv) in zip(X, CV)] for y in Y]
+    >>>
+    >>> # Define three square matrices, with (i,j)-th element corresponding to:
+    >>> # 1. orders: order of Erlang chain in (i,j)-th MEn(2) distribution
+    >>> # 2. min_p: minimal probability of Erlang chain in (i,j)-th distribution
+    >>> # 3. max_ratio: max(A1/A2, A2/A1), where Ak - k-th Erlang's param
+    >>> orders = np.empty(shape=PLANE_SHAPE)
+    >>> min_p = np.empty(shape=PLANE_SHAPE)
+    >>> max_ratio = np.empty(shape=PLANE_SHAPE)
+    >>> orders[:] = np.nan
+    >>> min_p[:] = np.nan
+    >>> max_ratio[:] = np.nan
+    >>>
+    >>> for (i, j) in COORDS:
+    ...     if (dist := distributions[i][j]) is not None:
+    ...         orders[i][j] = min(dist.order/2, 100)
+    ...         min_p[i][j] = min(min([p for p in dist.probs if p > 0]), 0.05)
+    ...         max_ratio[i][j] = min(max(dist.params) / min(dist.params), 50)
+    >>>
+    >>> plt.rcParams.update({
+    ...     'figure.titlesize': 20,
+    ...     'axes.titlesize': 18,
+    ...     'axes.labelsize': 16,
+    ... })
+    >>> CMAP = plt.cm.get_cmap('viridis')
+    >>> fig, axes = plt.subplots(figsize=(13, 5), ncols=3, nrows=1, sharey=True)
+    >>> im1 = axes[0].pcolormesh(X, Y, orders, cmap=CMAP)
+    >>> im2 = axes[1].pcolormesh(X, Y, max_ratio, cmap=CMAP)
+    >>> im3 = axes[2].pcolormesh(X, Y, min_p, cmap=CMAP.reversed())
+    >>> fig.suptitle("MEn(2) properties without optimization")
+    >>> axes[0].set_title('Order of Erlang\\n(trunc. at 100)')
+    >>> axes[1].set_title(
+    >>>     r"$\\max\\{\\lambda_1/\\lambda_2, \\lambda_2/\\lambda_1\\}$" +
+    >>>     '\\n(trunc. at 50)')
+    >>> axes[2].set_title(r'$\\min\\{p, 1-p\\}$' + '\\n(trunc. at 0.05)')
+    >>> axes[0].set_ylabel(r"Skewness ($\\gamma$)")
+    >>> for im, ax in zip((im1, im2, im3), axes):
+    ...     fig.colorbar(im, ax=ax)
+    ...     ax.set_xlabel('c - 1/c')
+    ...     ax.grid()
+    >>> plt.tight_layout()
+
+Generally, "better" distributions are in dark areas on the plots.
+
+References
+==========
+
+.. [JoTa89] Mary A. Johnson & Michael R. Taaffe (1989) Matching moments to
+            phase distributions: Mixtures of erlang distributions of common
+            order, Communications in Statistics. Stochastic Models, 5:4,
+            711-743, https://doi.org/10.1080/15326348908807131
 """
 from typing import Sequence, Tuple
 import numpy as np
@@ -28,39 +191,42 @@ def fit_mern2(
     """
     Fit moments with a mixture of two Erlang distributions with common order.
 
-    The algorithm is defined in [1].
+    The algorithm is defined in [JoTa89]_.
 
-    In strict mode (`strict = True`) requires at least three moments to fit.
+    In strict mode (``strict = True``) requires at least three moments to fit.
     Note, that if more moments provided, function will compute errors in
-    their estimation, while not taking them into account actually.
-    If the first three moments do not fit into feasible area, function will
-    raise `BoundsError` exception.
+    their estimation, while not taking them into account. If the first three
+    moments do not fit into feasible area, function will raise ``BoundsError``
+    exception.
 
-    In non-strict mode (`strict=False`) user can provide two or even one
+    In non-strict mode (``strict=False``) user can provide two or even one
     moment, and M3 may go beyond the feasible area. In this case,
     M3 will be selected using the rule:
 
-    - if `cv > 1`, then skewness will be equal to `(cv - 1/cv) * 1.2`;
-    - if `cv == 1`, then skewness will be equal 2 (exponential distrib.);
-    - if `0 < cv < 1`, then skewness will be equal to `(cv - 1/cv) * .8`.
+    - if :math:`c_v > 1`, then skewness will be equal to
+      :math:`6/5 (c_v - 1/c_v)`;
+    - if :math:`c_v = 1`, then skewness will be equal 2
+      (exponential distribution);
+    - if :math:`0 < c_v < 1`, then skewness will be equal to
+      :math:`4/5 (c_v - 1/c_v)`.
 
     User can provide `max_shape_inc` parameter. If so, the algorithm will
     try to improve the ratio between Erlang distribution parameters and
-    minimum probability as described in section 7.3 of [1] by increasing
-    the Erlang distributions shape (up to `max_shape_inc`).
+    minimum probability as described in section 7.3 of [JoTa89]_ by increasing
+    the Erlang distributions shape (up to ``max_shape_inc``).
 
     Parameters
     ----------
     moments : sequence of float
         Only the first three moments are taken into account
-    strict : bool, optional (default: `True`)
-        If `True`, require at least three moments explicitly defined,
+    strict : bool, optional (default: ``True``)
+        If ``True``, require at least three moments explicitly defined,
         and do not perform any attempt to adjust moments if they are out of
         bounds. Otherwise, try to fit even for bad or incomplete data.
     max_shape_inc : int, optional (default: 0)
         if non-zero, maximum increase in shape when attempting to build
         a more stable distribution (refer to 7.3 "Numerical Stability" section
-        of [1] for details)
+        of [JoTa89]_ for details)
 
     Raises
     ------
@@ -68,12 +234,12 @@ def fit_mern2(
         raise this if moments provided are out of bounds (in strict mode),
         or can not be recovered (non-strict mode).
     ValueError
-        raise this in strict mode if number of moments provided is less then
+        raise this in strict mode if number of moments provided is less than
         three, or if no moments provided at all (also in non-strict mode).
 
     Returns
     -------
-    dist : HyperErlang
+    dist : :py:class:`pyqumo.random.HyperErlang`
         an instance of HyperErlang distribution fitted
     errors : tuple of float
         errors computed for each moment provided
@@ -140,12 +306,14 @@ def get_mern2_props(
         m1: float,
         m2: float,
         m3: float,
-        n: int) -> Tuple[float, float, float]:
+        n: int
+) -> Tuple[float, float, float]:
     """
     Helper function to estimate Erlang distributions rates and
-    probabilities from the given moments and Erlang shape (n).
+    probabilities from the given moments and Erlang shape (:math:`n`).
 
-    See theorem 3 in [1] for details about A, B, C, p1, x, y and lambdas
+    See theorem 3 in [JoTa89]_ for details about :math:`A`, :math:`B`,
+    :math:`C`, :math:`p`, :math:`x`, :math:`y` and :math:`\\lambda_{1,2}`
     computation.
 
     Parameters
