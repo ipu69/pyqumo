@@ -1,8 +1,8 @@
 from functools import cached_property, lru_cache
-from typing import Callable, Iterator, Tuple, Sequence
+from typing import Callable, Sequence, Optional
 
 import numpy as np
-from numpy.linalg import linalg
+from scipy import linalg
 from scipy import integrate
 
 from .base import Distribution
@@ -270,7 +270,7 @@ class Erlang(ContinuousDistributionMixin, AbstractCdfMixin, Distribution):
 
     @cached_property
     def rnd(self) -> Variable:
-        return self.factory.createErlangVariable(self.shape, self.param)
+        return self.factory.erlang(self.shape, self.param)
 
     def __repr__(self):
         return f"(Erlang: shape={self.shape:.3g}, rate={self.param:.3g})"
@@ -300,7 +300,6 @@ class Erlang(ContinuousDistributionMixin, AbstractCdfMixin, Distribution):
         return Erlang(shape, rate)
 
 
-# noinspection PyUnresolvedReferences
 class MixtureDistribution(
     ContinuousDistributionMixin,
     AbstractCdfMixin,
@@ -320,7 +319,7 @@ class MixtureDistribution(
     """
     def __init__(self, states: Sequence[Distribution],
                  weights: Optional[Sequence[float]] = None,
-                 factory: RandomsFactory = None):
+                 factory: VariablesFactory = None):
         super().__init__(factory)
         num_states = len(states)
         if num_states == 0:
@@ -379,7 +378,7 @@ class MixtureDistribution(
     @cached_property
     def rnd(self) -> Variable:
         variables = [state.rnd for state in self.states]
-        return self.factory.createMixtureVariable(variables, self.probs)
+        return self.factory.mixture(variables, self.probs)
 
     def __repr__(self):
         states_str = "[" + ", ".join(str(state) for state in self.states) + "]"
@@ -448,7 +447,6 @@ class HyperExponential(MixtureDistribution):
         exponents = [Exponential(rate) for rate in rates]
         super().__init__(exponents, probs, factory)
 
-    # noinspection PyUnresolvedReferences
     @cached_property
     def rates(self) -> np.ndarray:
         return np.asarray([state.rate for state in self.states])
@@ -512,7 +510,6 @@ class HyperErlang(MixtureDistribution):
         states = [Erlang(shape, param) for shape, param in zip(shapes, params)]
         super().__init__(states, probs, factory)
 
-    # noinspection PyUnresolvedReferences
     @cached_property
     def params(self) -> np.ndarray:
         return np.asarray([state.param for state in self.states])

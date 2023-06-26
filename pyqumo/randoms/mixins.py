@@ -1,9 +1,17 @@
-from typing import Callable, Iterator, Tuple
+from functools import lru_cache, cached_property
+from typing import Callable, Iterator, Tuple, Sequence, Optional
+
+import numpy as np
+import scipy
+from scipy.special import ndtr
+
+from .variables import Variable, VariablesFactory
+from .. import stats
 
 
 class AbstractCdfMixin:
     """
-    Mixin that adds cumulative distribution function property prototype.
+    Mixin adds cumulative distribution function property prototype.
     """
     @property
     def cdf(self) -> Callable[[float], float]:
@@ -15,7 +23,7 @@ class AbstractCdfMixin:
 
 class ContinuousDistributionMixin:
     """
-    Base mixin for continuous distributions, provides `pdf` property.
+    Base mixin for continuous distributions, provides `pdf` callable property.
     """
     @property
     def pdf(self) -> Callable[[float], float]:
@@ -27,7 +35,7 @@ class ContinuousDistributionMixin:
 
 class DiscreteDistributionMixin:
     """
-    Base mixin for discrete distributions, provides `pmf` prop and iterator.
+    Base mixin for discrete distributions, provides `pmf` property and iterator.
     """
     @property
     def pmf(self) -> Callable[[float], float]:
@@ -43,21 +51,21 @@ class DiscreteDistributionMixin:
         raise NotImplementedError
 
 
-# noinspection PyUnresolvedReferences
 class AbsorbMarkovPhasedEvalMixin:
     """
     Mixin for RND for phased distributions with Markovian transitions.
 
     To use this mixin, distribution need to implement:
 
-    - `states` (property): returns an iterable. Calling an item should
-        return a sample value of the time spent in the state, size `N`. Signature
-        of each item `__call__()` method should support `size` parameter.
-    - `init_probs` (property): initial probability distribution, should have
-        the same dimension as `time` sequence (`N`).
-    - `trans_probs` (property): matrix of transitions probabilities, should
-        have shape `(N+1)x(N+1)`, last state - absorbing.
-    - `order` (property): should return the number of transient states (`N`)
+    - ``states`` (property): returns an iterable. Calling an item should
+      return a sample value of the time spent in the state, size ``N``.
+      Signature of each item ``__call__()`` method should support ``size``
+      parameter.
+    - ``init_probs`` (property): initial probability distribution, should have
+      the same shape as ``time`` sequence (``N``).
+    - ``trans_probs`` (property): matrix of transitions probabilities, should
+      have shape ``(N+1)x(N+1)``, where the last state is an absorbing state.
+    - ``order`` (property): should return the number of transient states (``N``)
 
     """
     @property
@@ -84,23 +92,22 @@ class AbsorbMarkovPhasedEvalMixin:
     @cached_property
     def rnd(self) -> Variable:
         variables = [state.rnd for state in self.states]
-        return self.factory.createAbsorbSemiMarkovVariable(
+        return self.factory.absorb_semi_markov(
             variables,
             self.init_probs,
             self.trans_probs,
             self.order)
 
 
-# noinspection PyUnresolvedReferences
 class EstStatsMixin:
     """
     Mixin for distributions without analytic form for moments computation.
 
-    This mixin estimates moments, variance and standard deviation based on
-    sampled data. It expects that the derived class provides:
+    This mixin estimates moments, variance and standard deviation based on the
+    sampled data.
 
-    - `num_stats_samples` property: number of samples should to be used
-        in moments estimation.
+    The derived class must provide ``num_stats_samples`` property, that returns
+    the number of samples those should to be used in moments estimation.
     """
     @property
     def num_stats_samples(self) -> int:
@@ -122,16 +129,16 @@ class EstStatsMixin:
         return stats.moment(self._stats_samples, minn=n, maxn=n)[0]
 
 
-# noinspection PyUnresolvedReferences
 class KdePdfMixin:
     """
     Mixin for distributions without analytic form for PDF and CDF computation.
 
-    This mixin estimates PDF and CDF functions using Gaussian KDE from scipy.
-    It requires:
+    This mixin estimates PDF and CDF functions using Gaussian KDE from
+    ``scipy``. Derived class must implement `num_kde_samples` property, that
+    returns number of samples should to be used in KDE building.
 
-    - `num_kde_samples` property: number of samples should to be used
-        in KDE building. Should not be too large since KDE will work VERY slowly.
+    ... note::
+        ``num_kde-samples`` shouldn't be too large since KDE works VERY slowly.
     """
     @property
     def num_kde_samples(self) -> int:

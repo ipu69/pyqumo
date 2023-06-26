@@ -1,206 +1,16 @@
-"""
-Random arrival processes (:mod:`pyqumo.arrivals`)
-=================================================
-
-Module provides models for arrival and service random processes.
-These processes model random time intervals between successive arrivals
-or service duration.
-
-.. autosummary::
-   :toctree: generated/
-   :nosignatures:
-
-   RandomProcess
-   GIProcess
-   Poisson
-   MarkovArrival
-
-Background information
-----------------------
-
-Random processes used in common queueing systems model time intervals between
-successive packets or batches arrivals, as well as the time taken to serve a
-packet.
-
-Consider new packets arrive in the system at timestamps
-:math:`t_0, t_1, t_2, \\dots, t_n, t_{n+1}, \\dots`. Then, i-th interval is
-:math:`x_i = t_{i} - t_{i-1}`. If all intervals :math:`\\{ x_i \\}` have the
-same random distributions and don't depend on previous values, the process
-is called *general independent process*, or GI-process. We model it with
-:class:`pyqumo.arrivals.GIProcess`. Any distribution from :mod:`pyqumo.random`
-may be used for intervals in this type of process.
-
-A typical example of GI-processes is Poisson process - a random process,
-in which all inter-arrival intervals have exponential distribution with the
-fixed rate :math:`\\lambda`. Since this random process is very important in
-queueing theory and used very often, we implement it in
-:class:`pyqumo.arrivals.Poisson`.
-
-On the other hand, intervals :math:`x_i` and :math:`x_{i+k}, k > 0`
-may be correlated. This is the case when the process have some inner (hidden)
-state space and make state transitions after each event. For instance,
-consider a process in which odd intervals are always equal :math:`T` and
-even intervals are exponentially distributed with parameter :math:`\\lambda`.
-
-In current version, PyQumo supports only one type of correlated
-processes - Markovian arrival process (:class:`pyqumo.arrivals.MarkovArrival`).
-
-"""
-from abc import ABC
 from functools import cached_property, lru_cache
 from typing import Union, Sequence
 
 import numpy as np
 
-from pyqumo.cqumo.randoms import Variable, RandomsFactory
-from pyqumo.chains import ContinuousTimeMarkovChain, DiscreteTimeMarkovChain
-from pyqumo.matrix import cbdiag, order_of, \
-    check_markovian_arrival, fix_markovian_arrival, str_array, \
-    is_subinfinitesimal, is_pmf, fix_infinitesimal, fix_stochastic
-from pyqumo.random import Distribution, Exponential
-from pyqumo.errors import MatrixShapeError
-
-
-class RandomProcess(ABC, Distribution):
-    """
-    Abstract base class for any random process.
-    """
-
-    @lru_cache
-    def lag(self, n: int) -> float:
-        """
-        Return auto-correlation coefficient with lag n.
-
-        Value of lag-n autocorrelation is defined as:
-
-        .. math::
-            r_k = (E[X_{t+n} - m_1][X_{t} - m_1]) / s^2,
-
-        where :math:`m_1` - mean value and :math:`s^2` - variance (dispersion).
-
-        Parameters
-        ----------
-        n : int
-            Time lag - number of steps between intervals
-
-        Returns
-        -------
-        value : float
-            Auto-correlation coefficient
-
-        Raises
-        ------
-        ValueError
-            raised if n is not an integer or is non-positive
-        """
-        if n < 0 or (n - np.floor(n)) > 0:
-            raise ValueError(f'positive integer expected, but {n} found')
-        if n == 0:
-            return 1
-        return self._lag(n)
-
-    def _lag(self, n: int) -> float:
-        """
-        Get lag-n autocorrelation. In this method it can be assumed that
-        `n` is a non-zero positive integer.
-
-        This method must be implemented in inherited classes.
-        """
-        raise NotImplementedError
-
-    def copy(self) -> 'RandomProcess':
-        """
-        Return a deep copy of the object.
-
-        This method must be implemented in inherited classes.
-        """
-        raise NotImplementedError
-
-
-class GIProcess(RandomProcess):
-    """
-    General independent (GI) random process model.
-
-    Samples of this kind of process are built from a known distribution,
-    and they don't change over lifetime.
-
-    Poisson process is an example of GI-process with exponential arrivals.
-    """
-    def __init__(self, dist: Distribution, factory: RandomsFactory = None):
-        """
-        Constructor.
-
-        Parameters
-        ----------
-        dist : random distribution
-        """
-        super().__init__(factory)
-        if dist is None:
-            raise ValueError('distribution required')
-        self._dist = dist
-
-    @property
-    def dist(self) -> Distribution:
-        """
-        Get random distribution.
-        """
-        return self._dist
-
-    @cached_property
-    def mean(self) -> float:
-        return self._dist.mean
-
-    @cached_property
-    def var(self) -> float:
-        return self._dist.var
-
-    @cached_property
-    def std(self) -> float:
-        return self._dist.std
-
-    @cached_property
-    def cv(self) -> float:
-        return self._dist.std / self._dist.mean
-
-    @property
-    def rnd(self) -> Variable:
-        return self._dist.rnd
-
-    def _moment(self, n: int) -> float:
-        return self._dist.moment(n)
-
-    def _lag(self, k: int) -> float:
-        return 0.0  # always 0.0
-
-    def _eval(self, size: int) -> np.ndarray:
-        return self._dist(size)
-
-    def copy(self) -> 'GIProcess':
-        return GIProcess(self._dist.copy())
-
-    def __repr__(self):
-        return f'(GI: f={self.dist})'
-
-
-class Poisson(GIProcess):
-    """
-    Custom case of GI-process with exponential arrivals.
-    """
-    def __init__(self, rate: float, factory: RandomsFactory = None):
-        """
-        Constructor.
-
-        Parameters
-        ----------
-        rate : float
-            Rate (1 / mean) of exponential distribution.
-        """
-        if rate <= 0.0:
-            raise ValueError(f"positive rate expected, {rate} found")
-        super().__init__(Exponential(rate), factory)
-
-    def __repr__(self):
-        return f'(Poisson: r={self.rate:.3g})'
+from .base import RandomProcess
+from .cont_dist import Exponential
+from .variables import VariablesFactory, Variable
+from pyqumo.matrix import order_of, fix_infinitesimal, is_subinfinitesimal, \
+    fix_stochastic, is_pmf, cbdiag, check_markovian_arrival, \
+    fix_markovian_arrival, str_array
+from ..errors import MatrixShapeError
+from ..chains import ContinuousTimeMarkovChain, DiscreteTimeMarkovChain
 
 
 class MarkovArrival(RandomProcess):
@@ -213,7 +23,7 @@ class MarkovArrival(RandomProcess):
             d1: Union[np.ndarray, Sequence[Sequence[float]]],
             safe: bool = False,
             tol: float = 1e-3,
-            factory: RandomsFactory = None):
+            factory: VariablesFactory = None):
         """
         Create MAP process with the given D0 and D1 matrices.
 
@@ -258,6 +68,7 @@ class MarkovArrival(RandomProcess):
                 need_copy[i] = True
 
         if not safe and not check_markovian_arrival(matrices):
+            print(f"D0: {matrices[0]}, D1: {matrices[1]}, fix_markovian_arrival: {fix_markovian_arrival}")
             matrices, _ = fix_markovian_arrival(matrices, tol=tol)
             # Since matrices are re-built, no need to copy them:
             for i in range(2):
@@ -473,8 +284,9 @@ class MarkovArrival(RandomProcess):
             self._matrices[0] + np.diag(self._rates),
             self._matrices[1]
         )) / self._rates[:, None]
-        return self.factory.createSemiMarkovArrivalVariable(
-            vars, self.dtmc.steady_pmf, trans_pmf)
+        return self.factory.semi_markov_arrival(
+            vars, self.dtmc.steady_pmf, trans_pmf
+        )
 
     def compose(self, other: 'MarkovArrival') -> 'MarkovArrival':
         # TODO:  write unit tests

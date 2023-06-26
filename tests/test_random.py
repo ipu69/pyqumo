@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from pyqumo.random import Const, Exponential, Uniform, Normal, Erlang, \
+from pyqumo.randoms import Const, Exponential, Uniform, Normal, Erlang, \
     HyperExponential, PhaseType, Choice, SemiMarkovAbsorb, \
     MixtureDistribution, CountableDistribution, HyperErlang
 
@@ -34,7 +34,7 @@ from pyqumo.random import Const, Exponential, Uniform, Normal, Erlang, \
 # Some properties are specific to continuous or discrete distributions,
 # e.g. PMF or PMF. To test them, we define separate tests.
 #
-# Each parameters tuple specify one test: distribution, expected moments
+# Each tuple of parameters specifies one test: distribution, expected moments
 # (four values), a grid for CDF and expected string form
 # of the distribution.
 @pytest.mark.parametrize('dist, m1, m2, m3, m4, string, atol, rtol', [

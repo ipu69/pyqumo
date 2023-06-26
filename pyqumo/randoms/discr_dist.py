@@ -5,8 +5,8 @@ import numpy as np
 
 from .base import Distribution
 from .mixins import DiscreteDistributionMixin, AbstractCdfMixin
-from .variables import VariablesFactory
-from .. import fix_stochastic, is_pmf, str_array
+from .variables import VariablesFactory, Variable
+from ..matrix import fix_stochastic, is_pmf, str_array
 
 
 class Choice(DiscreteDistributionMixin, AbstractCdfMixin, Distribution):
@@ -150,7 +150,7 @@ class Choice(DiscreteDistributionMixin, AbstractCdfMixin, Distribution):
 
     @cached_property
     def rnd(self):
-        return self.factory.createChoiceVariable(self.values, self.probs)
+        return self.factory.choice(self.values, self.probs)
 
     @cached_property
     def cdf(self) -> Callable[[float], float]:
@@ -440,7 +440,7 @@ class CountableDistribution(DiscreteDistributionMixin,
 
     #     When generating random values, use `Choice` distribution with values
     #     0, 1, ..., `truncated_at`. Thus, no values from tail (which prob. is
-    #     less then precision) will be generated.
+    #     less than precision) will be generated.
 
     #     Parameters
     #     ----------

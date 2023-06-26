@@ -49,9 +49,8 @@ from typing import Optional, Tuple
 
 import scipy.optimize
 
-from pyqumo.arrivals import MarkovArrival
 from pyqumo.matrix import cbdiag
-from pyqumo.random import PhaseType
+from pyqumo.randoms import PhaseType, MarkovArrival
 import numpy as np
 
 

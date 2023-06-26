@@ -30,8 +30,8 @@ extensions = [
         extra_link_args=["-std=c++20"]
     ),
     Extension(
-        "pyqumo.cqumo.randoms", [
-            "pyqumo/cqumo/randoms.pyx",
+        "pyqumo.randoms.variables", [
+            "pyqumo/randoms/variables.pyx",
             "cqumo/Functions.cpp",
             "cqumo/Randoms.cpp",
         ],

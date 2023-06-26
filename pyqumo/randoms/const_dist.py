@@ -1,6 +1,8 @@
 from functools import cached_property, lru_cache
 from typing import Callable, Iterator, Tuple
 
+import numpy as np
+
 from .base import Distribution
 from .mixins import ContinuousDistributionMixin, DiscreteDistributionMixin, \
     AbstractCdfMixin

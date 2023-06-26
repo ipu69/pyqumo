@@ -5,10 +5,7 @@ import pytest
 from numpy.testing import assert_allclose
 
 from pyqumo.queues import MM1Queue, BasicQueueingSystem, MM1NQueue, MapPh1NQueue
-from pyqumo.arrivals import Poisson, MarkovArrival
-
-
-from pyqumo.random import PhaseType
+from pyqumo.randoms import PhaseType, Poisson, MarkovArrival
 
 
 @dataclass

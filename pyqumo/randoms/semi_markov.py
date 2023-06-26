@@ -1,30 +1,15 @@
-
-from functools import lru_cache, cached_property
-from typing import Union, Sequence, Callable, Mapping, Tuple, Iterator, \
-    Optional, Iterable
+from typing import Union, Sequence, Iterable
 
 import numpy as np
-from scipy import linalg, integrate
-import scipy.stats
-from scipy.special import ndtr
 
-from pyqumo import stats
-from pyqumo.cqumo.randoms import RandomsFactory, Variable
-from pyqumo.errors import MatrixShapeError
-from pyqumo.matrix import is_pmf, order_of, cbdiag, fix_stochastic, \
-    is_subinfinitesimal, fix_infinitesimal, is_square, is_substochastic, \
+from .base import Distribution
+from .mixins import AbsorbMarkovPhasedEvalMixin, EstStatsMixin, \
+    KdePdfMixin
+from .variables import VariablesFactory
+
+from ..matrix import is_pmf, is_square, order_of, is_substochastic, \
     str_array
-from pyqumo.stats import get_skewness
-
-
-
-
-
-
-
-
-
-
+from ..errors import MatrixShapeError
 
 
 class SemiMarkovAbsorb(AbsorbMarkovPhasedEvalMixin,
@@ -61,7 +46,7 @@ class SemiMarkovAbsorb(AbsorbMarkovPhasedEvalMixin,
                  probs: Union[np.ndarray, Sequence[float], int] = 0,
                  num_samples: int = 10000,
                  num_kde_samples: int = 1000,
-                 factory: RandomsFactory = None):
+                 factory: VariablesFactory = None):
         """
         Constructor.
 

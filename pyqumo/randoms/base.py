@@ -1,4 +1,5 @@
-from functools import cached_property
+from abc import ABC
+from functools import cached_property, lru_cache
 from typing import Union
 
 import numpy as np
@@ -146,3 +147,60 @@ class Distribution:
         By default, raise `RuntimeError`, but can be overridden.
         """
         raise RuntimeError(f"{repr(self)} can not be casted to PhaseType")
+
+
+class RandomProcess(ABC, Distribution):
+    """
+    Abstract base class for any random process.
+    """
+
+    @lru_cache
+    def lag(self, n: int) -> float:
+        """
+        Return auto-correlation coefficient with lag n.
+
+        Value of lag-n autocorrelation is defined as:
+
+        .. math::
+            r_k = (E[X_{t+n} - m_1][X_{t} - m_1]) / s^2,
+
+        where :math:`m_1` - mean value and :math:`s^2` - variance (dispersion).
+
+        Parameters
+        ----------
+        n : int
+            Time lag - number of steps between intervals
+
+        Returns
+        -------
+        value : float
+            Auto-correlation coefficient
+
+        Raises
+        ------
+        ValueError
+            raised if n is not an integer or is non-positive
+        """
+        if n < 0 or (n - np.floor(n)) > 0:
+            raise ValueError(f'positive integer expected, but {n} found')
+        if n == 0:
+            return 1
+        return self._lag(n)
+
+    def _lag(self, n: int) -> float:
+        """
+        Get lag-n autocorrelation. In this method it can be assumed that
+        `n` is a non-zero positive integer.
+
+        This method must be implemented in inherited classes.
+        """
+        raise NotImplementedError
+
+    def copy(self) -> 'RandomProcess':
+        """
+        Return a deep copy of the object.
+
+        This method must be implemented in inherited classes.
+        """
+        raise NotImplementedError
+

@@ -178,7 +178,7 @@ References
 from typing import Sequence, Tuple
 import numpy as np
 
-from pyqumo.random import HyperErlang
+from pyqumo.randoms import HyperErlang
 from pyqumo.stats import get_cv, get_skewness, get_noncentral_m3
 from pyqumo.errors import BoundsError
 

@@ -6,15 +6,13 @@ import numpy as np
 from numpy.testing import assert_allclose
 
 from pyqumo import stats
-from pyqumo.arrivals import MarkovArrival, Poisson, \
-    GIProcess
-from pyqumo.random import PhaseType
+from pyqumo.randoms import MarkovArrival, Poisson, GIProcess, PhaseType, \
+    Const, Uniform
 
 
 #
 # POISSON PROCESS
 # #######################
-from pyqumo.random import Const, Uniform
 
 
 @pytest.mark.parametrize('proc, m1, m2, m3, l1, string', [
@@ -91,9 +89,9 @@ def test_map__props():
 def test_map__invalid_matrices_call_fix_markovian_process():
     d0 = np.asarray([[-0.9, -0.1], [0, -1]])
     d1 = np.asarray([[0, 1.1], [1., 0.]])
-    with patch('pyqumo.arrivals.fix_markovian_arrival',
-               return_value=((d0, d1), (0.1, 0.1))) as mock:
-        _ = MarkovArrival(d0, d1, tol=0.2)
+    with patch('pyqumo.randoms.markov_arrival.fix_markovian_arrival',
+               return_value=((d0, d1), 0.1)) as mock:
+        _ = MarkovArrival(d0, d1, tol=0.21)
         mock.assert_called_once()
 
 

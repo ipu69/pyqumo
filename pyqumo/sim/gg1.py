@@ -5,7 +5,7 @@ import numpy as np
 from tabulate import tabulate
 
 from pyqumo.matrix import str_array
-from pyqumo.random import CountableDistribution, Distribution
+from pyqumo.randoms import CountableDistribution, Distribution
 from pyqumo.sim.helpers import build_statistics, FiniteFifoQueue, \
     InfiniteFifoQueue, Server, Queue, TimeSizeRecords, Statistics
 

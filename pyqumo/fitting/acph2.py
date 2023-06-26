@@ -192,7 +192,7 @@ import numpy as np
 # {equation}
 
 from pyqumo.errors import BoundsError
-from pyqumo.random import PhaseType
+from pyqumo.randoms import PhaseType
 
 
 def fit_acph2(

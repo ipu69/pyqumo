@@ -6,8 +6,8 @@ import pytest
 import numpy as np
 from numpy.testing import assert_allclose
 
-from pyqumo.arrivals import Poisson, MarkovArrival
-from pyqumo.random import HyperExponential, PhaseType, Distribution, Exponential
+from pyqumo.randoms import Poisson, MarkovArrival, HyperExponential, \
+    PhaseType, Distribution, Exponential
 from pyqumo.sim.tandem import simulate as py_simulate, Results
 from pyqumo.cqumo.sim import simulate_tandem as c_simulate
 

@@ -10,7 +10,7 @@ from pyqumo.cqumo.sim cimport SimData, NodeData, simMM1, VarData, simGG1, \
 from pyqumo.sim.helpers import Statistics
 from pyqumo.sim.gg1 import Results as GG1Results
 from pyqumo.sim.tandem import Results as TandemResults
-from pyqumo.random import CountableDistribution, Exponential, Distribution
+from pyqumo.randoms import CountableDistribution, Exponential, Distribution
 
 
 # noinspection PyUnresolvedReferences

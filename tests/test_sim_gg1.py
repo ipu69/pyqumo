@@ -5,8 +5,7 @@ import pytest
 import numpy as np
 from numpy.testing import assert_allclose
 
-from pyqumo.arrivals import Poisson
-from pyqumo.random import Exponential, Distribution
+from pyqumo.randoms import Exponential, Distribution, Poisson
 from pyqumo.sim.gg1 import simulate as py_simulate, Results
 from pyqumo.cqumo.sim import simulate_gg1n as c_simulate
 
