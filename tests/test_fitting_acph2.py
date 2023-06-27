@@ -3,8 +3,8 @@ from numpy.testing import assert_allclose
 import numpy as np
 
 from pyqumo.errors import BoundsError
-from pyqumo.fitting import fit_acph2
-from pyqumo.fitting.acph2 import get_acph2_m2_min, get_acph2_m3_bounds
+from pyqumo.algorithms.fitting import fit_acph2
+from pyqumo.algorithms.fitting import get_acph2_m2_min, get_acph2_m3_bounds
 
 
 @pytest.mark.parametrize('m1, cv2, m3', [

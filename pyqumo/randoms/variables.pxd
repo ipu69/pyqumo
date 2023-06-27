@@ -1,6 +1,6 @@
 from libcpp.vector cimport vector
 
-cdef extern from "Randoms.h" namespace "cqumo":
+cdef extern from "randoms.h" namespace "cqumo":
     cdef cppclass RandomVariable:
         double eval()
 

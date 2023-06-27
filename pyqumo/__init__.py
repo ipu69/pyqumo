@@ -16,4 +16,4 @@ from .chains import ContinuousTimeMarkovChain, DiscreteTimeMarkovChain
 
 from .queues import MM1Queue, MM1NQueue, MapPh1NQueue, BasicQueueingSystem
 
-from .cqumo.sim import simulate_tandem, simulate_mm1n, simulate_gg1n
+from pyqumo.simulations.networks.sim import simulate_tandem, simulate_mm1n, simulate_gg1n

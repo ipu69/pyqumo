@@ -1,13 +1,12 @@
 from dataclasses import dataclass
-from typing import Union, Sequence
+from typing import Sequence
 
 import pytest
 import numpy as np
 from numpy.testing import assert_allclose
 
-from pyqumo.randoms import Poisson, MarkovArrival, HyperExponential, \
-    PhaseType, Distribution, Exponential
-from pyqumo.cqumo.sim import simulate_tandem
+from pyqumo.randoms import Poisson, Distribution
+from pyqumo.simulations.networks.sim import simulate_tandem
 
 
 @dataclass

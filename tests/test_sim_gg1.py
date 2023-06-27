@@ -6,8 +6,8 @@ import numpy as np
 from numpy.testing import assert_allclose
 
 from pyqumo.randoms import Exponential, Distribution, Poisson
-from pyqumo.sim.gg1 import simulate as py_simulate, Results
-from pyqumo.cqumo.sim import simulate_gg1n as c_simulate
+from pyqumo.simulations.networks.sandbox.gg1 import simulate as py_simulate, Results
+from pyqumo.simulations.networks.sim import simulate_gg1n as c_simulate
 
 
 @dataclass

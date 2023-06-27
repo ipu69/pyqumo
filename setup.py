@@ -12,18 +12,23 @@ else:
 
 extensions = [
     Extension(
-        "pyqumo.cqumo.sim", [
-            "pyqumo/cqumo/sim.pyx",
-            "cqumo/Base.cpp",
-            "cqumo/Functions.cpp",
-            "cqumo/tandem/Components.cpp",
-            "cqumo/tandem/Journals.cpp",
-            "cqumo/tandem/Simulation.cpp",
-            "cqumo/tandem/Statistics.cpp",
-            "cqumo/tandem/System.cpp",
-            "cqumo/tandem/Marshal.cpp",
+        "pyqumo.simulations.networks.simulator", [
+            "pyqumo/simulations/networks/simulator.pyx",
+            "pyqumo/_impl/functions.cpp",
+            "pyqumo/randoms/_impl/randoms.cpp",
+            "pyqumo/simulations/networks/_impl/networks/base.cpp",
+            "pyqumo/simulations/networks/_impl/networks/components.cpp",
+            "pyqumo/simulations/networks/_impl/networks/journals.cpp",
+            "pyqumo/simulations/networks/_impl/networks/simulation.cpp",
+            "pyqumo/simulations/networks/_impl/networks/statistics.cpp",
+            "pyqumo/simulations/networks/_impl/networks/system.cpp",
+            "pyqumo/simulations/networks/_impl/networks/marshal.cpp",
         ],
-        include_dirs=['cqumo', 'cqumo/tandem'],
+        include_dirs=[
+            'pyqumo/_impl',
+            'pyqumo/randoms/_impl',
+            'pyqumo/simulations/networks/_impl/networks',
+        ],
         language="c++",
         extra_compile_args=extra_compile_args,
         # extra_compile_args=["-std=c++20", "-Wno-deprecated", "-O3"],
@@ -32,10 +37,13 @@ extensions = [
     Extension(
         "pyqumo.randoms.variables", [
             "pyqumo/randoms/variables.pyx",
-            "cqumo/Functions.cpp",
-            "cqumo/Randoms.cpp",
+            "pyqumo/_impl/functions.cpp",
+            "pyqumo/randoms/_impl/randoms.cpp"
         ],
-        include_dirs=['cqumo'],
+        include_dirs=[
+            'pyqumo/_impl',
+            'pyqumo/randoms/_impl',
+        ],
         language="c++",
         extra_compile_args=extra_compile_args,
         # extra_compile_args=["-std=c++20", "-Wno-deprecated", "-O3"],

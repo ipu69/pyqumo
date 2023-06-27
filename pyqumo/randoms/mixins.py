@@ -101,7 +101,7 @@ class AbsorbMarkovPhasedEvalMixin:
 
 class EstStatsMixin:
     """
-    Mixin for distributions without analytic form for moments computation.
+    Mixin for distributions without analytics form for moments computation.
 
     This mixin estimates moments, variance and standard deviation based on the
     sampled data.
@@ -131,7 +131,7 @@ class EstStatsMixin:
 
 class KdePdfMixin:
     """
-    Mixin for distributions without analytic form for PDF and CDF computation.
+    Mixin for distributions without analytics form for PDF and CDF computation.
 
     This mixin estimates PDF and CDF functions using Gaussian KDE from
     ``scipy``. Derived class must implement `num_kde_samples` property, that

@@ -8,8 +8,8 @@ from numpy.testing import assert_allclose
 
 from pyqumo.randoms import Poisson, MarkovArrival, HyperExponential, \
     PhaseType, Distribution, Exponential
-from pyqumo.sim.tandem import simulate as py_simulate, Results
-from pyqumo.cqumo.sim import simulate_tandem as c_simulate
+from pyqumo.simulations.networks.sandbox.tandem import simulate as py_simulate, Results
+from pyqumo.simulations.networks.sim import simulate_tandem as c_simulate
 
 
 @dataclass

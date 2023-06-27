@@ -4,7 +4,7 @@
 {
     "distutils": {
         "depends": [
-            "cqumo/Randoms.h"
+            "pyqumo/randoms/_impl/randoms.h"
         ],
         "extra_compile_args": [
             "-std=c++20",
@@ -15,14 +15,15 @@
             "-std=c++20"
         ],
         "include_dirs": [
-            "cqumo"
+            "pyqumo/_impl",
+            "pyqumo/randoms/_impl"
         ],
         "language": "c++",
         "name": "pyqumo.randoms.variables",
         "sources": [
             "pyqumo/randoms/variables.pyx",
-            "cqumo/Functions.cpp",
-            "cqumo/Randoms.cpp"
+            "pyqumo/_impl/functions.cpp",
+            "pyqumo/randoms/_impl/randoms.cpp"
         ]
     },
     "module_name": "pyqumo.randoms.variables"
@@ -793,7 +794,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "stdexcept"
 #include "typeinfo"
 #include <vector>
-#include "Randoms.h"
+#include "randoms.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */

@@ -3,7 +3,7 @@ from typing import Optional
 import numpy as np
 
 from pyqumo.errors import BoundsError, MatrixError
-from pyqumo.fitting import fit_acph2, fit_mern2, fit_map_horvath05
+from pyqumo.algorithms.fitting import fit_acph2, fit_mern2, fit_map_horvath05
 from pyqumo.randoms import PhaseType, HyperErlang, MarkovArrival
 from pyqumo.stats import get_noncentral_m2, get_noncentral_m3
 

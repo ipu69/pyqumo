@@ -10,7 +10,7 @@ from pyqumo.randoms import Const, Exponential, Uniform, Normal, Erlang, \
 #
 # TESTING VARIOUS DISTRIBUTIONS STATISTIC AND ANALYTIC PROPERTIES
 # ----------------------------------------------------------------------------
-# First of all we test statistical and analytic properties:
+# First of all we test statistical and analytics properties:
 # - moments, k = 1, 2, 3, 4
 # - variance
 # - standard deviation
