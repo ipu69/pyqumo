@@ -5,8 +5,8 @@
  *
  * @author Andrey Larionov
  */
-#ifndef CQUMO_FUNCTIONS_H
-#define CQUMO_FUNCTIONS_H
+#ifndef CQUMO_CORE_HELPERS_FUNCTIONS_H
+#define CQUMO_CORE_HELPERS_FUNCTIONS_H
 
 #include <functional>
 
@@ -49,4 +49,4 @@ DblFn makeDblFn(CtxDblFn ctxFn, void *context);
 
 }
 
-#endif //FUNCTIONS_H
+#endif //CQUMO_CORE_HELPERS_FUNCTIONS_H

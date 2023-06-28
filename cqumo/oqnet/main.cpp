@@ -3,9 +3,9 @@
 #include <chrono>
 #include <iomanip>
 
-#include "simulation.h"
-#include "marshal.h"
-#include "randoms.h"
+#include "cqumo/oqnet/simulation.h"
+#include "cqumo/oqnet/marshal.h"
+#include <cqumo/randoms/randoms.h>
 
 using namespace std;
 using namespace cqumo;

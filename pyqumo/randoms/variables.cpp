@@ -4,7 +4,7 @@
 {
     "distutils": {
         "depends": [
-            "pyqumo/randoms/_impl/randoms.h"
+            "cqumo/core/cqumo/randoms/randoms.h"
         ],
         "extra_compile_args": [
             "-std=c++20",
@@ -12,18 +12,18 @@
             "-O3"
         ],
         "extra_link_args": [
-            "-std=c++20"
+            "-std=c++14"
         ],
         "include_dirs": [
-            "pyqumo/_impl",
-            "pyqumo/randoms/_impl"
+            "cqumo/core/cqumo",
+            "cqumo/core/cqumo/randoms"
         ],
         "language": "c++",
         "name": "pyqumo.randoms.variables",
         "sources": [
             "pyqumo/randoms/variables.pyx",
-            "pyqumo/_impl/functions.cpp",
-            "pyqumo/randoms/_impl/randoms.cpp"
+            "cqumo/core/cqumo/functions.cpp",
+            "cqumo/core/cqumo/randoms/randoms.cpp"
         ]
     },
     "module_name": "pyqumo.randoms.variables"

@@ -18,13 +18,14 @@
 #ifndef CQUMO_TANDEM_COMPONENTS_H
 #define CQUMO_TANDEM_COMPONENTS_H
 
-#include "base.h"
-#include "journals.h"
-#include "functions.h"
 #include <queue>
 #include <functional>
 #include <map>
 
+#include <cqumo/functions.h>
+
+#include "base.h"
+#include "journals.h"
 
 namespace cqumo {
 

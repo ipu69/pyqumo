@@ -14,40 +14,40 @@ extensions = [
     Extension(
         "pyqumo.simulations.networks.simulator", [
             "pyqumo/simulations/networks/simulator.pyx",
-            "pyqumo/_impl/functions.cpp",
-            "pyqumo/randoms/_impl/randoms.cpp",
-            "pyqumo/simulations/networks/_impl/networks/base.cpp",
-            "pyqumo/simulations/networks/_impl/networks/components.cpp",
-            "pyqumo/simulations/networks/_impl/networks/journals.cpp",
-            "pyqumo/simulations/networks/_impl/networks/simulation.cpp",
-            "pyqumo/simulations/networks/_impl/networks/statistics.cpp",
-            "pyqumo/simulations/networks/_impl/networks/system.cpp",
-            "pyqumo/simulations/networks/_impl/networks/marshal.cpp",
+            "cqumo/core/cqumo/functions.cpp",
+            "cqumo/core/cqumo/randoms/randoms.cpp",
+            "cqumo/oqnet/cqumo/oqnet/base.cpp",
+            "cqumo/oqnet/cqumo/oqnet/components.cpp",
+            "cqumo/oqnet/cqumo/oqnet/journals.cpp",
+            "cqumo/oqnet/cqumo/oqnet/simulation.cpp",
+            "cqumo/oqnet/cqumo/oqnet/statistics.cpp",
+            "cqumo/oqnet/cqumo/oqnet/system.cpp",
+            "cqumo/oqnet/cqumo/oqnet/marshal.cpp",
         ],
         include_dirs=[
-            'pyqumo/_impl',
-            'pyqumo/randoms/_impl',
-            'pyqumo/simulations/networks/_impl/networks',
+            'cqumo/core/',
+            'cqumo/core/cqumo',
+            'cqumo/oqnet/cqumo/oqnet',
         ],
         language="c++",
         extra_compile_args=extra_compile_args,
         # extra_compile_args=["-std=c++20", "-Wno-deprecated", "-O3"],
-        extra_link_args=["-std=c++20"]
+        extra_link_args=["-std=c++14"]
     ),
     Extension(
         "pyqumo.randoms.variables", [
             "pyqumo/randoms/variables.pyx",
-            "pyqumo/_impl/functions.cpp",
-            "pyqumo/randoms/_impl/randoms.cpp"
+            "cqumo/core/cqumo/functions.cpp",
+            "cqumo/core/cqumo/randoms/randoms.cpp"
         ],
         include_dirs=[
-            'pyqumo/_impl',
-            'pyqumo/randoms/_impl',
+            'cqumo/core/cqumo',
+            'cqumo/core/cqumo/randoms',
         ],
         language="c++",
         extra_compile_args=extra_compile_args,
         # extra_compile_args=["-std=c++20", "-Wno-deprecated", "-O3"],
-        extra_link_args=["-std=c++20"]
+        extra_link_args=["-std=c++14"]
     )
 ]
 

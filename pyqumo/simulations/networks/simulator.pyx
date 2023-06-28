@@ -65,6 +65,7 @@ cdef _build_tandem_results(const SimData& simData, int numStations):
     results.real_time = simData.realTimeMs
     return results
 
+
 cdef double _call_pyobject(void *context):
     # noinspection PyBroadException
     try:

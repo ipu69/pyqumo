@@ -13,8 +13,8 @@
  *
  * @author Andrey Larionov
  */
-#ifndef CQUMO_BASE_H
-#define CQUMO_BASE_H
+#ifndef CQUMO_OQNET_BASE_H
+#define CQUMO_OQNET_BASE_H
 
 #include <string>
 #include <sstream>
@@ -68,4 +68,4 @@ std::string toString(
 
 }
 
-#endif //CQUMO_TANDEM_BASE_H
+#endif //CQUMO_OQNET_BASE_H
