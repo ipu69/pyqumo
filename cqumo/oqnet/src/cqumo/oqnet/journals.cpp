@@ -6,6 +6,7 @@
 #include <sstream>
 
 namespace cqumo {
+namespace oqnet {
 
 // Class NetworkJournal
 // --------------------------------------------------------------------------
@@ -158,4 +159,4 @@ std::string NodeJournal::toString() const {
     return ss.str();
 }
 
-}
+}}

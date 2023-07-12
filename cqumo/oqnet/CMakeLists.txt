@@ -1,22 +1,22 @@
-include_directories(../core)
+include_directories(
+        ../core/include
+        ./include
+)
 
 add_library(
         cqumo_oqnet
         STATIC
-        cqumo/oqnet/base.h
-        cqumo/oqnet/base.cpp
-        cqumo/oqnet/components.h
-        cqumo/oqnet/components.cpp
-        cqumo/oqnet/journals.h
-        cqumo/oqnet/journals.cpp
-        cqumo/oqnet/marshal.h
-        cqumo/oqnet/marshal.cpp
-        cqumo/oqnet/simulation.h
-        cqumo/oqnet/simulation.cpp
-        cqumo/oqnet/statistics.h
-        cqumo/oqnet/statistics.cpp
-        cqumo/oqnet/system.h
-        cqumo/oqnet/system.cpp
+        include/cqumo/oqnet.h
+        src/cqumo/oqnet/components.h
+        src/cqumo/oqnet/components.cpp
+        src/cqumo/oqnet/journals.h
+        src/cqumo/oqnet/journals.cpp
+        src/cqumo/oqnet/marshal.h
+        src/cqumo/oqnet/marshal.cpp
+        src/cqumo/oqnet/simulation.h
+        src/cqumo/oqnet/simulation.cpp
+        src/cqumo/oqnet/system.h
+        src/cqumo/oqnet/system.cpp
 )
 
 add_executable(

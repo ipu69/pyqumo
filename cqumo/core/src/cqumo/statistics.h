@@ -1,13 +1,13 @@
 /**
  * @author Andrey Larionov
  */
-#ifndef CQUMO_TANDEM_STATISTICS_H
-#define CQUMO_TANDEM_STATISTICS_H
+#ifndef CQUMO_CORE_STATISTICS_H
+#define CQUMO_CORE_STATISTICS_H
 
 #include <vector>
 #include <string>
 #include <cmath>
-#include "base.h"
+#include <stdexcept>
 
 
 namespace cqumo {
@@ -29,11 +29,11 @@ double getUnbiasedVariance(double m1, double m2, unsigned n = 0);
 /**
  * Class representing samples series moments estimation using
  */
-class Series : public Object {
-  public:
+class Series {
+public:
     Series(unsigned nMoments, unsigned windowSize);
 
-    ~Series() override = default;
+    ~Series() = default;
 
     /**
      * Estimate new k-th moment value from the previous estimation and
@@ -45,7 +45,7 @@ class Series : public Object {
      * @param nRecords total number of samples, incl. those in the window
      * @return new moment estimation
      */
-    static double estimate_moment(
+    static double estimateMoment(
             int order,
             double value,
             const std::vector<double> &window,
@@ -96,9 +96,9 @@ class Series : public Object {
     inline unsigned count() const { return nRecords_; }
 
     /** Get string representation of the Series object. */
-    std::string toString() const override;
+    std::string toString() const;
 
-  private:
+private:
     std::vector<double> moments_;
     std::vector<double> window_;
     unsigned wPos_;
@@ -111,8 +111,8 @@ class Series : public Object {
  * Size distribution given with a probability mass function of
  * values 0, 1, ..., N-1.
  */
-class SizeDist : public Object {
-  public:
+class SizeDist {
+public:
     /**
      * Create size distribution from a given PMF.
      * @param pmf a vector with sum of elements equal 1.0,
@@ -121,7 +121,7 @@ class SizeDist : public Object {
     SizeDist();
     explicit SizeDist(std::vector<double> pmf);
     SizeDist(const SizeDist &other) = default;
-    ~SizeDist() override = default;
+    ~SizeDist() = default;
 
     /**
      * Get k-th moment of the distribution.
@@ -145,9 +145,9 @@ class SizeDist : public Object {
     }
 
     /** Get string representation. */
-    std::string toString() const override;
+    std::string toString() const;
 
-  private:
+private:
     std::vector<double> pmf_;
 };
 
@@ -159,11 +159,11 @@ class SizeDist : public Object {
  * was kept. When estimating moments, we just divide all the time
  * on the total time and so value the probability mass function.
  */
-class TimeSizeSeries : public Object {
+class TimeSizeSeries {
   public:
     explicit TimeSizeSeries(double time = 0.0, unsigned value = 0);
 
-    ~TimeSizeSeries() override;
+    ~TimeSizeSeries();
 
     /**
      * Record new value update.
@@ -183,7 +183,7 @@ class TimeSizeSeries : public Object {
     std::vector<double> pmf() const;
 
     /** Get string representation. */
-    std::string toString() const override;
+    std::string toString() const;
 
   private:
     double initTime_;
@@ -205,8 +205,8 @@ class TimeSizeSeries : public Object {
  * This class doesn't contain any dynamically allocated objects those need
  * manually freeing/deletion.
  */
-class VarData : public Object {
-  public:
+class VarData {
+public:
     double mean = 0.0;    ///< Estimated average value
     double std = 0.0;     ///< Estimated standard deviation
     double var = 0.0;     ///< Estimated variance
@@ -223,15 +223,15 @@ class VarData : public Object {
     explicit VarData(const Series &series);
 
     /** Get string representation. */
-    std::string toString() const override;
+    std::string toString() const;
 };
 
 
 /**
  * Simple integer counter that can be evaluated, incremented or reset.
  */
-class Counter : public Object {
-  public:
+class Counter {
+public:
     /**
      * Convert from integer constructor.
      * @param initValue initial counter value (default: 0)
@@ -239,7 +239,7 @@ class Counter : public Object {
     Counter(int initValue = 0); // NOLINT(google-explicit-constructor)
 
     Counter(const Counter &counter) = default;
-    ~Counter() override = default;
+    ~Counter() = default;
 
     Counter &operator=(const Counter &rside);
 
@@ -253,12 +253,12 @@ class Counter : public Object {
     inline void reset(int initValue = 0) { value_ = initValue; }
 
     /** Get string representation. */
-    std::string toString() const override;
+    std::string toString() const;
 
-  private:
+private:
     int value_ = 0;
 };
 
 }
 
-#endif //CQUMO_TANDEM_STATISTICS_H
+#endif //CQUMO_CORE_STATISTICS_H

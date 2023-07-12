@@ -4,7 +4,7 @@
 #ifndef CQUMO_RANDOMS_RANDOMS_H
 #define CQUMO_RANDOMS_RANDOMS_H
 
-#include "../functions.h"
+#include "functions.h"
 #include <random>
 #include <vector>
 

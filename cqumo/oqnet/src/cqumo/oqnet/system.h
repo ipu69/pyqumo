@@ -21,6 +21,7 @@
 
 
 namespace cqumo {
+namespace oqnet {
 
 /**
  * Types of events.
@@ -216,6 +217,6 @@ void runMainLoop(
         NetworkJournal *journal,
         int maxPackets);
 
-}
+}}
 
 #endif //CQUMO_TANDEM_SYSTEM_H

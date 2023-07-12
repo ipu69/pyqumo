@@ -10,7 +10,7 @@ from typing import List, Sequence
 
 import numpy as np
 
-from pyqumo import str_array
+from .matrix import str_array
 
 
 def rel_err(expected, actual):

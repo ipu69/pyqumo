@@ -21,13 +21,14 @@
 #include <queue>
 #include <functional>
 #include <map>
+#include <string>
 
-#include <cqumo/functions.h>
+#include "cqumo/cqumo.h"
 
-#include "base.h"
 #include "journals.h"
 
 namespace cqumo {
+namespace oqnet {
 
 class Node;
 
@@ -38,7 +39,7 @@ class Node;
  * Also contains fields for tracking packet_ transmission, which can be
  * re-written during the packet_ processing.
  */
-class Packet : public Object {
+class Packet {
   public:
     /**
      * Constructor.
@@ -48,7 +49,7 @@ class Packet : public Object {
      */
     Packet(int source, int target, double createdAt);
 
-    ~Packet() override = default;
+    ~Packet() = default;
 
     /** Get source node address. */
     inline int source() const { return source_; }
@@ -78,7 +79,7 @@ class Packet : public Object {
     }
 
     /** Get string representation of the packet_. */
-    std::string toString() const override;
+    std::string toString() const;
 
   private:
     int source_;
@@ -94,10 +95,10 @@ class Packet : public Object {
  * Base class for objects stored inside Node.
  * Provides owner (Node) getter and setter.
  */
-class NodeComponent : public Object {
+class NodeComponent {
   public:
     NodeComponent() = default;
-    ~NodeComponent() override = default;
+    virtual ~NodeComponent() = default;
 
     /** Get owning Node. */
     inline Node *owner() const { return owner_; }
@@ -114,7 +115,7 @@ class NodeComponent : public Object {
 
 
 /**
- * FIFO queue with finite or infinite capacity_.
+ * FIFO queue with finite or infinite capacity.
  * Queue stores packets. When the Queue is destroyed,
  * all packets contained inside it are also destroyed.
  */
@@ -164,7 +165,7 @@ class Queue : public NodeComponent {
     }
 
     /** Get string representation of the queue. */
-    std::string toString() const override;
+    std::string toString() const;
 
   protected:
     std::queue<Packet *> packets_;
@@ -224,7 +225,7 @@ class Server : public NodeComponent {
     inline bool fixedService() const { return fixedService_; }
 
     /** Get string representation of the server object. */
-    std::string toString() const override;
+    std::string toString() const;
 
   private:
     DblFn intervals_;
@@ -259,7 +260,7 @@ class Source : public NodeComponent {
     Packet *createPacket(double time) const;
 
     /** Get string representation. */
-    std::string toString() const override;
+    std::string toString() const;
 
   private:
     DblFn intervals_;
@@ -272,7 +273,7 @@ class Source : public NodeComponent {
  * optionally Source. Node can be connected to another node where it
  * forwards packets.
  */
-class Node : public Object {
+class Node {
   public:
     /**
      * Create node.
@@ -284,7 +285,7 @@ class Node : public Object {
     Node(int address, Queue *queue, Server *server, Source *source = nullptr);
 
     /** Destroy the node along with its internal queue, server, source. */
-    ~Node() override;
+    ~Node();
 
     /** Get node address. */
     inline int address() const { return address_; }
@@ -310,7 +311,7 @@ class Node : public Object {
     }
 
     /** Get string representation. */
-    std::string toString() const override;
+    std::string toString() const;
 
   private:
     int address_;
@@ -326,12 +327,12 @@ class Node : public Object {
  * to add and get nodes by their addresses, or value a collection of all nodes.
  * When the network is destroyed, all nodes in this network are also destroyed.
  */
-class Network : public Object {
+class Network {
   public:
     Network() = default;
 
     /** Destroy network and all its nodes. */
-    ~Network() override;
+    ~Network();
 
     /**
      * Add a node to the network. If a node with the same address already
@@ -352,7 +353,7 @@ class Network : public Object {
     inline const std::map<int, Node *>& nodes() const { return nodes_; }
 
     /** Get network string representation. */
-    std::string toString() const override;
+    std::string toString() const;
 
   private:
     std::map<int, Node *> nodes_;
@@ -382,6 +383,6 @@ Network *buildTandemNetwork(
     int queueCapacity,
     bool fixedService = false);
 
-}
+}}
 
 #endif //CQUMO_TANDEM_COMPONENTS_H

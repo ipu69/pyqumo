@@ -7,7 +7,7 @@ from libcpp.map cimport map, pair
 from pyqumo.stats import Statistics
 from pyqumo.randoms import CountableDistribution, Exponential, Distribution
 
-from .simulator cimport SimData, NodeData, simMM1, VarData, simGG1, \
+from .model cimport SimData, NodeData, simMM1, VarData, simGG1, \
     makeDblFn, DblFn
 from .contract import GG1Results, GG1TandemResults
 

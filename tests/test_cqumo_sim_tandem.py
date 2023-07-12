@@ -6,7 +6,7 @@ import numpy as np
 from numpy.testing import assert_allclose
 
 from pyqumo.randoms import Poisson, Distribution
-from pyqumo.simulations.networks.sim import simulate_tandem
+from pyqumo.simulations.networks.model import simulate_gg1_tandem
 
 
 @dataclass
@@ -70,7 +70,7 @@ class TandemProps:
 ])
 def test_mm1_tandem(props):
     tol = props.tol
-    ret = simulate_tandem(
+    ret = simulate_gg1_tandem(
         props.arrival, props.service, props.queue_capacity,
         max_packets=props.max_packets)
 

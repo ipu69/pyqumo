@@ -2,8 +2,11 @@
  * @author Andrey Larionov
  */
 #include "marshal.h"
+#include "cqumo/cqumo.h"
+#include <sstream>
 
 namespace cqumo {
+namespace oqnet {
 
 std::string toYaml(
         const SimData& value,
@@ -98,4 +101,4 @@ std::string toYaml(const std::vector<double>& value) {
     return cqumo::toString(value);
 }
 
-}
+}}

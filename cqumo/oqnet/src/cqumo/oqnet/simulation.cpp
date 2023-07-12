@@ -2,13 +2,12 @@
  * @author Andrey Larionov
  */
 #include "simulation.h"
-#include "marshal.h"
 #include <chrono>
 #include <random>
-#include <iostream>
 
 
 namespace cqumo {
+namespace oqnet {
 
 // Class NodeData
 // --------------------------------------------------------------------------
@@ -29,11 +28,11 @@ NodeData::NodeData(const NodeJournal &records)
           numPacketsDropped(records.numPacketsDropped()->value()) {
     unsigned numPacketsProcessed = numPacketsDelivered + numPacketsLost;
     lossProb = numPacketsProcessed != 0
-            ? static_cast<double>(numPacketsLost) / numPacketsProcessed
-            : 0.0;
+               ? static_cast<double>(numPacketsLost) / numPacketsProcessed
+               : 0.0;
     dropProb = numPacketsArrived != 0
-            ? static_cast<double>(numPacketsDropped) / numPacketsArrived
-            : 0.0;
+               ? static_cast<double>(numPacketsDropped) / numPacketsArrived
+               : 0.0;
     deliveryProb = 1.0 - lossProb;
 }
 
@@ -44,8 +43,7 @@ NodeData::NodeData(const NodeJournal &records)
 SimData::SimData(
         const NetworkJournal &journal,
         double simTime,
-        double realTimeMs)
-{
+        double realTimeMs) {
     for (auto &addrNodeRec: journal.nodeJournals()) {
         auto address = addrNodeRec.first;
         auto records = addrNodeRec.second;
@@ -105,8 +103,9 @@ SimData simGG1(
     journal->commit();
 
     // Build node data
-    double realTimeMs = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now() - startedAt).count();
+    double realTimeMs = static_cast<double>(
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                    std::chrono::system_clock::now() - startedAt).count());
     auto simData = SimData(*journal, system->time(), realTimeMs);
 
     // Clear
@@ -119,14 +118,14 @@ SimData simGG1(
 
 // TODO: refactor, remove duplicated code
 SimData simTandem(
-        const std::map<int,DblFn>& arrivals,
-        const std::vector<DblFn>& services,
+        const std::map<int, DblFn> &arrivals,
+        const std::vector<DblFn> &services,
         int queueCapacity,
         bool fixedService,
         int maxPackets) {
     auto startedAt = std::chrono::system_clock::now();
     auto network = buildTandemNetwork(
-        arrivals, services, queueCapacity, fixedService);
+            arrivals, services, queueCapacity, fixedService);
     auto journal = new NetworkJournal;
     for (auto &addrNodePair: network->nodes()) {
         journal->addNodeJournal(addrNodePair.second);
@@ -138,8 +137,9 @@ SimData simTandem(
     journal->commit();
 
     // Build node data
-    double realTimeMs = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now() - startedAt).count();
+    double realTimeMs = static_cast<double>(
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                    std::chrono::system_clock::now() - startedAt).count());
     auto simData = SimData(*journal, system->time(), realTimeMs);
 
     // std::cout << toYaml(simData) << std::endl;
@@ -152,4 +152,4 @@ SimData simTandem(
     return simData;
 }
 
-}
+}}

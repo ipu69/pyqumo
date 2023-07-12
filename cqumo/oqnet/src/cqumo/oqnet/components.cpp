@@ -4,10 +4,10 @@
 #include "components.h"
 
 #include <sstream>
-#include <utility>
 #include <iostream>
 
 namespace cqumo {
+namespace oqnet {
 
 // Class Packet
 // --------------------------------------------------------------------------
@@ -223,4 +223,4 @@ Network *buildTandemNetwork(
     return network;
 }
 
-}
+}}

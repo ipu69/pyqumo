@@ -17,6 +17,7 @@
 #include "simulation.h"
 
 namespace cqumo {
+namespace oqnet {
 
 /** Get YAML representation of SimData object. */
 std::string toYaml(
@@ -51,6 +52,6 @@ std::string toYaml(T value) {
 /** Get YAML representation of std::vector<double> value. */
 std::string toYaml(const std::vector<double>& value);
 
-}
+}}
 
 #endif //CQUMO_TANDEM_MARSHAL_H

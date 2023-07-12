@@ -29,7 +29,7 @@
 
 #include <vector>
 
-#include "statistics.h"
+#include "cqumo/cqumo.h"
 #include "components.h"
 #include "system.h"
 
@@ -38,6 +38,7 @@
 
 
 namespace cqumo {
+namespace oqnet {
 
 /**
  * Struct with performance metric of a network node. Defines the following
@@ -169,6 +170,6 @@ SimData simTandem(
     bool fixedService = false,
     int maxPackets = MAX_PACKETS);
 
-}
+}}
 
 #endif //CQUMO_TANDEM_SIMULATION_H

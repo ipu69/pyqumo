@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "cqumo/functions.h"
+#include <cqumo/functions.h>
 
 
 TEST(TestFunctions, ContextFunctor) {

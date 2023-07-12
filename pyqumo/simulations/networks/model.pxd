@@ -25,7 +25,7 @@ cdef extern from "functions.h" namespace "cqumo":
     cdef DblFn makeDblFn(double (*ctxFn)(void*), void* context)
 
 
-cdef extern from "simulation.h" namespace "cqumo":
+cdef extern from "simulation.h" namespace "cqumo::oqnet":
     cdef cppclass NodeData:
         SizeDist systemSize
         SizeDist queueSize

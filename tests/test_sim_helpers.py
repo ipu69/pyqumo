@@ -1,7 +1,8 @@
 import pytest
 import numpy as np
 
-from pyqumo.sim.helpers import FiniteFifoQueue, Queue, InfiniteFifoQueue, Server
+from pyqumo.simulations.networks.sandbox.components import \
+    FiniteFifoQueue, Queue, InfiniteFifoQueue, Server
 
 
 # ###########################################################################

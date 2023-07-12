@@ -9,11 +9,11 @@
 #ifndef CQUMO_TANDEM_JOURNALS_H
 #define CQUMO_TANDEM_JOURNALS_H
 
-#include "base.h"
-#include "statistics.h"
+#include "cqumo/cqumo.h"
 #include <map>
 
 namespace cqumo {
+namespace oqnet {
 
 class Node;
 class NetworkJournal;
@@ -36,7 +36,7 @@ class NodeJournal;
  * These settings are used by NodeJournal objects when storing their performance
  * metrics using Series and TimeSizeSeries.
  */
-class NetworkJournal : public Object {
+class NetworkJournal {
   public:
     /**
      * Create network journal.
@@ -50,7 +50,7 @@ class NetworkJournal : public Object {
             double time = 0.0);
 
     /** Destroy the network journal and all child node journals. */
-    ~NetworkJournal() override;
+    ~NetworkJournal();
 
     /** Create and store a NodeJournal for a given node. */
     void addNodeJournal(Node *node);
@@ -89,7 +89,7 @@ class NetworkJournal : public Object {
     void commit();
 
     /** Get string representation of the network journal. */
-    std::string toString() const override;
+    std::string toString() const;
 
   private:
     unsigned windowSize_ = 100;
@@ -136,7 +136,7 @@ class NetworkJournal : public Object {
  * All Series, TimeSizeSeries and Counters are created and deleted along with
  * the journal.
  */
-class NodeJournal : public Object {
+class NodeJournal {
   public:
     /**
      * Create a node journal.
@@ -147,7 +147,7 @@ class NodeJournal : public Object {
     NodeJournal(NetworkJournal *journal, Node *node, double time = 0.0);
 
     /** Delete the journal and all internals series and counters. */
-    ~NodeJournal() override;
+    ~NodeJournal();
 
     /** Get network journal. */
     inline NetworkJournal *getNetworkJournal() const { return networkJournal_; }
@@ -214,7 +214,7 @@ class NodeJournal : public Object {
     void commit();
 
     /** Get string representation of the journal. */
-    std::string toString() const override;
+    std::string toString() const;
 
   private:
     Node *node_;
@@ -241,6 +241,6 @@ class NodeJournal : public Object {
     void build(double time);
 };
 
-}
+}}
 
 #endif //CQUMO_TANDEM_JOURNALS_H

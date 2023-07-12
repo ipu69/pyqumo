@@ -2,9 +2,11 @@
  * @author Andrey Larionov
  */
 #include "system.h"
+#include <cqumo/cqumo.h>
 #include <sstream>
 
 namespace cqumo {
+namespace oqnet {
 
 // Event and EventType
 // ---------------------------------------------------------------------------
@@ -14,7 +16,7 @@ std::string Event::toString() const {
     ss << "(Event: time=" << time
        << ", id=" << id
        << ", address=" << address
-       << ", type=" << cqumo::toString(type)
+       << ", type=" << cqumo::oqnet::toString(type)
        << ")";
     return ss.str();
 }
@@ -274,4 +276,4 @@ void runMainLoop(
     }
 }
 
-}
+}}

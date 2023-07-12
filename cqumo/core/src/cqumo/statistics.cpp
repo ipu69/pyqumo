@@ -2,6 +2,8 @@
  * @author Andrey Larionov
  */
 #include "statistics.h"
+#include "utility.h"
+
 #include <cmath>
 #include <sstream>
 #include <ostream>
@@ -41,7 +43,7 @@ void Series::record(double x) {
 void Series::commit() {
     int numMoments = static_cast<int>(moments_.size());
     for (int i = 0; i < numMoments; ++i) {
-        moments_[i] = estimate_moment(
+        moments_[i] = estimateMoment(
                 i + 1,
                 moments_[i],
                 window_, wPos_, nRecords_);
@@ -59,7 +61,7 @@ std::string Series::toString() const {
     return ss.str();
 }
 
-double Series::estimate_moment(
+double Series::estimateMoment(
         int order,
         double value,
         const std::vector<double> &window,

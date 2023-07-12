@@ -1,11 +1,8 @@
 #include <iostream>
 #include <string>
-#include <chrono>
 #include <iomanip>
 
-#include "cqumo/oqnet/simulation.h"
-#include "cqumo/oqnet/marshal.h"
-#include <cqumo/randoms/randoms.h>
+#include "cqumo/oqnet.h"
 
 using namespace std;
 using namespace cqumo;
@@ -15,7 +12,7 @@ const char *FORMAT =
         "<QUEUE_CAPACITY> <IS_FIXED_SERVICE> <HAS_CT> [NUM_PACKETS]";
 
 
-void printResults(const SimData& data);
+void printResults(const oqnet::SimData& data);
 
 int main(int argc, char **argv) {
     // Parse mandatory parameters
@@ -38,7 +35,7 @@ int main(int argc, char **argv) {
         cout << "ERROR: arrival and service rates must be positive\n";
         return 1;
     }
-    ssize_t queueCapacity = static_cast<size_t>(queueCapacityInt);
+    auto queueCapacity = static_cast<ssize_t>(queueCapacityInt);
 
     // Check whether number of packets were provided:
     size_t maxPackets = 10000;
@@ -67,7 +64,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    auto ret = simTandem(
+    auto ret = oqnet::simTandem(
             arrivals,
             services,
             queueCapacity,
@@ -82,7 +79,7 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-void printResults(const SimData& data) {
+void printResults(const oqnet::SimData& data) {
     cout << left << setw(20) << "Packets generated:" << data.numPacketsGenerated << endl;
     cout << left << setw(20) << "Time elasped:" << data.realTimeMs << endl;
     cout << left << setw(20) << "Simulation time:" << data.simTime << endl;
