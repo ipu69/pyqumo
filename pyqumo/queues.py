@@ -11,9 +11,8 @@ from typing import Union, Callable, Mapping
 import numpy as np
 
 from pyqumo.matrix import cbdiag
-from pyqumo.random import Distribution, CountableDistribution, PhaseType
-from pyqumo.arrivals import Poisson, MarkovArrival, RandomProcess, \
-    GIProcess
+from pyqumo.randoms import Distribution, CountableDistribution, PhaseType, \
+    Poisson, MarkovArrival, RandomProcess, GIProcess
 
 
 class BasicQueueingSystem:

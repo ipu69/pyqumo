@@ -1,13 +1,12 @@
 from dataclasses import dataclass
-from typing import Union, Sequence
+from typing import Sequence
 
 import pytest
 import numpy as np
 from numpy.testing import assert_allclose
 
-from pyqumo.arrivals import Poisson, MarkovArrival
-from pyqumo.random import HyperExponential, PhaseType, Distribution, Exponential
-from pyqumo.cqumo.sim import simulate_tandem
+from pyqumo.randoms import Poisson, Distribution
+from pyqumo.simulations.networks.model import simulate_gg1_tandem
 
 
 @dataclass
@@ -71,7 +70,7 @@ class TandemProps:
 ])
 def test_mm1_tandem(props):
     tol = props.tol
-    ret = simulate_tandem(
+    ret = simulate_gg1_tandem(
         props.arrival, props.service, props.queue_capacity,
         max_packets=props.max_packets)
 

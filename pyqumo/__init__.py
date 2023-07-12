@@ -1,10 +1,4 @@
-from .random import Distribution, Exponential, HyperExponential, HyperErlang, \
-    PhaseType, SemiMarkovAbsorb, AbsorbMarkovPhasedEvalMixin, KdePdfMixin, \
-    AbstractCdfMixin, Choice, Const, ContinuousDistributionMixin, \
-    DiscreteDistributionMixin, CountableDistribution, MixtureDistribution, \
-    Erlang, EstStatsMixin, default_randoms_factory, Normal, Uniform
-
-from .arrivals import MarkovArrival, GIProcess, Poisson
+from .randoms import *
 
 from .matrix import is_pmf, order_of, cbdiag, fix_stochastic, is_stochastic, \
     is_subinfinitesimal, fix_infinitesimal, is_infinitesimal, array2string, \
@@ -22,5 +16,5 @@ from .chains import ContinuousTimeMarkovChain, DiscreteTimeMarkovChain
 
 from .queues import MM1Queue, MM1NQueue, MapPh1NQueue, BasicQueueingSystem
 
-from .cqumo.sim import simulate_tandem, simulate_mm1n, simulate_gg1n
-from .cqumo.randoms import Variable, RandomsFactory, Rnd
+from .simulations.networks.model import simulate_gg1_tandem, simulate_mm1, \
+    simulate_gg1

@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from numpy.testing import assert_allclose
 
-from pyqumo.fitting import fit_mern2
+from pyqumo.algorithms.fitting import fit_mern2
 from pyqumo.errors import BoundsError
 
 

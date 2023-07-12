@@ -11,8 +11,8 @@ from pytest import fixture
 import numpy as np
 from numpy.testing import assert_allclose
 
-from pyqumo.fitting import optimize_lag1, fit_map_horvath05
-from pyqumo.random import PhaseType
+from pyqumo.algorithms.fitting import optimize_lag1, fit_map_horvath05
+from pyqumo.randoms import PhaseType
 
 
 @fixture

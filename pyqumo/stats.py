@@ -5,7 +5,12 @@ pyqumo.stats
 
 Statistical utility functions.
 """
+from collections import namedtuple
+from typing import List, Sequence
+
 import numpy as np
+
+from .matrix import str_array
 
 
 def rel_err(expected, actual):
@@ -133,3 +138,91 @@ def normalize_moments(moments, k=None):
     for i in range(len(ret)):
         ret[i] /= pow(mu, i + 1)
     return np.asarray(ret), mu
+
+
+Statistics = namedtuple('Statistics', ['avg', 'var', 'std', 'count'])
+
+
+class TimeSizeRecords:
+    """
+    Recorder for time-size statistics.
+
+    Key feature of time-size records is that size varies on a natural numbers
+    axis, so it is not float, negative, or something else. Thus, we
+    store durations of each size in an array. If new value is larger then
+    this array, the array is extended.
+
+    Array of durations is easily converted into PMF just dividing it on the
+    total time. Assuming initial time is always zero, total time is
+    the time when the last update was recorded.
+
+    One more thing to mention is that when recording values, actually previous
+    value is recorded: when we call `add(ti, vi)`, it means that at `ti`
+    new value became `vi`. However, we store information that the _previous_
+    value `v{i-1}` was kept for `t{i} - t{i-1}` interval. Thus, we store
+    the previous value (by default, zero) and previous update time.
+    """
+    def __init__(self, init_value: int = 0, init_time: float = 0.0):
+        self._durations: List[float] = [0.0]
+        self._updated_at: float = init_time
+        self._curr_value: int = init_value
+        self._init_time = init_time
+
+    def add(self, time: float, value: int):
+        """
+        Record new value at the given time.
+
+        When called, duration of the _previous_ value is actually incremented:
+        if, say, system size at time `t2` became equal `v2`, then we need
+        to store information, that for interval `t2 - t1` value _was_ `v1`.
+
+        New value and update time are stored, so in the next `add()` call
+        they will be used to save interval of current value.
+
+        Parameters
+        ----------
+        time : float
+        value : int
+        """
+        prev_value = self._curr_value
+        self._curr_value = value
+        num_cells = len(self._durations)
+        if prev_value >= num_cells:
+            num_new_cells = prev_value - num_cells + 1
+            self._durations.extend([0.0] * num_new_cells)
+        self._durations[prev_value] += time - self._updated_at
+        self._updated_at = time
+
+    @property
+    def pmf(self) -> np.ndarray:
+        """
+        Normalize durations to get PMF.
+        """
+        return (np.asarray(self._durations) /
+                (self._updated_at - self._init_time))
+
+    def __repr__(self):
+        return f"(TimeSizeRecords: durations={str_array(self._durations)})"
+
+
+def build_statistics(intervals: Sequence[float]) -> Statistics:
+    """
+    Build Statistics object from the given sequence of intervals.
+
+    Parameters
+    ----------
+    intervals : 1D array_like
+
+    Returns
+    -------
+    statistics : Statistics
+    """
+    if len(intervals) > 0:
+        avg = np.mean(intervals)
+        var = np.var(intervals, ddof=1)  # unbiased estimate
+        std = var**0.5
+    else:
+        avg = 0.0
+        var = 0.0
+        std = 0.0
+    return Statistics(avg=avg, var=var, std=std, count=len(intervals))

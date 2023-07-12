@@ -1,6 +1,7 @@
 # IDEs
 .vscode/
 .idea/
+cmake-*/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
