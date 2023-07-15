@@ -1,72 +1,87 @@
-from typing import Generic, Optional, TypeVar, List, Sequence
+"""
+Simulation model prototype for fork-join queueing system (:mod:`pyqumo.simulations.forkjoin.sandbox.model`)
+===========================================================================================================
+
+Simple simulation model for a fork-join queueing system written in pure python.
+
+Summary
+-------
+
+.. autosummary::
+    :toctree: generated/
+    :nosignatures:
+
+    simulate_forkjoin
+
+Details
+-------
+
+
+
+"""
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from enum import Enum
+from heapq import heappush, heappop
+from typing import Optional, List, Sequence, Dict, Tuple
 
 import numpy as np
-from tabulate import tabulate
 
-from pyqumo import Distribution, CountableDistribution, str_array
-from pyqumo.stats import Statistics
-
-T = TypeVar('T')
+from pyqumo import Distribution, CountableDistribution
+from pyqumo.stats import TimeSizeRecords, build_statistics
+from ..contract import ForkJoinResults
 
 
-class ForkJoinResults:
-    """
-    Results returned from G/G/1/N model simulation.
-    """
-    def __init__(self, num_servers: int):
-        self._num_servers = num_servers
-        self.system_sizes: List[CountableDistribution] = []
-        self.queue_sizes: List[CountableDistribution] = []
-        self.busy: List[CountableDistribution] = []
-        self.subtask_drop_probs: List[float] = []
-        self.task_drop_prob: float = 0.0
-        self.subtask_response_times: List[Statistics] = []
-        self.task_response_time: Optional[Statistics] = None
-        self.real_time: Optional[float] = 0.0
+class _Event(Enum):
+    ARRIVAL = 0
+    SERVICE_END = 1
 
-    def get_utilization(self, si: int) -> float:
-        """
-        Get utilization coefficient, that is `Busy = 1` probability.
-        """
-        return self.busy[si].pmf(1)
 
-    def tabulate(self) -> str:
-        """
-        Build a pretty formatted table with all key properties.
-        """
-        items = [
-            ('Time elapsed', self.real_time),
-            ('Number of stations', self._num_servers),
-            ('Task loss prob.', self.task_drop_prob),
-            ('Task response time, average', self.task_response_time.avg),
-            ('Task response time, std.dev.', self.task_response_time.std),
-        ]
+class _State:
+    def __init__(self, n: int):
+        self.served_map: Dict[int, int] = {}  # packet_id -> (num served parts)
+        self.arrived_at: Dict[int, float] = {}  # packet_id -> (arrival time)
 
-        for si in range(self._num_servers):
-            items.append((f'[[ STATION #{si} ]]', ''))
+        # queues[i] stores a list of packet_ids currently in the queue
+        self.queues: List[List[int]] = [list() for _ in range(n)]
 
-            ssize = self.system_sizes[si]
-            qsize = self.queue_sizes[si]
-            busy = self.busy[si]
+        # servers[i] stores packet_id that is served at node #i.
+        # When server is free, store None.
+        self.servers: List[Optional[int]] = [None] * n
 
-            ssize_pmf = [ssize.pmf(x) for x in range(ssize.truncated_at + 1)]
-            qsize_pmf = [qsize.pmf(x) for x in range(qsize.truncated_at + 1)]
-            busy_pmf = [busy.pmf(x) for x in range(busy.truncated_at + 1)]
 
-            items.extend([
-                ('System size PMF', str_array(ssize_pmf)),
-                ('System size average', ssize.mean),
-                ('System size std.dev.', ssize.std),
-                ('Queue size PMF', str_array(qsize_pmf)),
-                ('Queue size average', qsize.mean),
-                ('Queue size std.dev.', qsize.std),
-                ('Busy PMF', str_array(busy_pmf)),
-                ('Utilization', self.get_utilization(si)),
-                ('Subtask drop prob.', self.subtask_drop_probs[si]),
-                ('Response time, average', self.subtask_response_times[si].avg),
-                ('Response time, std.dev.', self.subtask_response_times[si].std)
-            ])
-        return tabulate(items, headers=('Param', 'Value'))
+@dataclass
+class _Params:
+    num_servers: int
+    services: List[Distribution]
+    capacities: List[Optional[int]]
+
+
+class _Statistics:
+    def __init__(self, n: int):
+        # system_size[i] is the distribution of the i-th system size
+        self.system_size = [TimeSizeRecords() for _ in range(n)]
+
+        self.num_generated = 0  # total number of generated packets
+        self.drops = 0  # total number of dropped packets
+        self.num_served = 0  # total number of packets served completely
+
+        # queue_drops[i] is the number of packets dropped because this
+        # i-th queue was full
+        self.queue_drops = [0 for _ in range(n)]
+
+        # queue_num_served[i] is the number of sub-packets served by the queue
+        self.queue_num_served = [0 for _ in range(n)]
+
+        # Stores time from packet arrival to its complete serve
+        self.responses: List[float] = []
+
+        # queue_responses[i] stores time from packet arrival to i-th queue
+        # till the i-th part of packet was served
+        self.queue_responses: List[List[float]] = [list() for _ in range(n)]
+
+
+_EventQueue = List[Tuple[float, _Event, Optional[int]]]
 
 
 def simulate_forkjoin(
@@ -90,14 +105,35 @@ def simulate_forkjoin(
     or MAP. To use a PH or normal distribution, a GenericIndependentProcess
     model with the corresponding distribution may be used.
 
+    **Example 1:** model M/M/1 system
+
+    >>> from pyqumo.randoms import Exponential as Exp
+    >>> from pyqumo.simulations.forkjoin.sandbox.model import simulate_forkjoin
+    >>> ret = simulate_forkjoin(Exp(1), [Exp(2)], [None],
+    >>>                         max_packets=1000000)
+    >>> print(ret.tabulate())
+
+    **Example 2:** system with two queues, one infinite and another - finite:
+
+    >>> ret = simulate_forkjoin(
+    >>>             Exp(1), [Exp(2), Exp(2)], [None, 2], max_packets=1000000)
+    >>> print(ret.tabulate())
+
+    **Example 3:** complex system with different service times:
+
+    >>> ret = simulate_forkjoin(
+    >>>             Exp(1), [Exp(2), Exp(3), Exp(1.5), Exp(5)],
+    >>>             [None, 2, 4, None], max_packets=1000000)
+    >>> print(ret.tabulate())
+
     Parameters
     ----------
     arrival : RandomProcess
         Arrival random process.
     services : Sequence[RandomProcess]
-        Service times distribution, must have the same length
+        Service times distribution, must have the same length as ``capacities``
     capacities : Sequence[int | None]
-        Capacities of the servers' queues.
+        Capacities of the servers' queues. For infinite queue, pass None.
     max_time : float, optional
         Maximum simulation time (default: infinity).
     max_packets
@@ -108,354 +144,152 @@ def simulate_forkjoin(
     results : Results
         Simulation results.
     """
-    params = _Params(
-        arrival=arrival.rnd, service=service.rnd, queue_capacity=queue_capacity,
-        max_packets=max_packets, max_time=max_time)
-    system = _System(params)
-    records = _Records()
+    started_simulation_at = datetime.now()
+    n = len(services)
+    if len(capacities) != n:
+        raise ValueError("size of services and capacities must be equal")
 
-    # Initialize model:
-    records.system_size.add(0.0, system.size)
-    system.schedule(_Event.ARRIVAL, params.arrival.eval())
+    evq: _EventQueue = []  # (time, event, [server]), use heappush|heappop
 
-    # Run simulation:
-    max_time = params.max_time
-    while not system.stopped:
-        event = system.next_event()
+    state = _State(n)
+    params = _Params(num_servers=n, services=list(services),
+                     capacities=list(capacities))
+    statistics = _Statistics(n)
+    next_packet_id = 1
+    time = 0
 
-        # Check whether event is scheduled too late, and we need to stop:
-        if system.time > max_time:
-            system.stop()
-            continue
+    # Initialize the model:
+    heappush(evq, (arrival(), _Event.ARRIVAL, -1))
 
-        # Process event
-        if event == _Event.ARRIVAL:
-            _handle_arrival(system, params, records)
-        elif event == _Event.SERVICE_END:
-            _handle_service_end(system, params, records)
-        elif event == _Event.STOP:
-            system.stop()
-
-    return _build_results(records)
-
-
-@dataclass
-class _Packet:
-    """
-    Packet representation for G/G/1/N model.
-
-    Stores timestamps: when the packet arrived (created_at), started
-    serving (service_started_at) and finished serving (departed_at).
-
-    Also stores flags, indicating whether the packet was dropped or was
-    completely served. Packets arrived in the end of the modeling, may not
-    be served, as well as dropped packets.
-    """
-    created_at: float
-    service_started_at: Optional[float] = None
-    departed_at: Optional[float] = None
-    dropped: bool = False
-    served: bool = False
-
-
-class _Records:
-    """
-    Records for G/G/1/N statistical analysis.
-    """
-    def __init__(self):
-        self._packets: List[_Packet] = []
-        self._system_size = TimeSizeRecords()
-
-    def add_packet(self, packet: _Packet):
-        self._packets.append(packet)
-
-    @property
-    def system_size(self):
-        return self._system_size
-
-    @property
-    def packets(self):
-        return self._packets
-
-
-@dataclass
-class _Params:
-    """
-    Model parameters: arrival and service processes, queue capacity and limits.
-    """
-    arrival: Any
-    service: Any
-    queue_capacity: int
-    max_packets: int = 1000000
-    max_time: float = np.inf
-
-
-class _Event(Enum):
-    STOP = 0
-    ARRIVAL = 1
-    SERVICE_END = 2
-
-
-class _System:
-    """
-    System state representation.
-
-    This object takes care of the queue, current time, next arrival and
-    service end time, server status and any other kind of dynamic information,
-    except for internal state of arrival or service processes.
-    """
-    def __init__(self, params: _Params):
-        """
-        Constructor.
-
-        Parameters
-        ----------
-        params : Params
-            Model parameters
-        """
-        if params.queue_capacity < np.inf:
-            self._queue = FiniteFifoQueue(params.queue_capacity)
+    # Run main simulation loop:
+    while evq:
+        # Extract next event, update current time and stop simulation,
+        # if time reached the boundary
+        event_time, event_type, server_index = heappop(evq)
+        if event_time > max_time:
+            time = max_time
+            break
         else:
-            self._queue = InfiniteFifoQueue()
+            time = event_time
 
-        self._time: float = 0.0
-        self._service_end: Optional[float] = None
-        self._next_arrival: Optional[float] = 0.0
-        self._server: Server[_Packet] = Server()
-        self._stopped: bool = False
+        if event_type == _Event.ARRIVAL:
+            # If generated too many packets, stop
+            if statistics.num_generated >= max_packets:
+                break
 
-    @property
-    def server(self) -> Server[_Packet]:
-        return self._server
+            # Generate a new packet
+            packet_id = next_packet_id
+            next_packet_id += 1
+            statistics.num_generated += 1
 
-    @property
-    def queue(self) -> Queue[_Packet]:
-        return self._queue
+            # Check there is place for a packet.
+            can_serve = True
+            for i in range(params.num_servers):
+                if ((state.servers[i] is not None) and
+                        (params.capacities[i] is not None)
+                        and (len(state.queues[i]) >= params.capacities[i])):
+                    can_serve = False
+                    statistics.queue_drops[i] += 1
 
-    @property
-    def time(self) -> float:
-        return self._time
+            if can_serve:
+                # If there is place for a packet, either start serving it,
+                # or add to a queue. Also record the packet arrival time.
+                state.served_map[packet_id] = 0
+                state.arrived_at[packet_id] = time
+                for si in range(n):
+                    if state.servers[si] is None:
+                        end_at = time + params.services[si]()
+                        state.servers[si] = packet_id
+                        heappush(evq, (end_at, _Event.SERVICE_END, si))
+                        statistics.system_size[si].add(time, 1)
+                    else:
+                        queue = state.queues[si]
+                        queue.append(packet_id)
+                        statistics.system_size[si].add(time, len(queue) + 1)
+            else:
+                # If any queue is full, drop the packet.
+                statistics.drops += 1
 
-    @property
-    def stopped(self):
-        return self._stopped
+            # Finally, schedule next arrival
+            heappush(evq, (time + arrival(), _Event.ARRIVAL, -1))
 
-    @property
-    def size(self) -> int:
-        """
-        Get system size, that is queue size plus one (busy) or zero (empty).
-        """
-        return self.server.size + self.queue.size
+        elif event_type == _Event.SERVICE_END:
+            # Extract the packet from the server:
+            packet_id = state.servers[server_index]
 
-    def schedule(self, event: _Event, interval: float) -> None:
-        """
-        Schedule next event.
+            # Record the number of served packets by this queue:
+            statistics.queue_num_served[server_index] += 1
 
-        Parameters
-        ----------
-        event : Event
-        interval : float
-            Non-negative interval, after which the event will be fired.
-        """
-        if interval < 0:
-            raise ValueError(f"expected non-negative interval, but "
-                             f"{interval} found")
-        if event == _Event.ARRIVAL:
-            self._next_arrival = self._time + interval
-        elif event == _Event.SERVICE_END:
-            self._service_end = self._time + interval
-        else:
-            raise ValueError(f"unexpected event {event}")
+            # Mark the packet part being served and record response time.
+            # If the packet was completely served, record total response time
+            # and remove the packet from indexes:
+            response_time = time - state.arrived_at[packet_id]
+            statistics.queue_responses[server_index].append(response_time)
+            state.served_map[packet_id] += 1
+            if state.served_map[packet_id] >= n:
+                statistics.responses.append(response_time)
+                statistics.num_served += 1
+                del state.arrived_at[packet_id]
+                del state.served_map[packet_id]
 
-    def stop(self) -> None:
-        self._stopped = True
+            if len(state.queues[server_index]) > 0:
+                # Queue is not empty, so take the next packet and start serving
+                # it. Also update system size statistics.
+                packet_id = state.queues[server_index][0]
+                state.servers[server_index] = packet_id
+                state.queues[server_index] = state.queues[server_index][1:]
 
-    def next_event(self) -> _Event:
-        """
-        Get next event type and move time to it.
+                # Schedule next service end:
+                end_at = time + params.services[server_index]()
+                heappush(evq, (end_at, _Event.SERVICE_END, server_index))
 
-        Returns
-        -------
-        event : Event
-        """
-        ts = self._service_end
-        ta = self._next_arrival
+                # Record statistics:
+                statistics.system_size[server_index].add(
+                    time, len(state.queues[server_index]) + 1)
+            else:
+                # Queue is empty - mark server as empty and record statistics.
+                state.servers[server_index] = None
+                statistics.system_size[server_index].add(time, 0)
 
-        if ts is None and ta is None:
-            return _Event.STOP
-
-        if ts is not None and (ta is None or ta > ts):
-            self._time = ts
-            self._service_end = None
-            return _Event.SERVICE_END
-
-        # If we are here, TS is None, or TS is not None and NOT (ta > ts):
-        # this means, that arrival happens
-        self._time = self._next_arrival
-        self._next_arrival = None
-        return _Event.ARRIVAL
-
-
-def _handle_arrival(system: _System, params: _Params, records: _Records):
-    """
-    Handle new packet arrival event.
-
-    First of all, a new packet is created. Then we check whether the
-    system is empty. If it is, this new packet starts serving immediately.
-    Otherwise, it is added to the queue.
-
-    If the queue was full, the packet is dropped. To mark this, we set
-    `dropped` flag in the packet to `True`.
-
-    In the end we schedule the next arrival. We also check whether the
-    we have already generated enough packets. If so, `system.stopped` flag
-    is set to `True`, so on the next main loop iteration the simulation
-    will be stopped.
-
-    Parameters
-    ----------
-    system : System
-    params : Params
-    records : Records
-    """
-    num_packets_built = len(records.packets)
-
-    # If too many packets were generated, ask to stop:
-    if num_packets_built >= params.max_packets:
-        system.stop()
-
-    time_now = system.time
-    packet = _Packet(created_at=time_now)
-    records.add_packet(packet)
-
-    # If server is ready, start serving. Otherwise, push the packet into
-    # the queue. If the queue was full, mark the packet is being dropped
-    # for further analysis.
-    server = system.server
-    if server.ready:
-        # start serving immediately
-        server.serve(packet)
-        system.schedule(_Event.SERVICE_END, params.service.eval())
-        packet.service_started_at = time_now
-        records.system_size.add(time_now, system.size)
-
-    elif system.queue.push(packet):
-        # packet was queued
-        records.system_size.add(time_now, system.size)
-
-    else:
-        # mark packet as being dropped
-        packet.dropped = True
-
-    # Schedule next arrival:
-    system.schedule(_Event.ARRIVAL, params.arrival.eval())
+    # Build results from the collected statistics:
+    elapsed = datetime.now() - started_simulation_at
+    return _build_results(n, statistics, time, elapsed)
 
 
-def _handle_service_end(system: _System, params: _Params, records: _Records):
-    """
-    Handle end of the packet service.
+def _build_results(
+        num_servers: int,
+        statistics: _Statistics,
+        model_time: int,
+        elapsed: timedelta
+) -> ForkJoinResults:
+    results = ForkJoinResults(num_servers)
+    results.real_time = elapsed.seconds + 1e-6 * elapsed.microseconds
+    results.model_time = model_time
+    results.response_time = build_statistics(statistics.responses)
+    results.packet_drop_prob = \
+        statistics.drops / (statistics.num_served + statistics.drops)
 
-    If the queue is empty, the server becomes idle. Otherwise, it starts
-    serving the next packet from the queue.
+    for i in range(num_servers):
+        # Take system size probability mass function (PMF) and extract from it:
+        # - busy rate (server is free <=> system is empty)
+        # - queue sizes (system size - 1 when system is not empty, o0 otherwise)
+        # - system sizes
+        pmf = statistics.system_size[i].pmf
+        p0 = pmf[0]
+        p1 = pmf[1] if len(pmf) > 0 else 0
 
-    The packet that left the server is marked as `served = True`.
+        busy_pmf = [p0, sum(pmf[1:])]
+        queue_size_pmf = [p0+p1, *pmf[2:]]
 
-    Parameters
-    ----------
-    system : System
-    params : Params
-    records : Records
-    """
-    time_now = system.time
-    server = system.server
-    queue = system.queue
+        results.busy.append(CountableDistribution(busy_pmf))
+        results.queue_sizes.append(CountableDistribution(queue_size_pmf))
+        results.system_sizes.append(CountableDistribution(pmf))
 
-    packet = server.pop()
-    packet.served = True
-    packet.departed_at = time_now
+        # Record drop ratio and response time for each queue:
+        results.queue_response_times.append(
+            build_statistics(statistics.queue_responses[i]))
+        results.queue_drop_probs.append(
+            statistics.queue_drops[i] /
+            (statistics.queue_drops[i] + statistics.queue_num_served[i]))
 
-    # Start serving next packet, if exists:
-    packet = queue.pop()
-    if packet is not None:
-        server.serve(packet)
-        packet.service_started_at = time_now
-        system.schedule(_Event.SERVICE_END, params.service.eval())
-
-    # Anyway, system size has changed - record it!
-    records.system_size.add(time_now, system.size)
-
-
-def _get_departure_intervals(packets_list: Sequence[_Packet]) -> List[float]:
-    """
-    Build departures intervals sequence.
-
-    Parameters
-    ----------
-    packets_list : sequence of Packet
-
-    Returns
-    -------
-    intervals : sequence of float
-    """
-    prev_time = 0.0
-    intervals = []
-    for packet in packets_list:
-        if packet.served:
-            intervals.append(packet.departed_at - prev_time)
-            prev_time = packet.departed_at
-    return intervals
-
-
-def _build_results(records: _Records) -> GG1Results:
-    """
-    Create results from the records.
-
-    Parameters
-    ----------
-    records : Records
-    """
-    ret = GG1Results()
-
-    #
-    # 1) Build system size, queue size and busy (server size)
-    #    distributions. To do this, we need PMFs. Queue size
-    #    PMF and busy PMF can be computed from system size PMF.
-    #
-    system_size_pmf = list(records.system_size.pmf)
-    num_states = len(system_size_pmf)
-    p0 = system_size_pmf[0]
-    p1 = system_size_pmf[1] if num_states > 1 else 0.0
-    queue_size_pmf = [p0 + p1] + system_size_pmf[2:]
-    server_size_pmf = [p0, sum(system_size_pmf[1:])]
-
-    ret.system_size = CountableDistribution(system_size_pmf)
-    ret.queue_size = CountableDistribution(queue_size_pmf)
-    ret.busy = CountableDistribution(server_size_pmf)
-
-    #
-    # 2) For future estimations, we need packets and some filters.
-    #    Group all of them here.
-    #
-    all_packets = records.packets
-    served_packets = [packet for packet in all_packets if packet.served]
-    dropped_packets = [packet for packet in all_packets if packet.dropped]
-
-    #
-    # 3) Build scalar statistics.
-    #
-    ret.loss_prob = len(dropped_packets) / len(all_packets)
-
-    #
-    # 4) Build various intervals statistics: departures, waiting times,
-    #    response times.
-    #
-    departure_intervals = _get_departure_intervals(served_packets)
-    ret.departures = build_statistics(np.asarray(departure_intervals))
-    ret.response_time = build_statistics([
-        pkt.departed_at - pkt.created_at for pkt in served_packets
-    ])
-    ret.wait_time = build_statistics([
-        pkt.service_started_at - pkt.created_at for pkt in served_packets
-    ])
-
-    return ret
+    return results

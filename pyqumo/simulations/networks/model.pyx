@@ -121,6 +121,7 @@ cdef call_simTandem(
 
     return _build_tandem_results(c_ret, pyServices.size())
 
+
 def simulate_mm1(
         arrival_rate: float,
         service_rate: float,
