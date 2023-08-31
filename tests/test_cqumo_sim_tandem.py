@@ -56,7 +56,7 @@ class TandemProps:
         wait_time_avg=[0.123], delivery_delay_avg=[0.323]),
     TandemProps(
         arrival=Poisson(1), service=[Poisson(2), Poisson(2), Poisson(2)],
-        queue_capacity=np.inf,
+        queue_capacity=1_000_000_000,
         # System and queue sizes:
         system_size_avg=[1, 1, 1], system_size_std=[1.414, 1.414, 1.414],
         queue_size_avg=[0.5, 0.5, 0.5], queue_size_std=[1.11, 1.11, 1.11],

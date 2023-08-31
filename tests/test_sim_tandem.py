@@ -62,7 +62,7 @@ class TandemProps:
         wait_time_avg=[0.123], delivery_delay_avg=[0.323]),
     TandemProps(
         arrival=Poisson(1), service=Poisson(2),
-        queue_capacity=np.inf, num_stations=3,
+        queue_capacity=1_000_000, num_stations=3,
         # System and queue sizes:
         system_size_avg=[1, 1, 1], system_size_std=[1.414, 1.414, 1.414],
         queue_size_avg=[0.5, 0.5, 0.5], queue_size_std=[1.11, 1.11, 1.11],
@@ -76,7 +76,7 @@ class TandemProps:
     TandemProps(
         arrival=[Poisson(1), Poisson(2), Poisson(7)],
         service=[Exponential(10), Exponential(6), Exponential(40)],
-        queue_capacity=np.inf, num_stations=3,
+        queue_capacity=1_000_000, num_stations=3,
         # System and queue sizes:
         system_size_avg=[1/9, 1, 1/3],
         system_size_std=[np.sqrt(10)/9, np.sqrt(2), 2/3],
@@ -98,7 +98,7 @@ class TandemProps:
                  None,
                  HyperExponential([4.0], [1.0])],
         service=PhaseType.exponential(10),
-        queue_capacity=np.inf, num_stations=4,
+        queue_capacity=1_000_000, num_stations=4,
         # System and queue sizes:
         system_size_avg=[1/9, 1/9, 1/9, 1],
         system_size_std=[(10**.5)/9, (10**.5)/9, (10**.5)/9, 2**.5],
@@ -115,7 +115,8 @@ class TandemProps:
         wait_time_avg=[1/90, 1/90, 1/90, .1],
         delivery_delay_avg=[8/15, 0, 0, .2],
         max_packets=int(3e4), tol=.2
-    )])
+    )
+])
 @pytest.mark.parametrize('simulate', [py_simulate, c_simulate])
 def test_mm1_tandem(
         props: TandemProps,

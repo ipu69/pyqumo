@@ -56,7 +56,7 @@ class GG1Props:
         max_packets=int(1e5)),
     GG1Props(
         arrival=Poisson(1), service=Exponential(2),
-        queue_capacity=np.inf,
+        queue_capacity=1_000_000_000,
         system_size_avg=1, system_size_std=2.0**0.5,
         queue_size_avg=0.5, queue_size_std=1.25**0.5,
         loss_prob=0, utilization=0.5, departure_rate=1.0,

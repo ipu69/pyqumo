@@ -1,5 +1,7 @@
 from typing import Sequence
 
+import Cython
+import cython
 import numpy as np
 from libcpp.vector cimport vector
 from libcpp.map cimport map, pair
@@ -66,8 +68,11 @@ cdef _build_tandem_results(const SimData& simData, int numStations):
     return results
 
 
-cdef double _call_pyobject(void *context):
-    # noinspection PyBroadException
+@cython.cfunc
+@cython.exceptval(check=False)
+def _call_pyobject(void *context) -> cython.double:
+    # FIXME: added exceptval(False) to make function 'noexcept', not good
+    #
     try:
         evaluable = <object>context
         return evaluable.eval()

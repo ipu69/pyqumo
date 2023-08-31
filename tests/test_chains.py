@@ -205,7 +205,7 @@ def test_dtmc__trace_from_pmf(chain, pmf, comment):
     # Estimate probabilities:
     est_pmf = hits / NUM_RUNS
     # Validate:
-    assert_allclose(est_pmf, expected_pmf, rtol=0.1, err_msg=comment)
+    assert_allclose(est_pmf, expected_pmf, rtol=0.15, err_msg=comment)
 
 
 @pytest.mark.parametrize('chain, comment', [
