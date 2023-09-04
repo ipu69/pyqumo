@@ -276,9 +276,9 @@ def fit_mern2(
                 m3 = 6 * pow(m1, 3)
             else:
                 m3 = get_noncentral_m3(m1, cv, (cv - 1/cv) * 1.2)
-            print('previous gamma: ', gamma)
+            # print('previous gamma: ', gamma)
             gamma = get_skewness(m1, m2, m3)
-            print('new gamma: ', gamma)
+            # print('new gamma: ', gamma)
 
     # Compute minimal shape for Erlang distributions:
     shape = int(max(
