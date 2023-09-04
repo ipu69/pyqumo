@@ -68,7 +68,6 @@ class MarkovArrival(RandomProcess):
                 need_copy[i] = True
 
         if not safe and not check_markovian_arrival(matrices):
-            print(f"D0: {matrices[0]}, D1: {matrices[1]}, fix_markovian_arrival: {fix_markovian_arrival}")
             matrices, _ = fix_markovian_arrival(matrices, tol=tol)
             # Since matrices are re-built, no need to copy them:
             for i in range(2):
