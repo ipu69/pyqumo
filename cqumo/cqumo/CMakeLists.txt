@@ -1,0 +1,12 @@
+target_sources(
+        cqumo
+        PRIVATE
+        randoms.h
+        randoms.cpp
+        utils/functions.h
+        utils/functions.cpp
+        statistics/series.h
+        statistics/series.cpp
+        statistics/statistics.h
+        statistics/statistics.cpp
+)

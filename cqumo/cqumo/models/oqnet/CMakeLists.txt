@@ -1,0 +1,14 @@
+target_sources(
+        cqumo
+        PRIVATE
+        components.h
+        components.cpp
+        journals.h
+        journals.cpp
+        marshal.h
+        marshal.cpp
+        simulation.h
+        simulation.cpp
+        system.h
+        system.cpp
+)

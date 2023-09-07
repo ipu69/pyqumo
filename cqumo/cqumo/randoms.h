@@ -1,10 +1,10 @@
 /**
  * @author Andrey Larionov
  */
-#ifndef CQUMO_RANDOMS_RANDOMS_H
-#define CQUMO_RANDOMS_RANDOMS_H
+#ifndef CQUMO_RANDOMS_H
+#define CQUMO_RANDOMS_H
 
-#include "functions.h"
+#include "utils/functions.h"
 #include <random>
 #include <vector>
 
