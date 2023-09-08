@@ -4,7 +4,7 @@ from libcpp.map cimport map
 from libcpp.functional cimport function
 
 
-cdef extern from "statistics.h" namespace "cqumo":
+cdef extern from "cqumo/statistics/statistics.h" namespace "cqumo":
     cdef cppclass SizeDist:
         double mean()
         double var()
@@ -20,12 +20,12 @@ cdef extern from "statistics.h" namespace "cqumo":
         vector[double] moments
 
 
-cdef extern from "functions.h" namespace "cqumo":
+cdef extern from "cqumo/utils/functions.h" namespace "cqumo":
     ctypedef function[double()] DblFn
     cdef DblFn makeDblFn(double (*ctxFn)(void*), void* context)
 
 
-cdef extern from "simulation.h" namespace "cqumo::oqnet":
+cdef extern from "cqumo/models/oqnet/simulation.h" namespace "cqumo::oqnet":
     cdef cppclass NodeData:
         SizeDist systemSize
         SizeDist queueSize

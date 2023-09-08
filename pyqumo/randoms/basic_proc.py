@@ -4,7 +4,7 @@ import numpy as np
 
 from .cont_dist import Exponential
 from .base import RandomProcess, Distribution
-from .variables import VariablesFactory, Variable
+from pyqumo.cqumo.variables import VariablesFactory, Variable
 
 
 class GIProcess(RandomProcess):

@@ -6,7 +6,7 @@ import numpy as np
 from .base import Distribution
 from .mixins import ContinuousDistributionMixin, DiscreteDistributionMixin, \
     AbstractCdfMixin
-from .variables import VariablesFactory, Variable
+from pyqumo.cqumo.variables import VariablesFactory, Variable
 
 
 class Const(ContinuousDistributionMixin, DiscreteDistributionMixin,

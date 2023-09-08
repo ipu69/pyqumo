@@ -11,7 +11,7 @@ from pyqumo.randoms import Poisson, MarkovArrival, HyperExponential, \
 from pyqumo.simulations.networks.contract import GG1TandemResults as Results
 from pyqumo.simulations.networks.sandbox.tandem import \
     simulate_gg1_tandem as py_simulate
-from pyqumo.simulations.networks.model import simulate_gg1_tandem as c_simulate
+from pyqumo.cqumo.models.oqnet.model import simulate_gg1_tandem as c_simulate
 
 
 @dataclass

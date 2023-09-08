@@ -4,11 +4,12 @@ from typing import Callable, Sequence, Optional
 import numpy as np
 from scipy import linalg
 from scipy import integrate
+import math
 
 from .base import Distribution
 from .mixins import ContinuousDistributionMixin, AbstractCdfMixin, \
     AbsorbMarkovPhasedEvalMixin
-from .variables import VariablesFactory, Variable
+from pyqumo.cqumo.variables import VariablesFactory, Variable
 from ..matrix import str_array, order_of, MatrixShapeError, \
     is_subinfinitesimal, fix_infinitesimal, is_pmf, fix_stochastic, cbdiag
 
@@ -120,7 +121,7 @@ class Normal(ContinuousDistributionMixin, AbstractCdfMixin, Distribution):
     @cached_property
     def cdf(self) -> Callable[[float], float]:
         k = 1 / (self.std * 2**0.5)
-        return lambda x: 0.5 * (1 + np.math.erf(k * (x - self.mean)))
+        return lambda x: 0.5 * (1 + math.erf(k * (x - self.mean)))
 
     @cached_property
     def rnd(self) -> Variable:
@@ -153,7 +154,7 @@ class Exponential(ContinuousDistributionMixin, AbstractCdfMixin, Distribution):
 
     @lru_cache
     def _moment(self, n: int) -> float:
-        return np.math.factorial(n) / (self.param**n)
+        return math.factorial(n) / (self.param**n)
 
     @cached_property
     def pdf(self) -> Callable[[float], float]:
@@ -250,7 +251,7 @@ class Erlang(ContinuousDistributionMixin, AbstractCdfMixin, Distribution):
     @cached_property
     def pdf(self) -> Callable[[float], float]:
         r, k = self.param, self.shape
-        koef = r**k / np.math.factorial(k - 1)
+        koef = r**k / math.factorial(k - 1)
         base = np.e**(-r)
         return lambda x: 0 if x < 0 else koef * x**(k - 1) * base**x
 
@@ -635,7 +636,7 @@ class PhaseType(ContinuousDistributionMixin,
     def _moment(self, n: int) -> float:
         sni_powered = np.linalg.matrix_power(self.sni, n)
         ones = np.ones(shape=(self.order, 1))
-        x = np.math.factorial(n) * self.init_probs.dot(sni_powered).dot(ones)
+        x = math.factorial(n) * self.init_probs.dot(sni_powered).dot(ones)
         return x.item()
 
     @cached_property

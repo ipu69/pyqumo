@@ -2,7 +2,7 @@
  * @author Andrey Larionov
  */
 #include "marshal.h"
-#include "cqumo/cqumo.h"
+#include "../../utils/strings.h"
 #include <sstream>
 
 namespace cqumo {

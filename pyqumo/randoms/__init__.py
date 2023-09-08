@@ -134,5 +134,4 @@ from .discr_dist import Choice, CountableDistribution
 
 from .basic_proc import Poisson, GIProcess
 from .markov_arrival import MarkovArrival
-from .variables import VariablesFactory, Variable
 from .semi_markov import SemiMarkovAbsorb

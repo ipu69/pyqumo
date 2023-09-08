@@ -9,6 +9,7 @@ from functools import cached_property, lru_cache
 from typing import Union, Callable, Mapping
 
 import numpy as np
+import math
 
 from pyqumo.matrix import cbdiag
 from pyqumo.randoms import Distribution, CountableDistribution, PhaseType, \
@@ -193,7 +194,7 @@ class MM1NQueue(BasicQueueingSystem):
                  service_rate: float,
                  queue_capacity: int,
                  precision: float = 1e-9):
-        if abs(np.math.modf(queue_capacity)[0]) > 1e-12 or queue_capacity <= 0:
+        if abs(math.modf(queue_capacity)[0]) > 1e-12 or queue_capacity <= 0:
             raise ValueError(f"positive integer expected, "
                              f"but {queue_capacity} found")
         arrival = Poisson(arrival_rate)

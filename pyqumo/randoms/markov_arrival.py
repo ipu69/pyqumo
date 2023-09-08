@@ -2,10 +2,11 @@ from functools import cached_property, lru_cache
 from typing import Union, Sequence
 
 import numpy as np
+import math
 
 from .base import RandomProcess
 from .cont_dist import Exponential
-from .variables import VariablesFactory, Variable
+from pyqumo.cqumo.variables import VariablesFactory, Variable
 from pyqumo.matrix import order_of, fix_infinitesimal, is_subinfinitesimal, \
     fix_stochastic, is_pmf, cbdiag, check_markovian_arrival, \
     fix_markovian_arrival, str_array
@@ -230,7 +231,7 @@ class MarkovArrival(RandomProcess):
     @lru_cache
     def _moment(self, n: int) -> float:
         pi = self.dtmc.steady_pmf
-        x = np.math.factorial(n)*pi.dot(self.d0n(-n)).dot(np.ones(self.order))
+        x = math.factorial(n)*pi.dot(self.d0n(-n)).dot(np.ones(self.order))
         return x.item()
 
     @lru_cache

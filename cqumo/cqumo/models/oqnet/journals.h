@@ -9,8 +9,10 @@
 #ifndef CQUMO_TANDEM_JOURNALS_H
 #define CQUMO_TANDEM_JOURNALS_H
 
-#include "cqumo/cqumo.h"
 #include <map>
+
+#include "../../statistics/statistics.h"
+
 
 namespace cqumo {
 namespace oqnet {

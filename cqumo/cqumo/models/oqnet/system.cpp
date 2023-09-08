@@ -2,7 +2,8 @@
  * @author Andrey Larionov
  */
 #include "system.h"
-#include <cqumo/cqumo.h>
+#include "../../utils/strings.h"
+
 #include <sstream>
 
 namespace cqumo {

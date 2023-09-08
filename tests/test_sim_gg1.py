@@ -2,13 +2,12 @@ from dataclasses import dataclass
 from typing import Callable
 
 import pytest
-import numpy as np
 from numpy.testing import assert_allclose
 
 from pyqumo.randoms import Exponential, Distribution, Poisson
 from pyqumo.simulations.networks.contract import GG1Results as Results
 from pyqumo.simulations.networks.sandbox.gg1 import simulate_gg1 as py_simulate
-from pyqumo.simulations.networks.model import simulate_gg1 as c_simulate
+from pyqumo.cqumo.models.oqnet.model import simulate_gg1 as c_simulate
 
 
 @dataclass

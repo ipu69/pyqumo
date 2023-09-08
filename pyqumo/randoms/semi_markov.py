@@ -5,7 +5,7 @@ import numpy as np
 from .base import Distribution
 from .mixins import AbsorbMarkovPhasedEvalMixin, EstStatsMixin, \
     KdePdfMixin
-from .variables import VariablesFactory
+from pyqumo.cqumo.variables import VariablesFactory
 
 from ..matrix import is_pmf, is_square, order_of, is_substochastic, \
     str_array

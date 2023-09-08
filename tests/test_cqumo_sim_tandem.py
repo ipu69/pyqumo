@@ -2,11 +2,10 @@ from dataclasses import dataclass
 from typing import Sequence
 
 import pytest
-import numpy as np
 from numpy.testing import assert_allclose
 
 from pyqumo.randoms import Poisson, Distribution
-from pyqumo.simulations.networks.model import simulate_gg1_tandem
+from pyqumo.cqumo.models.oqnet.model import simulate_gg1_tandem
 
 
 @dataclass

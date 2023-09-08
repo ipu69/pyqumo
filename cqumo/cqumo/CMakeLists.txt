@@ -10,3 +10,4 @@ target_sources(
         statistics/statistics.h
         statistics/statistics.cpp
 )
+add_subdirectory(models)

@@ -5,7 +5,7 @@ from typing import Union
 import numpy as np
 
 from pyqumo.stats import get_skewness
-from .variables import VariablesFactory, Variable
+from pyqumo.cqumo.variables import VariablesFactory, Variable
 
 
 default_randoms_factory = VariablesFactory()

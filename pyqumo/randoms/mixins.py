@@ -5,7 +5,7 @@ import numpy as np
 import scipy
 from scipy.special import ndtr
 
-from .variables import Variable, VariablesFactory
+from pyqumo.cqumo.variables import Variable
 from .. import stats
 
 

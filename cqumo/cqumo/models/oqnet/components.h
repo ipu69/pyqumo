@@ -23,9 +23,9 @@
 #include <map>
 #include <string>
 
-#include "cqumo/cqumo.h"
-
 #include "journals.h"
+#include "../../utils/functions.h"
+
 
 namespace cqumo {
 namespace oqnet {

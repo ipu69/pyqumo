@@ -12,22 +12,14 @@ else:
 
 extensions = [
     Extension(
-        "pyqumo.simulations.networks.model", [
-            "pyqumo/simulations/networks/model.pyx",
-            "cqumo/core/src/cqumo/functions.cpp",
-            "cqumo/core/src/cqumo/statistics.cpp",
-            "cqumo/core/src/cqumo/randoms.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/components.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/journals.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/simulation.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/system.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/marshal.cpp",
+        "pyqumo.cqumo.variables", [
+            "pyqumo/cqumo/variables.pyx",
+
+            "cqumo/cqumo/randoms.cpp",
+            "cqumo/cqumo/utils/functions.cpp",
         ],
         include_dirs=[
-            'cqumo/core/src',
-            'cqumo/core/src/cqumo',
-            'cqumo/core/include',
-            'cqumo/oqnet/src/cqumo/oqnet',
+            'cqumo',
         ],
         language="c++",
         extra_compile_args=extra_compile_args,
@@ -35,19 +27,27 @@ extensions = [
         extra_link_args=["-std=c++14"]
     ),
     Extension(
-        "pyqumo.randoms.variables", [
-            "pyqumo/randoms/variables.pyx",
-            "cqumo/core/src/cqumo/functions.cpp",
-            "cqumo/core/src/cqumo/randoms.cpp"
+        "pyqumo.cqumo.models.oqnet.model", [
+            "pyqumo/cqumo/models/oqnet/model.pyx",
+
+            "cqumo/cqumo/randoms.cpp",
+            "cqumo/cqumo/utils/functions.cpp",
+            "cqumo/cqumo/statistics/series.cpp",
+            "cqumo/cqumo/statistics/statistics.cpp",
+            "cqumo/cqumo/models/oqnet/components.cpp",
+            "cqumo/cqumo/models/oqnet/journals.cpp",
+            "cqumo/cqumo/models/oqnet/marshal.cpp",
+            "cqumo/cqumo/models/oqnet/simulation.cpp",
+            "cqumo/cqumo/models/oqnet/system.cpp",
         ],
         include_dirs=[
-            'cqumo/core/src/cqumo',
+            'cqumo',
         ],
         language="c++",
         extra_compile_args=extra_compile_args,
         # extra_compile_args=["-std=c++20", "-Wno-deprecated", "-O3"],
         extra_link_args=["-std=c++14"]
-    )
+    ),
 ]
 
 compiler_directives = {

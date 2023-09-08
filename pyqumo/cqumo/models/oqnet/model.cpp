@@ -4,9 +4,9 @@
 {
     "distutils": {
         "depends": [
-            "cqumo/core/src/cqumo/functions.h",
-            "cqumo/core/src/cqumo/statistics.h",
-            "cqumo/oqnet/src/cqumo/oqnet/simulation.h"
+            "cqumo/cqumo/models/oqnet/simulation.h",
+            "cqumo/cqumo/statistics/statistics.h",
+            "cqumo/cqumo/utils/functions.h"
         ],
         "extra_compile_args": [
             "-std=c++14",
@@ -17,26 +17,24 @@
             "-std=c++14"
         ],
         "include_dirs": [
-            "cqumo/core/src",
-            "cqumo/core/src/cqumo",
-            "cqumo/core/include",
-            "cqumo/oqnet/src/cqumo/oqnet"
+            "cqumo"
         ],
         "language": "c++",
-        "name": "pyqumo.simulations.networks.model",
+        "name": "pyqumo.cqumo.models.oqnet.model",
         "sources": [
-            "pyqumo/simulations/networks/model.pyx",
-            "cqumo/core/src/cqumo/functions.cpp",
-            "cqumo/core/src/cqumo/statistics.cpp",
-            "cqumo/core/src/cqumo/randoms.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/components.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/journals.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/simulation.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/system.cpp",
-            "cqumo/oqnet/src/cqumo/oqnet/marshal.cpp"
+            "pyqumo/cqumo/models/oqnet/model.pyx",
+            "cqumo/cqumo/randoms.cpp",
+            "cqumo/cqumo/utils/functions.cpp",
+            "cqumo/cqumo/statistics/series.cpp",
+            "cqumo/cqumo/statistics/statistics.cpp",
+            "cqumo/cqumo/models/oqnet/components.cpp",
+            "cqumo/cqumo/models/oqnet/journals.cpp",
+            "cqumo/cqumo/models/oqnet/marshal.cpp",
+            "cqumo/cqumo/models/oqnet/simulation.cpp",
+            "cqumo/cqumo/models/oqnet/system.cpp"
         ]
     },
-    "module_name": "pyqumo.simulations.networks.model"
+    "module_name": "pyqumo.cqumo.models.oqnet.model"
 }
 END: Cython Metadata */
 
@@ -1195,8 +1193,8 @@ static CYTHON_INLINE float __PYX_NAN() {
     #define __PYX_EXTERN_C extern "C++"
 #endif
 
-#define __PYX_HAVE__pyqumo__simulations__networks__model
-#define __PYX_HAVE_API__pyqumo__simulations__networks__model
+#define __PYX_HAVE__pyqumo__cqumo__models__oqnet__model
+#define __PYX_HAVE_API__pyqumo__cqumo__models__oqnet__model
 /* Early includes */
 #include "ios"
 #include "new"
@@ -1218,9 +1216,9 @@ static CYTHON_INLINE float __PYX_NAN() {
     
 #include <map>
 #include <functional>
-#include "statistics.h"
-#include "functions.h"
-#include "simulation.h"
+#include "cqumo/statistics/statistics.h"
+#include "cqumo/utils/functions.h"
+#include "cqumo/models/oqnet/simulation.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -1483,7 +1481,7 @@ static const char *__pyx_filename;
 /* #### Code section: filename_table ### */
 
 static const char *__pyx_f[] = {
-  "pyqumo/simulations/networks/model.pyx",
+  "pyqumo/cqumo/models/oqnet/model.pyx",
 };
 /* #### Code section: utility_code_proto_before_types ### */
 /* #### Code section: numeric_typedefs ### */
@@ -2241,22 +2239,22 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from "cython" */
 
-/* Module declarations from "pyqumo.simulations.networks.model" */
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(std::vector<double> ); /*proto*/
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics(cqumo::VarData *); /*proto*/
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_results(cqumo::oqnet::SimData const &); /*proto*/
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_results(cqumo::oqnet::SimData const &, int); /*proto*/
-static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void *); /*proto*/
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(void *, void *, int, int); /*proto*/
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(double, double, int, int); /*proto*/
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(std::map<int,void *> , std::vector<void *> , int, bool, int); /*proto*/
+/* Module declarations from "pyqumo.cqumo.models.oqnet.model" */
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_vector_asarray(std::vector<double> ); /*proto*/
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics(cqumo::VarData *); /*proto*/
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_gg1_results(cqumo::oqnet::SimData const &); /*proto*/
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_tandem_results(cqumo::oqnet::SimData const &, int); /*proto*/
+static double __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__call_pyobject(void *); /*proto*/
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simGG1(void *, void *, int, int); /*proto*/
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simMM1(double, double, int, int); /*proto*/
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simTandem(std::map<int,void *> , std::vector<void *> , int, bool, int); /*proto*/
 /* #### Code section: typeinfo ### */
 /* #### Code section: before_global_var ### */
-#define __Pyx_MODULE_NAME "pyqumo.simulations.networks.model"
-extern int __pyx_module_is_main_pyqumo__simulations__networks__model;
-int __pyx_module_is_main_pyqumo__simulations__networks__model = 0;
+#define __Pyx_MODULE_NAME "pyqumo.cqumo.models.oqnet.model"
+extern int __pyx_module_is_main_pyqumo__cqumo__models__oqnet__model;
+int __pyx_module_is_main_pyqumo__cqumo__models__oqnet__model = 0;
 
-/* Implementation of "pyqumo.simulations.networks.model" */
+/* Implementation of "pyqumo.cqumo.models.oqnet.model" */
 /* #### Code section: global_var ### */
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_enumerate;
@@ -2284,7 +2282,6 @@ static const char __pyx_k_float[] = "float";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_zeros[] = "zeros";
-static const char __pyx_k_Cython[] = "Cython";
 static const char __pyx_k_append[] = "append";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_return[] = "return";
@@ -2293,7 +2290,6 @@ static const char __pyx_k_arrival[] = "arrival";
 static const char __pyx_k_service[] = "service";
 static const char __pyx_k_Sequence[] = "Sequence";
 static const char __pyx_k_arrivals[] = "arrivals";
-static const char __pyx_k_contract[] = "contract";
 static const char __pyx_k_services[] = "services";
 static const char __pyx_k_drop_prob[] = "drop_prob";
 static const char __pyx_k_enumerate[] = "enumerate";
@@ -2334,16 +2330,17 @@ static const char __pyx_k_CountableDistribution[] = "CountableDistribution";
 static const char __pyx_k_Sequence_Distribution[] = "Sequence[Distribution]";
 static const char __pyx_k_simulate_gg1_tandem_line_187[] = "simulate_gg1_tandem (line 187)";
 static const char __pyx_k_Simulate_map_ph_tandem_using_C[] = "\n    Simulate map_ph_tandem using C++ implementation.\n\n    Example\n    -------\n\n    To simulate a network without cross-traffic, pass a single arrival:\n\n    >>> simulate_gg1_tandem(\n    >>>     Erlang(2, 1),\n    >>>     [Exponential(5), Exponential(6), Exponential(3)],\n    >>>     10,  # queue capacity\n    >>>     1000000)  # number of packets (1 million)\n\n    To simulate a network, where cross-traffic arrives at stations 0, 2 and 3,\n    and network has length 5:\n\n    >>> simulate_gg1_tandem(\n    >>>     [Erlang(2, 1), None, Exponential(2), Exponential(2.3), None],\n    >>>     [Exponential(3) for _ in range(5)],\n    >>>     10,  # queue capacity\n    >>>     1000000)  # number of packets (1 million)\n\n    To simulate a network with a fixed service, i.e. when all the nodes\n    use the smae service time for a single packet, as was selected by the\n    first node (to model a packet of a fixed length):\n\n    >>> simulate_gg1_tandem(\n    >>>     Erlang(2, 1),\n    >>>     [Exponential(5), Exponential(6), Exponential(3)],\n    >>>     10,  # queue capacity\n    >>>     true,  # fixed service\n    >>>     1000000)  # number of packets (1 million)\n\n    Results returned are defined in pyqumo.sim.map_ph_tandem.Results.\n\n    Parameters\n    ----------\n    arrivals : Distribution instance, or list-like with optional Distributions\n        if list-like, non-None values should be given for nodes with external\n        traffic arrivals. When given as a single Distribution, it is assumed\n        that all traffic comes to the first node only.\n    services : list of Distribution instances, this list size is the number\n        of nodes in the map_ph_tandem network\n    queue_capacity: int or np.inf\n    fixed_service: bool, default is False\n        if True, then service time is selected when the packet is served for\n        the first time, and then this service time is used all over the network.\n    max_packets: int, default: 100'000\n        total n""umber of packets (over all sources) to simulate.\n    ";
+static const char __pyx_k_pyqumo_cqumo_models_oqnet_model[] = "pyqumo/cqumo/models/oqnet/model.pyx";
 static const char __pyx_k_Distribution_Sequence_Distributi[] = "Distribution | Sequence[Distribution | None]";
-static const char __pyx_k_pyqumo_simulations_networks_mode[] = "pyqumo/simulations/networks/model.pyx";
-static const char __pyx_k_pyqumo_simulations_networks_mode_2[] = "pyqumo.simulations.networks.model";
+static const char __pyx_k_pyqumo_simulations_networks_cont[] = "pyqumo.simulations.networks.contract";
+static const char __pyx_k_pyqumo_cqumo_models_oqnet_model_2[] = "pyqumo.cqumo.models.oqnet.model";
 /* #### Code section: decls ### */
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_6__defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_simulate_mm1(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_arrival_rate, double __pyx_v_service_rate, PyObject *__pyx_v_queue_capacity, PyObject *__pyx_v_max_packets); /* proto */
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_8__defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arrival, PyObject *__pyx_v_service, PyObject *__pyx_v_queue_capacity, PyObject *__pyx_v_max_packets); /* proto */
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_10__defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_tandem(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arrivals, PyObject *__pyx_v_services, PyObject *__pyx_v_queue_capacity, bool __pyx_v_fixed_service, PyObject *__pyx_v_max_packets); /* proto */
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_6__defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_simulate_mm1(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_arrival_rate, double __pyx_v_service_rate, PyObject *__pyx_v_queue_capacity, PyObject *__pyx_v_max_packets); /* proto */
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_8__defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_2simulate_gg1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arrival, PyObject *__pyx_v_service, PyObject *__pyx_v_queue_capacity, PyObject *__pyx_v_max_packets); /* proto */
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_10__defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_4simulate_gg1_tandem(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arrivals, PyObject *__pyx_v_services, PyObject *__pyx_v_queue_capacity, bool __pyx_v_fixed_service, PyObject *__pyx_v_max_packets); /* proto */
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 typedef struct {
@@ -2387,7 +2384,6 @@ typedef struct {
   #endif
   PyObject *__pyx_kp_u_;
   PyObject *__pyx_n_s_CountableDistribution;
-  PyObject *__pyx_n_s_Cython;
   PyObject *__pyx_n_s_Distribution;
   PyObject *__pyx_kp_s_Distribution_Sequence_Distributi;
   PyObject *__pyx_n_s_Exponential;
@@ -2408,7 +2404,6 @@ typedef struct {
   PyObject *__pyx_n_s_bool;
   PyObject *__pyx_n_s_busy;
   PyObject *__pyx_n_s_cline_in_traceback;
-  PyObject *__pyx_n_s_contract;
   PyObject *__pyx_n_s_count;
   PyObject *__pyx_n_s_delivery_delays;
   PyObject *__pyx_n_s_delivery_prob;
@@ -2435,9 +2430,10 @@ typedef struct {
   PyObject *__pyx_n_s_pyArrivals;
   PyObject *__pyx_n_s_pyService;
   PyObject *__pyx_n_s_pyServices;
+  PyObject *__pyx_kp_s_pyqumo_cqumo_models_oqnet_model;
+  PyObject *__pyx_n_s_pyqumo_cqumo_models_oqnet_model_2;
   PyObject *__pyx_n_s_pyqumo_randoms;
-  PyObject *__pyx_kp_s_pyqumo_simulations_networks_mode;
-  PyObject *__pyx_n_s_pyqumo_simulations_networks_mode_2;
+  PyObject *__pyx_n_s_pyqumo_simulations_networks_cont;
   PyObject *__pyx_n_s_pyqumo_stats;
   PyObject *__pyx_n_s_queue_capacity;
   PyObject *__pyx_n_s_queue_size;
@@ -2514,7 +2510,6 @@ static int __pyx_m_clear(PyObject *m) {
   #endif
   Py_CLEAR(clear_module_state->__pyx_kp_u_);
   Py_CLEAR(clear_module_state->__pyx_n_s_CountableDistribution);
-  Py_CLEAR(clear_module_state->__pyx_n_s_Cython);
   Py_CLEAR(clear_module_state->__pyx_n_s_Distribution);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Distribution_Sequence_Distributi);
   Py_CLEAR(clear_module_state->__pyx_n_s_Exponential);
@@ -2535,7 +2530,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_bool);
   Py_CLEAR(clear_module_state->__pyx_n_s_busy);
   Py_CLEAR(clear_module_state->__pyx_n_s_cline_in_traceback);
-  Py_CLEAR(clear_module_state->__pyx_n_s_contract);
   Py_CLEAR(clear_module_state->__pyx_n_s_count);
   Py_CLEAR(clear_module_state->__pyx_n_s_delivery_delays);
   Py_CLEAR(clear_module_state->__pyx_n_s_delivery_prob);
@@ -2562,9 +2556,10 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_pyArrivals);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyService);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyServices);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_pyqumo_cqumo_models_oqnet_model);
+  Py_CLEAR(clear_module_state->__pyx_n_s_pyqumo_cqumo_models_oqnet_model_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyqumo_randoms);
-  Py_CLEAR(clear_module_state->__pyx_kp_s_pyqumo_simulations_networks_mode);
-  Py_CLEAR(clear_module_state->__pyx_n_s_pyqumo_simulations_networks_mode_2);
+  Py_CLEAR(clear_module_state->__pyx_n_s_pyqumo_simulations_networks_cont);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyqumo_stats);
   Py_CLEAR(clear_module_state->__pyx_n_s_queue_capacity);
   Py_CLEAR(clear_module_state->__pyx_n_s_queue_size);
@@ -2619,7 +2614,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   #endif
   Py_VISIT(traverse_module_state->__pyx_kp_u_);
   Py_VISIT(traverse_module_state->__pyx_n_s_CountableDistribution);
-  Py_VISIT(traverse_module_state->__pyx_n_s_Cython);
   Py_VISIT(traverse_module_state->__pyx_n_s_Distribution);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Distribution_Sequence_Distributi);
   Py_VISIT(traverse_module_state->__pyx_n_s_Exponential);
@@ -2640,7 +2634,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_bool);
   Py_VISIT(traverse_module_state->__pyx_n_s_busy);
   Py_VISIT(traverse_module_state->__pyx_n_s_cline_in_traceback);
-  Py_VISIT(traverse_module_state->__pyx_n_s_contract);
   Py_VISIT(traverse_module_state->__pyx_n_s_count);
   Py_VISIT(traverse_module_state->__pyx_n_s_delivery_delays);
   Py_VISIT(traverse_module_state->__pyx_n_s_delivery_prob);
@@ -2667,9 +2660,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_pyArrivals);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyService);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyServices);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_pyqumo_cqumo_models_oqnet_model);
+  Py_VISIT(traverse_module_state->__pyx_n_s_pyqumo_cqumo_models_oqnet_model_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyqumo_randoms);
-  Py_VISIT(traverse_module_state->__pyx_kp_s_pyqumo_simulations_networks_mode);
-  Py_VISIT(traverse_module_state->__pyx_n_s_pyqumo_simulations_networks_mode_2);
+  Py_VISIT(traverse_module_state->__pyx_n_s_pyqumo_simulations_networks_cont);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyqumo_stats);
   Py_VISIT(traverse_module_state->__pyx_n_s_queue_capacity);
   Py_VISIT(traverse_module_state->__pyx_n_s_queue_size);
@@ -2746,7 +2740,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #endif
 #define __pyx_kp_u_ __pyx_mstate_global->__pyx_kp_u_
 #define __pyx_n_s_CountableDistribution __pyx_mstate_global->__pyx_n_s_CountableDistribution
-#define __pyx_n_s_Cython __pyx_mstate_global->__pyx_n_s_Cython
 #define __pyx_n_s_Distribution __pyx_mstate_global->__pyx_n_s_Distribution
 #define __pyx_kp_s_Distribution_Sequence_Distributi __pyx_mstate_global->__pyx_kp_s_Distribution_Sequence_Distributi
 #define __pyx_n_s_Exponential __pyx_mstate_global->__pyx_n_s_Exponential
@@ -2767,7 +2760,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_bool __pyx_mstate_global->__pyx_n_s_bool
 #define __pyx_n_s_busy __pyx_mstate_global->__pyx_n_s_busy
 #define __pyx_n_s_cline_in_traceback __pyx_mstate_global->__pyx_n_s_cline_in_traceback
-#define __pyx_n_s_contract __pyx_mstate_global->__pyx_n_s_contract
 #define __pyx_n_s_count __pyx_mstate_global->__pyx_n_s_count
 #define __pyx_n_s_delivery_delays __pyx_mstate_global->__pyx_n_s_delivery_delays
 #define __pyx_n_s_delivery_prob __pyx_mstate_global->__pyx_n_s_delivery_prob
@@ -2794,9 +2786,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_pyArrivals __pyx_mstate_global->__pyx_n_s_pyArrivals
 #define __pyx_n_s_pyService __pyx_mstate_global->__pyx_n_s_pyService
 #define __pyx_n_s_pyServices __pyx_mstate_global->__pyx_n_s_pyServices
+#define __pyx_kp_s_pyqumo_cqumo_models_oqnet_model __pyx_mstate_global->__pyx_kp_s_pyqumo_cqumo_models_oqnet_model
+#define __pyx_n_s_pyqumo_cqumo_models_oqnet_model_2 __pyx_mstate_global->__pyx_n_s_pyqumo_cqumo_models_oqnet_model_2
 #define __pyx_n_s_pyqumo_randoms __pyx_mstate_global->__pyx_n_s_pyqumo_randoms
-#define __pyx_kp_s_pyqumo_simulations_networks_mode __pyx_mstate_global->__pyx_kp_s_pyqumo_simulations_networks_mode
-#define __pyx_n_s_pyqumo_simulations_networks_mode_2 __pyx_mstate_global->__pyx_n_s_pyqumo_simulations_networks_mode_2
+#define __pyx_n_s_pyqumo_simulations_networks_cont __pyx_mstate_global->__pyx_n_s_pyqumo_simulations_networks_cont
 #define __pyx_n_s_pyqumo_stats __pyx_mstate_global->__pyx_n_s_pyqumo_stats
 #define __pyx_n_s_queue_capacity __pyx_mstate_global->__pyx_n_s_queue_capacity
 #define __pyx_n_s_queue_size __pyx_mstate_global->__pyx_n_s_queue_size
@@ -2831,7 +2824,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_codeobj__8 __pyx_mstate_global->__pyx_codeobj__8
 /* #### Code section: module_code ### */
 
-/* "pyqumo/simulations/networks/model.pyx":18
+/* "pyqumo/cqumo/models/oqnet/model.pyx":17
  * 
  * # noinspection PyUnresolvedReferences
  * cdef vector_asarray(vector[double] vect):             # <<<<<<<<<<<<<<
@@ -2839,7 +2832,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
  *     ret = np.zeros(n)
  */
 
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(std::vector<double>  __pyx_v_vect) {
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_vector_asarray(std::vector<double>  __pyx_v_vect) {
   int __pyx_v_n;
   PyObject *__pyx_v_ret = NULL;
   int __pyx_v_i;
@@ -2857,7 +2850,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("vector_asarray", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":19
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":18
  * # noinspection PyUnresolvedReferences
  * cdef vector_asarray(vector[double] vect):
  *     cdef int n = vect.size()             # <<<<<<<<<<<<<<
@@ -2866,19 +2859,19 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(s
  */
   __pyx_v_n = __pyx_v_vect.size();
 
-  /* "pyqumo/simulations/networks/model.pyx":20
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":19
  * cdef vector_asarray(vector[double] vect):
  *     cdef int n = vect.size()
  *     ret = np.zeros(n)             # <<<<<<<<<<<<<<
  *     for i in range(n):
  *         ret[i] = vect[i]
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -2899,14 +2892,14 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(s
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_ret = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":21
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":20
  *     cdef int n = vect.size()
  *     ret = np.zeros(n)
  *     for i in range(n):             # <<<<<<<<<<<<<<
@@ -2918,20 +2911,20 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(s
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
-    /* "pyqumo/simulations/networks/model.pyx":22
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":21
  *     ret = np.zeros(n)
  *     for i in range(n):
  *         ret[i] = vect[i]             # <<<<<<<<<<<<<<
  *     return ret
  * 
  */
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_vect[__pyx_v_i])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_vect[__pyx_v_i])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely((__Pyx_SetItemInt(__pyx_v_ret, __pyx_v_i, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 0, 1, 1) < 0))) __PYX_ERR(0, 22, __pyx_L1_error)
+    if (unlikely((__Pyx_SetItemInt(__pyx_v_ret, __pyx_v_i, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 0, 1, 1) < 0))) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":23
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":22
  *     for i in range(n):
  *         ret[i] = vect[i]
  *     return ret             # <<<<<<<<<<<<<<
@@ -2943,7 +2936,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(s
   __pyx_r = __pyx_v_ret;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":18
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":17
  * 
  * # noinspection PyUnresolvedReferences
  * cdef vector_asarray(vector[double] vect):             # <<<<<<<<<<<<<<
@@ -2957,7 +2950,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(s
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.vector_asarray", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.vector_asarray", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_ret);
@@ -2966,7 +2959,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(s
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":26
+/* "pyqumo/cqumo/models/oqnet/model.pyx":25
  * 
  * 
  * cdef _build_statistics(VarData* cs):             # <<<<<<<<<<<<<<
@@ -2974,7 +2967,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(s
  * 
  */
 
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics(cqumo::VarData *__pyx_v_cs) {
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics(cqumo::VarData *__pyx_v_cs) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2985,7 +2978,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_statistic
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_build_statistics", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":27
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":26
  * 
  * cdef _build_statistics(VarData* cs):
  *     return Statistics(avg=cs.mean, std=cs.std, var=cs.var, count=cs.count)             # <<<<<<<<<<<<<<
@@ -2993,27 +2986,27 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_statistic
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Statistics); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Statistics); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_cs->mean); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_cs->mean); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_avg, __pyx_t_3) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_avg, __pyx_t_3) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_cs->std); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_cs->std); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_std, __pyx_t_3) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_std, __pyx_t_3) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_cs->var); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_cs->var); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_var, __pyx_t_3) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_var, __pyx_t_3) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_cs->count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_cs->count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_count, __pyx_t_3) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_count, __pyx_t_3) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3021,7 +3014,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_statistic
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":26
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":25
  * 
  * 
  * cdef _build_statistics(VarData* cs):             # <<<<<<<<<<<<<<
@@ -3034,7 +3027,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_statistic
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model._build_statistics", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model._build_statistics", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3042,7 +3035,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_statistic
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":31
+/* "pyqumo/cqumo/models/oqnet/model.pyx":30
  * 
  * # noinspection PyUnresolvedReferences
  * cdef _build_gg1_results(const SimData& sim_data):             # <<<<<<<<<<<<<<
@@ -3050,7 +3043,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_statistic
  *     cdef NodeData data = sim_data.nodeData.at(0)
  */
 
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_results(cqumo::oqnet::SimData const &__pyx_v_sim_data) {
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_gg1_results(cqumo::oqnet::SimData const &__pyx_v_sim_data) {
   CYTHON_UNUSED int __pyx_v_addr;
   cqumo::oqnet::NodeData __pyx_v_data;
   PyObject *__pyx_v_results = NULL;
@@ -3067,7 +3060,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_build_gg1_results", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":32
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":31
  * # noinspection PyUnresolvedReferences
  * cdef _build_gg1_results(const SimData& sim_data):
  *     cdef int addr = 0             # <<<<<<<<<<<<<<
@@ -3076,7 +3069,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
  */
   __pyx_v_addr = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":33
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":32
  * cdef _build_gg1_results(const SimData& sim_data):
  *     cdef int addr = 0
  *     cdef NodeData data = sim_data.nodeData.at(0)             # <<<<<<<<<<<<<<
@@ -3087,18 +3080,18 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
     __pyx_t_1 = __pyx_v_sim_data.nodeData.at(0);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 33, __pyx_L1_error)
+    __PYX_ERR(0, 32, __pyx_L1_error)
   }
   __pyx_v_data = __pyx_t_1;
 
-  /* "pyqumo/simulations/networks/model.pyx":34
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":33
  *     cdef int addr = 0
  *     cdef NodeData data = sim_data.nodeData.at(0)
  *     results = GG1Results()             # <<<<<<<<<<<<<<
  *     results.system_size = CountableDistribution(
  *         vector_asarray(data.systemSize.pmf()))
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_GG1Results); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_GG1Results); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -3118,31 +3111,31 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
     PyObject *__pyx_callargs[1] = {__pyx_t_4, };
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_results = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":35
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":34
  *     cdef NodeData data = sim_data.nodeData.at(0)
  *     results = GG1Results()
  *     results.system_size = CountableDistribution(             # <<<<<<<<<<<<<<
  *         vector_asarray(data.systemSize.pmf()))
  *     results.queue_size = CountableDistribution(
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pyqumo/simulations/networks/model.pyx":36
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":35
  *     results = GG1Results()
  *     results.system_size = CountableDistribution(
  *         vector_asarray(data.systemSize.pmf()))             # <<<<<<<<<<<<<<
  *     results.queue_size = CountableDistribution(
  *         vector_asarray(data.queueSize.pmf()))
  */
-  __pyx_t_4 = __pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(__pyx_v_data.systemSize.pmf()); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_4 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_vector_asarray(__pyx_v_data.systemSize.pmf()); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_6 = NULL;
   __pyx_t_5 = 0;
@@ -3163,39 +3156,39 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":35
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":34
  *     cdef NodeData data = sim_data.nodeData.at(0)
  *     results = GG1Results()
  *     results.system_size = CountableDistribution(             # <<<<<<<<<<<<<<
  *         vector_asarray(data.systemSize.pmf()))
  *     results.queue_size = CountableDistribution(
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_system_size, __pyx_t_2) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_system_size, __pyx_t_2) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":37
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":36
  *     results.system_size = CountableDistribution(
  *         vector_asarray(data.systemSize.pmf()))
  *     results.queue_size = CountableDistribution(             # <<<<<<<<<<<<<<
  *         vector_asarray(data.queueSize.pmf()))
  *     results.busy = CountableDistribution(
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pyqumo/simulations/networks/model.pyx":38
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":37
  *         vector_asarray(data.systemSize.pmf()))
  *     results.queue_size = CountableDistribution(
  *         vector_asarray(data.queueSize.pmf()))             # <<<<<<<<<<<<<<
  *     results.busy = CountableDistribution(
  *         vector_asarray(data.serverSize.pmf()))
  */
-  __pyx_t_4 = __pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(__pyx_v_data.queueSize.pmf()); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_4 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_vector_asarray(__pyx_v_data.queueSize.pmf()); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_6 = NULL;
   __pyx_t_5 = 0;
@@ -3216,39 +3209,39 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":37
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":36
  *     results.system_size = CountableDistribution(
  *         vector_asarray(data.systemSize.pmf()))
  *     results.queue_size = CountableDistribution(             # <<<<<<<<<<<<<<
  *         vector_asarray(data.queueSize.pmf()))
  *     results.busy = CountableDistribution(
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_queue_size, __pyx_t_2) < 0) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_queue_size, __pyx_t_2) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":39
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":38
  *     results.queue_size = CountableDistribution(
  *         vector_asarray(data.queueSize.pmf()))
  *     results.busy = CountableDistribution(             # <<<<<<<<<<<<<<
  *         vector_asarray(data.serverSize.pmf()))
  *     results.loss_prob = data.lossProb
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pyqumo/simulations/networks/model.pyx":40
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":39
  *         vector_asarray(data.queueSize.pmf()))
  *     results.busy = CountableDistribution(
  *         vector_asarray(data.serverSize.pmf()))             # <<<<<<<<<<<<<<
  *     results.loss_prob = data.lossProb
  *     results.departures = _build_statistics(&data.departures)
  */
-  __pyx_t_4 = __pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(__pyx_v_data.serverSize.pmf()); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_4 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_vector_asarray(__pyx_v_data.serverSize.pmf()); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_6 = NULL;
   __pyx_t_5 = 0;
@@ -3269,82 +3262,82 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":39
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":38
  *     results.queue_size = CountableDistribution(
  *         vector_asarray(data.queueSize.pmf()))
  *     results.busy = CountableDistribution(             # <<<<<<<<<<<<<<
  *         vector_asarray(data.serverSize.pmf()))
  *     results.loss_prob = data.lossProb
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_busy, __pyx_t_2) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_busy, __pyx_t_2) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":41
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":40
  *     results.busy = CountableDistribution(
  *         vector_asarray(data.serverSize.pmf()))
  *     results.loss_prob = data.lossProb             # <<<<<<<<<<<<<<
  *     results.departures = _build_statistics(&data.departures)
  *     results.response_time = _build_statistics(&data.responseTime)
  */
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_data.lossProb); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_data.lossProb); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_loss_prob, __pyx_t_2) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_loss_prob, __pyx_t_2) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":42
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":41
  *         vector_asarray(data.serverSize.pmf()))
  *     results.loss_prob = data.lossProb
  *     results.departures = _build_statistics(&data.departures)             # <<<<<<<<<<<<<<
  *     results.response_time = _build_statistics(&data.responseTime)
  *     results.wait_time = _build_statistics(&data.waitTime)
  */
-  __pyx_t_2 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics((&__pyx_v_data.departures)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_2 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics((&__pyx_v_data.departures)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_departures, __pyx_t_2) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_departures, __pyx_t_2) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":43
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":42
  *     results.loss_prob = data.lossProb
  *     results.departures = _build_statistics(&data.departures)
  *     results.response_time = _build_statistics(&data.responseTime)             # <<<<<<<<<<<<<<
  *     results.wait_time = _build_statistics(&data.waitTime)
  *     results.real_time = sim_data.realTimeMs
  */
-  __pyx_t_2 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics((&__pyx_v_data.responseTime)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_t_2 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics((&__pyx_v_data.responseTime)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_response_time, __pyx_t_2) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_response_time, __pyx_t_2) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":44
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":43
  *     results.departures = _build_statistics(&data.departures)
  *     results.response_time = _build_statistics(&data.responseTime)
  *     results.wait_time = _build_statistics(&data.waitTime)             # <<<<<<<<<<<<<<
  *     results.real_time = sim_data.realTimeMs
  *     return results
  */
-  __pyx_t_2 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics((&__pyx_v_data.waitTime)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_t_2 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics((&__pyx_v_data.waitTime)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_wait_time, __pyx_t_2) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_wait_time, __pyx_t_2) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":45
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":44
  *     results.response_time = _build_statistics(&data.responseTime)
  *     results.wait_time = _build_statistics(&data.waitTime)
  *     results.real_time = sim_data.realTimeMs             # <<<<<<<<<<<<<<
  *     return results
  * 
  */
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_sim_data.realTimeMs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_sim_data.realTimeMs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_real_time, __pyx_t_2) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_real_time, __pyx_t_2) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":46
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":45
  *     results.wait_time = _build_statistics(&data.waitTime)
  *     results.real_time = sim_data.realTimeMs
  *     return results             # <<<<<<<<<<<<<<
@@ -3356,7 +3349,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
   __pyx_r = __pyx_v_results;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":31
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":30
  * 
  * # noinspection PyUnresolvedReferences
  * cdef _build_gg1_results(const SimData& sim_data):             # <<<<<<<<<<<<<<
@@ -3370,7 +3363,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model._build_gg1_results", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model._build_gg1_results", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_results);
@@ -3379,7 +3372,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":49
+/* "pyqumo/cqumo/models/oqnet/model.pyx":48
  * 
  * 
  * cdef _build_tandem_results(const SimData& simData, int numStations):             # <<<<<<<<<<<<<<
@@ -3387,7 +3380,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_resul
  *     cdef NodeData nodeData
  */
 
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_results(cqumo::oqnet::SimData const &__pyx_v_simData, int __pyx_v_numStations) {
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_tandem_results(cqumo::oqnet::SimData const &__pyx_v_simData, int __pyx_v_numStations) {
   int __pyx_v_addr;
   cqumo::oqnet::NodeData __pyx_v_nodeData;
   PyObject *__pyx_v_results = NULL;
@@ -3409,29 +3402,29 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_build_tandem_results", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":52
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":51
  *     cdef int addr
  *     cdef NodeData nodeData
  *     results = GG1TandemResults(num_stations=numStations)             # <<<<<<<<<<<<<<
  *     for addr in range(numStations):
  *         nodeData = simData.nodeData.at(addr)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_GG1TandemResults); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_GG1TandemResults); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_numStations); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_numStations); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_num_stations, __pyx_t_3) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_num_stations, __pyx_t_3) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_results = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":53
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":52
  *     cdef NodeData nodeData
  *     results = GG1TandemResults(num_stations=numStations)
  *     for addr in range(numStations):             # <<<<<<<<<<<<<<
@@ -3443,7 +3436,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_addr = __pyx_t_6;
 
-    /* "pyqumo/simulations/networks/model.pyx":54
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":53
  *     results = GG1TandemResults(num_stations=numStations)
  *     for addr in range(numStations):
  *         nodeData = simData.nodeData.at(addr)             # <<<<<<<<<<<<<<
@@ -3454,30 +3447,30 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
       __pyx_t_7 = __pyx_v_simData.nodeData.at(__pyx_v_addr);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 54, __pyx_L1_error)
+      __PYX_ERR(0, 53, __pyx_L1_error)
     }
     __pyx_v_nodeData = __pyx_t_7;
 
-    /* "pyqumo/simulations/networks/model.pyx":55
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":54
  *     for addr in range(numStations):
  *         nodeData = simData.nodeData.at(addr)
  *         results.system_size.append(             # <<<<<<<<<<<<<<
  *             CountableDistribution(vector_asarray(nodeData.systemSize.pmf())))
  *         results.queue_size.append(
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_system_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_system_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
 
-    /* "pyqumo/simulations/networks/model.pyx":56
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":55
  *         nodeData = simData.nodeData.at(addr)
  *         results.system_size.append(
  *             CountableDistribution(vector_asarray(nodeData.systemSize.pmf())))             # <<<<<<<<<<<<<<
  *         results.queue_size.append(
  *             CountableDistribution(vector_asarray(nodeData.queueSize.pmf())))
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_8 = __pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(__pyx_v_nodeData.systemSize.pmf()); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 56, __pyx_L1_error)
+    __pyx_t_8 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_vector_asarray(__pyx_v_nodeData.systemSize.pmf()); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_9 = NULL;
     __pyx_t_10 = 0;
@@ -3498,42 +3491,42 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_10, 1+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
 
-    /* "pyqumo/simulations/networks/model.pyx":55
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":54
  *     for addr in range(numStations):
  *         nodeData = simData.nodeData.at(addr)
  *         results.system_size.append(             # <<<<<<<<<<<<<<
  *             CountableDistribution(vector_asarray(nodeData.systemSize.pmf())))
  *         results.queue_size.append(
  */
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 54, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":57
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":56
  *         results.system_size.append(
  *             CountableDistribution(vector_asarray(nodeData.systemSize.pmf())))
  *         results.queue_size.append(             # <<<<<<<<<<<<<<
  *             CountableDistribution(vector_asarray(nodeData.queueSize.pmf())))
  *         results.busy.append(
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_queue_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_queue_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
 
-    /* "pyqumo/simulations/networks/model.pyx":58
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":57
  *             CountableDistribution(vector_asarray(nodeData.systemSize.pmf())))
  *         results.queue_size.append(
  *             CountableDistribution(vector_asarray(nodeData.queueSize.pmf())))             # <<<<<<<<<<<<<<
  *         results.busy.append(
  *             CountableDistribution(vector_asarray(nodeData.serverSize.pmf())))
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_8 = __pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(__pyx_v_nodeData.queueSize.pmf()); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_8 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_vector_asarray(__pyx_v_nodeData.queueSize.pmf()); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 57, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_9 = NULL;
     __pyx_t_10 = 0;
@@ -3554,42 +3547,42 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_10, 1+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
 
-    /* "pyqumo/simulations/networks/model.pyx":57
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":56
  *         results.system_size.append(
  *             CountableDistribution(vector_asarray(nodeData.systemSize.pmf())))
  *         results.queue_size.append(             # <<<<<<<<<<<<<<
  *             CountableDistribution(vector_asarray(nodeData.queueSize.pmf())))
  *         results.busy.append(
  */
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 57, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":59
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":58
  *         results.queue_size.append(
  *             CountableDistribution(vector_asarray(nodeData.queueSize.pmf())))
  *         results.busy.append(             # <<<<<<<<<<<<<<
  *             CountableDistribution(vector_asarray(nodeData.serverSize.pmf())))
  *         results.drop_prob.append(nodeData.dropProb)
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_busy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_busy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
 
-    /* "pyqumo/simulations/networks/model.pyx":60
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":59
  *             CountableDistribution(vector_asarray(nodeData.queueSize.pmf())))
  *         results.busy.append(
  *             CountableDistribution(vector_asarray(nodeData.serverSize.pmf())))             # <<<<<<<<<<<<<<
  *         results.drop_prob.append(nodeData.dropProb)
  *         results.delivery_prob.append(nodeData.deliveryProb)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_8 = __pyx_f_6pyqumo_11simulations_8networks_5model_vector_asarray(__pyx_v_nodeData.serverSize.pmf()); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_8 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_vector_asarray(__pyx_v_nodeData.serverSize.pmf()); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_9 = NULL;
     __pyx_t_10 = 0;
@@ -3610,126 +3603,126 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_10, 1+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
 
-    /* "pyqumo/simulations/networks/model.pyx":59
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":58
  *         results.queue_size.append(
  *             CountableDistribution(vector_asarray(nodeData.queueSize.pmf())))
  *         results.busy.append(             # <<<<<<<<<<<<<<
  *             CountableDistribution(vector_asarray(nodeData.serverSize.pmf())))
  *         results.drop_prob.append(nodeData.dropProb)
  */
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 58, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":61
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":60
  *         results.busy.append(
  *             CountableDistribution(vector_asarray(nodeData.serverSize.pmf())))
  *         results.drop_prob.append(nodeData.dropProb)             # <<<<<<<<<<<<<<
  *         results.delivery_prob.append(nodeData.deliveryProb)
  *         results.departures.append(_build_statistics(&nodeData.departures))
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_drop_prob); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_drop_prob); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_nodeData.dropProb); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_nodeData.dropProb); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 60, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":62
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":61
  *             CountableDistribution(vector_asarray(nodeData.serverSize.pmf())))
  *         results.drop_prob.append(nodeData.dropProb)
  *         results.delivery_prob.append(nodeData.deliveryProb)             # <<<<<<<<<<<<<<
  *         results.departures.append(_build_statistics(&nodeData.departures))
  *         results.wait_time.append(_build_statistics(&nodeData.waitTime))
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_delivery_prob); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_delivery_prob); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PyFloat_FromDouble(__pyx_v_nodeData.deliveryProb); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_2 = PyFloat_FromDouble(__pyx_v_nodeData.deliveryProb); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 61, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":63
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":62
  *         results.drop_prob.append(nodeData.dropProb)
  *         results.delivery_prob.append(nodeData.deliveryProb)
  *         results.departures.append(_build_statistics(&nodeData.departures))             # <<<<<<<<<<<<<<
  *         results.wait_time.append(_build_statistics(&nodeData.waitTime))
  *         results.response_time.append(_build_statistics(&nodeData.responseTime))
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_departures); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_departures); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics((&__pyx_v_nodeData.departures)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics((&__pyx_v_nodeData.departures)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":64
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":63
  *         results.delivery_prob.append(nodeData.deliveryProb)
  *         results.departures.append(_build_statistics(&nodeData.departures))
  *         results.wait_time.append(_build_statistics(&nodeData.waitTime))             # <<<<<<<<<<<<<<
  *         results.response_time.append(_build_statistics(&nodeData.responseTime))
  *         results.delivery_delays.append(_build_statistics(&nodeData.delays))
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_wait_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_wait_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics((&__pyx_v_nodeData.waitTime)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics((&__pyx_v_nodeData.waitTime)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 64, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 63, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":65
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":64
  *         results.departures.append(_build_statistics(&nodeData.departures))
  *         results.wait_time.append(_build_statistics(&nodeData.waitTime))
  *         results.response_time.append(_build_statistics(&nodeData.responseTime))             # <<<<<<<<<<<<<<
  *         results.delivery_delays.append(_build_statistics(&nodeData.delays))
  *     results.real_time = simData.realTimeMs
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_response_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_response_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics((&__pyx_v_nodeData.responseTime)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics((&__pyx_v_nodeData.responseTime)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_3); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 64, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":66
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":65
  *         results.wait_time.append(_build_statistics(&nodeData.waitTime))
  *         results.response_time.append(_build_statistics(&nodeData.responseTime))
  *         results.delivery_delays.append(_build_statistics(&nodeData.delays))             # <<<<<<<<<<<<<<
  *     results.real_time = simData.realTimeMs
  *     return results
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_delivery_delays); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_results, __pyx_n_s_delivery_delays); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_statistics((&__pyx_v_nodeData.delays)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_statistics((&__pyx_v_nodeData.delays)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 66, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":67
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":66
  *         results.response_time.append(_build_statistics(&nodeData.responseTime))
  *         results.delivery_delays.append(_build_statistics(&nodeData.delays))
  *     results.real_time = simData.realTimeMs             # <<<<<<<<<<<<<<
  *     return results
  * 
  */
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_simData.realTimeMs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_simData.realTimeMs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_real_time, __pyx_t_2) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_results, __pyx_n_s_real_time, __pyx_t_2) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":68
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":67
  *         results.delivery_delays.append(_build_statistics(&nodeData.delays))
  *     results.real_time = simData.realTimeMs
  *     return results             # <<<<<<<<<<<<<<
@@ -3741,7 +3734,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
   __pyx_r = __pyx_v_results;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":49
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":48
  * 
  * 
  * cdef _build_tandem_results(const SimData& simData, int numStations):             # <<<<<<<<<<<<<<
@@ -3756,7 +3749,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model._build_tandem_results", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model._build_tandem_results", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_results);
@@ -3765,7 +3758,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":71
+/* "pyqumo/cqumo/models/oqnet/model.pyx":70
  * 
  * 
  * @cython.cfunc             # <<<<<<<<<<<<<<
@@ -3773,7 +3766,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_re
  * def _call_pyobject(void *context) -> cython.double:
  */
 
-static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void *__pyx_v_context) {
+static double __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__call_pyobject(void *__pyx_v_context) {
   PyObject *__pyx_v_evaluable = NULL;
   double __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -3790,9 +3783,9 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_call_pyobject", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":75
- * def _call_pyobject(void *context) -> cython.double:
- *     # noinspection PyBroadException
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":75
+ *     # FIXME: added exceptval(False) to make function 'noexcept', not good
+ *     #
  *     try:             # <<<<<<<<<<<<<<
  *         evaluable = <object>context
  *         return evaluable.eval()
@@ -3806,8 +3799,8 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "pyqumo/simulations/networks/model.pyx":76
- *     # noinspection PyBroadException
+      /* "pyqumo/cqumo/models/oqnet/model.pyx":76
+ *     #
  *     try:
  *         evaluable = <object>context             # <<<<<<<<<<<<<<
  *         return evaluable.eval()
@@ -3818,7 +3811,7 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
       __pyx_v_evaluable = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "pyqumo/simulations/networks/model.pyx":77
+      /* "pyqumo/cqumo/models/oqnet/model.pyx":77
  *     try:
  *         evaluable = <object>context
  *         return evaluable.eval()             # <<<<<<<<<<<<<<
@@ -3854,9 +3847,9 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
       __pyx_r = __pyx_t_8;
       goto __pyx_L7_try_return;
 
-      /* "pyqumo/simulations/networks/model.pyx":75
- * def _call_pyobject(void *context) -> cython.double:
- *     # noinspection PyBroadException
+      /* "pyqumo/cqumo/models/oqnet/model.pyx":75
+ *     # FIXME: added exceptval(False) to make function 'noexcept', not good
+ *     #
  *     try:             # <<<<<<<<<<<<<<
  *         evaluable = <object>context
  *         return evaluable.eval()
@@ -3867,7 +3860,7 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":78
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":78
  *         evaluable = <object>context
  *         return evaluable.eval()
  *     except:             # <<<<<<<<<<<<<<
@@ -3875,13 +3868,13 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
  * 
  */
     /*except:*/ {
-      __Pyx_AddTraceback("pyqumo.simulations.networks.model._call_pyobject", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model._call_pyobject", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_6) < 0) __PYX_ERR(0, 78, __pyx_L5_except_error)
       __Pyx_XGOTREF(__pyx_t_4);
       __Pyx_XGOTREF(__pyx_t_5);
       __Pyx_XGOTREF(__pyx_t_6);
 
-      /* "pyqumo/simulations/networks/model.pyx":79
+      /* "pyqumo/cqumo/models/oqnet/model.pyx":79
  *         return evaluable.eval()
  *     except:
  *         return -1             # <<<<<<<<<<<<<<
@@ -3895,9 +3888,9 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
       goto __pyx_L6_except_return;
     }
 
-    /* "pyqumo/simulations/networks/model.pyx":75
- * def _call_pyobject(void *context) -> cython.double:
- *     # noinspection PyBroadException
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":75
+ *     # FIXME: added exceptval(False) to make function 'noexcept', not good
+ *     #
  *     try:             # <<<<<<<<<<<<<<
  *         evaluable = <object>context
  *         return evaluable.eval()
@@ -3922,7 +3915,7 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
     goto __pyx_L0;
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":71
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":70
  * 
  * 
  * @cython.cfunc             # <<<<<<<<<<<<<<
@@ -3935,7 +3928,7 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_WriteUnraisable("pyqumo.simulations.networks.model._call_pyobject", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("pyqumo.cqumo.models.oqnet.model._call_pyobject", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_evaluable);
@@ -3943,7 +3936,7 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":82
+/* "pyqumo/cqumo/models/oqnet/model.pyx":82
  * 
  * 
  * cdef call_simGG1(             # <<<<<<<<<<<<<<
@@ -3951,7 +3944,7 @@ static double __pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject(void
  *         void* pyService,
  */
 
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(void *__pyx_v_pyArrival, void *__pyx_v_pyService, int __pyx_v_queue_capacity, int __pyx_v_max_packets) {
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simGG1(void *__pyx_v_pyArrival, void *__pyx_v_pyService, int __pyx_v_queue_capacity, int __pyx_v_max_packets) {
   cqumo::DblFn __pyx_v_cArrival;
   cqumo::DblFn __pyx_v_cService;
   cqumo::oqnet::SimData __pyx_v_c_ret;
@@ -3964,25 +3957,25 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(void
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("call_simGG1", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":87
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":87
  *         int queue_capacity,
  *         int max_packets):
  *     cdef DblFn cArrival = makeDblFn(_call_pyobject, pyArrival)             # <<<<<<<<<<<<<<
  *     cdef DblFn cService = makeDblFn(_call_pyobject, pyService)
  *     cdef SimData c_ret = simGG1(
  */
-  __pyx_v_cArrival = cqumo::makeDblFn(__pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject, __pyx_v_pyArrival);
+  __pyx_v_cArrival = cqumo::makeDblFn(__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__call_pyobject, __pyx_v_pyArrival);
 
-  /* "pyqumo/simulations/networks/model.pyx":88
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":88
  *         int max_packets):
  *     cdef DblFn cArrival = makeDblFn(_call_pyobject, pyArrival)
  *     cdef DblFn cService = makeDblFn(_call_pyobject, pyService)             # <<<<<<<<<<<<<<
  *     cdef SimData c_ret = simGG1(
  *         cArrival, cService, queue_capacity, max_packets)
  */
-  __pyx_v_cService = cqumo::makeDblFn(__pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject, __pyx_v_pyService);
+  __pyx_v_cService = cqumo::makeDblFn(__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__call_pyobject, __pyx_v_pyService);
 
-  /* "pyqumo/simulations/networks/model.pyx":89
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":89
  *     cdef DblFn cArrival = makeDblFn(_call_pyobject, pyArrival)
  *     cdef DblFn cService = makeDblFn(_call_pyobject, pyService)
  *     cdef SimData c_ret = simGG1(             # <<<<<<<<<<<<<<
@@ -3991,19 +3984,19 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(void
  */
   __pyx_v_c_ret = cqumo::oqnet::simGG1(__pyx_v_cArrival, __pyx_v_cService, __pyx_v_queue_capacity, __pyx_v_max_packets);
 
-  /* "pyqumo/simulations/networks/model.pyx":91
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":91
  *     cdef SimData c_ret = simGG1(
  *         cArrival, cService, queue_capacity, max_packets)
  *     result: GG1Results = _build_gg1_results(c_ret)             # <<<<<<<<<<<<<<
  *     return result
  * 
  */
-  __pyx_t_1 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_results(__pyx_v_c_ret); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_gg1_results(__pyx_v_c_ret); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_result = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":92
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":92
  *         cArrival, cService, queue_capacity, max_packets)
  *     result: GG1Results = _build_gg1_results(c_ret)
  *     return result             # <<<<<<<<<<<<<<
@@ -4015,7 +4008,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(void
   __pyx_r = __pyx_v_result;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":82
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":82
  * 
  * 
  * cdef call_simGG1(             # <<<<<<<<<<<<<<
@@ -4026,7 +4019,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(void
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.call_simGG1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.call_simGG1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_result);
@@ -4035,7 +4028,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(void
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":95
+/* "pyqumo/cqumo/models/oqnet/model.pyx":95
  * 
  * 
  * cdef call_simMM1(             # <<<<<<<<<<<<<<
@@ -4043,7 +4036,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(void
  *         double service_rate,
  */
 
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(double __pyx_v_arrival_rate, double __pyx_v_service_rate, int __pyx_v_queue_capacity, int __pyx_v_max_packets) {
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simMM1(double __pyx_v_arrival_rate, double __pyx_v_service_rate, int __pyx_v_queue_capacity, int __pyx_v_max_packets) {
   cqumo::oqnet::SimData __pyx_v_c_ret;
   PyObject *__pyx_v_result = NULL;
   PyObject *__pyx_r = NULL;
@@ -4054,7 +4047,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(doub
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("call_simMM1", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":100
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":100
  *         int queue_capacity,
  *         int max_packets):
  *     cdef SimData c_ret = simMM1(             # <<<<<<<<<<<<<<
@@ -4063,19 +4056,19 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(doub
  */
   __pyx_v_c_ret = cqumo::oqnet::simMM1(__pyx_v_arrival_rate, __pyx_v_service_rate, __pyx_v_queue_capacity, __pyx_v_max_packets);
 
-  /* "pyqumo/simulations/networks/model.pyx":102
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":102
  *     cdef SimData c_ret = simMM1(
  *         arrival_rate, service_rate, queue_capacity, max_packets)
  *     result: GG1Results = _build_gg1_results(c_ret)             # <<<<<<<<<<<<<<
  *     return result
  * 
  */
-  __pyx_t_1 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_gg1_results(__pyx_v_c_ret); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_gg1_results(__pyx_v_c_ret); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_result = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":103
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":103
  *         arrival_rate, service_rate, queue_capacity, max_packets)
  *     result: GG1Results = _build_gg1_results(c_ret)
  *     return result             # <<<<<<<<<<<<<<
@@ -4087,7 +4080,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(doub
   __pyx_r = __pyx_v_result;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":95
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":95
  * 
  * 
  * cdef call_simMM1(             # <<<<<<<<<<<<<<
@@ -4098,7 +4091,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(doub
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.call_simMM1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.call_simMM1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_result);
@@ -4107,7 +4100,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(doub
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":106
+/* "pyqumo/cqumo/models/oqnet/model.pyx":106
  * 
  * 
  * cdef call_simTandem(             # <<<<<<<<<<<<<<
@@ -4115,7 +4108,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(doub
  *         vector[void*] pyServices,
  */
 
-static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(std::map<int,void *>  __pyx_v_pyArrivals, std::vector<void *>  __pyx_v_pyServices, int __pyx_v_queue_capacity, bool __pyx_v_fixed_service, int __pyx_v_max_packets) {
+static PyObject *__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simTandem(std::map<int,void *>  __pyx_v_pyArrivals, std::vector<void *>  __pyx_v_pyServices, int __pyx_v_queue_capacity, bool __pyx_v_fixed_service, int __pyx_v_max_packets) {
   std::vector<cqumo::DblFn>  __pyx_v_cServices;
   unsigned int __pyx_v_i;
   std::map<int,cqumo::DblFn>  __pyx_v_cArrivals;
@@ -4134,7 +4127,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("call_simTandem", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":115
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":115
  *     cdef vector[DblFn] cServices
  *     cdef unsigned i
  *     for i in range(pyServices.size()):             # <<<<<<<<<<<<<<
@@ -4146,7 +4139,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pyqumo/simulations/networks/model.pyx":116
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":116
  *     cdef unsigned i
  *     for i in range(pyServices.size()):
  *         cServices.push_back(makeDblFn(_call_pyobject, pyServices[i]))             # <<<<<<<<<<<<<<
@@ -4154,14 +4147,14 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
  *     cdef map[int,DblFn] cArrivals
  */
     try {
-      __pyx_v_cServices.push_back(cqumo::makeDblFn(__pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject, (__pyx_v_pyServices[__pyx_v_i])));
+      __pyx_v_cServices.push_back(cqumo::makeDblFn(__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__call_pyobject, (__pyx_v_pyServices[__pyx_v_i])));
     } catch(...) {
       __Pyx_CppExn2PyErr();
       __PYX_ERR(0, 116, __pyx_L1_error)
     }
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":120
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":120
  *     cdef map[int,DblFn] cArrivals
  *     cdef pair[int,void*] kv
  *     for kv in pyArrivals:             # <<<<<<<<<<<<<<
@@ -4175,16 +4168,16 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
     ++__pyx_t_4;
     __pyx_v_kv = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_5);
 
-    /* "pyqumo/simulations/networks/model.pyx":121
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":121
  *     cdef pair[int,void*] kv
  *     for kv in pyArrivals:
  *         cArrivals[kv.first] = makeDblFn(_call_pyobject, kv.second)             # <<<<<<<<<<<<<<
  * 
  *     cdef SimData c_ret = simTandem(
  */
-    (__pyx_v_cArrivals[__pyx_v_kv.first]) = cqumo::makeDblFn(__pyx_f_6pyqumo_11simulations_8networks_5model__call_pyobject, __pyx_v_kv.second);
+    (__pyx_v_cArrivals[__pyx_v_kv.first]) = cqumo::makeDblFn(__pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__call_pyobject, __pyx_v_kv.second);
 
-    /* "pyqumo/simulations/networks/model.pyx":120
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":120
  *     cdef map[int,DblFn] cArrivals
  *     cdef pair[int,void*] kv
  *     for kv in pyArrivals:             # <<<<<<<<<<<<<<
@@ -4193,7 +4186,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
  */
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":123
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":123
  *         cArrivals[kv.first] = makeDblFn(_call_pyobject, kv.second)
  * 
  *     cdef SimData c_ret = simTandem(             # <<<<<<<<<<<<<<
@@ -4202,7 +4195,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
  */
   __pyx_v_c_ret = cqumo::oqnet::simTandem(__pyx_v_cArrivals, __pyx_v_cServices, __pyx_v_queue_capacity, __pyx_v_fixed_service, __pyx_v_max_packets);
 
-  /* "pyqumo/simulations/networks/model.pyx":126
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":126
  *         cArrivals, cServices, queue_capacity, fixed_service, max_packets)
  * 
  *     return _build_tandem_results(c_ret, pyServices.size())             # <<<<<<<<<<<<<<
@@ -4210,13 +4203,13 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = __pyx_f_6pyqumo_11simulations_8networks_5model__build_tandem_results(__pyx_v_c_ret, __pyx_v_pyServices.size()); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model__build_tandem_results(__pyx_v_c_ret, __pyx_v_pyServices.size()); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_r = __pyx_t_6;
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":106
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":106
  * 
  * 
  * cdef call_simTandem(             # <<<<<<<<<<<<<<
@@ -4227,7 +4220,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.call_simTandem", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.call_simTandem", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4235,7 +4228,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":129
+/* "pyqumo/cqumo/models/oqnet/model.pyx":129
  * 
  * 
  * def simulate_mm1(             # <<<<<<<<<<<<<<
@@ -4243,7 +4236,7 @@ static PyObject *__pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(s
  *         service_rate: float,
  */
 
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_6__defaults__(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_6__defaults__(CYTHON_UNUSED PyObject *__pyx_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4274,7 +4267,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_6__defaults__(C
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4283,16 +4276,16 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_6__defaults__(C
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pyqumo_11simulations_8networks_5model_1simulate_mm1(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_1simulate_mm1(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pyqumo_11simulations_8networks_5model_simulate_mm1, "simulate_mm1(double arrival_rate: float, double service_rate: float, int queue_capacity: int, int max_packets: int = 100000) -> GG1Results\n\n    Wrapper for C++ implementation of M/M/1/N or M/M/1 model.\n\n    Returns result in the same dataclass as defined for G/G/1 model\n    in `pyqumo.sim.gg1.Results`.\n\n    Parameters\n    ----------\n    arrival_rate : float\n    service_rate : float\n    queue_capacity : int\n    max_packets : int, optional\n        By default 100'000\n\n    Returns\n    -------\n    results : Results\n    ");
-static PyMethodDef __pyx_mdef_6pyqumo_11simulations_8networks_5model_1simulate_mm1 = {"simulate_mm1", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyqumo_11simulations_8networks_5model_1simulate_mm1, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pyqumo_11simulations_8networks_5model_simulate_mm1};
-static PyObject *__pyx_pw_6pyqumo_11simulations_8networks_5model_1simulate_mm1(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_6pyqumo_5cqumo_6models_5oqnet_5model_simulate_mm1, "simulate_mm1(double arrival_rate: float, double service_rate: float, int queue_capacity: int, int max_packets: int = 100000) -> GG1Results\n\n    Wrapper for C++ implementation of M/M/1/N or M/M/1 model.\n\n    Returns result in the same dataclass as defined for G/G/1 model\n    in `pyqumo.sim.gg1.Results`.\n\n    Parameters\n    ----------\n    arrival_rate : float\n    service_rate : float\n    queue_capacity : int\n    max_packets : int, optional\n        By default 100'000\n\n    Returns\n    -------\n    results : Results\n    ");
+static PyMethodDef __pyx_mdef_6pyqumo_5cqumo_6models_5oqnet_5model_1simulate_mm1 = {"simulate_mm1", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_1simulate_mm1, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pyqumo_5cqumo_6models_5oqnet_5model_simulate_mm1};
+static PyObject *__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_1simulate_mm1(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4409,13 +4402,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.simulate_mm1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.simulate_mm1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_queue_capacity), (&PyInt_Type), 0, "queue_capacity", 1))) __PYX_ERR(0, 132, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_max_packets), (&PyInt_Type), 0, "max_packets", 1))) __PYX_ERR(0, 133, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pyqumo_11simulations_8networks_5model_simulate_mm1(__pyx_self, __pyx_v_arrival_rate, __pyx_v_service_rate, __pyx_v_queue_capacity, __pyx_v_max_packets);
+  __pyx_r = __pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_simulate_mm1(__pyx_self, __pyx_v_arrival_rate, __pyx_v_service_rate, __pyx_v_queue_capacity, __pyx_v_max_packets);
 
   /* function exit code */
   goto __pyx_L0;
@@ -4432,7 +4425,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_simulate_mm1(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_arrival_rate, double __pyx_v_service_rate, PyObject *__pyx_v_queue_capacity, PyObject *__pyx_v_max_packets) {
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_simulate_mm1(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_arrival_rate, double __pyx_v_service_rate, PyObject *__pyx_v_queue_capacity, PyObject *__pyx_v_max_packets) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -4443,7 +4436,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_simulate_mm1(CY
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("simulate_mm1", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":153
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":153
  *     results : Results
  *     """
  *     return call_simMM1(arrival_rate, service_rate, queue_capacity, max_packets)             # <<<<<<<<<<<<<<
@@ -4453,13 +4446,13 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_simulate_mm1(CY
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_queue_capacity); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 153, __pyx_L1_error)
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_max_packets); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 153, __pyx_L1_error)
-  __pyx_t_3 = __pyx_f_6pyqumo_11simulations_8networks_5model_call_simMM1(__pyx_v_arrival_rate, __pyx_v_service_rate, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_3 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simMM1(__pyx_v_arrival_rate, __pyx_v_service_rate, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":129
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":129
  * 
  * 
  * def simulate_mm1(             # <<<<<<<<<<<<<<
@@ -4470,7 +4463,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_simulate_mm1(CY
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.simulate_mm1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.simulate_mm1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4478,7 +4471,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_simulate_mm1(CY
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":156
+/* "pyqumo/cqumo/models/oqnet/model.pyx":156
  * 
  * 
  * def simulate_gg1(             # <<<<<<<<<<<<<<
@@ -4486,7 +4479,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_simulate_mm1(CY
  *         service,
  */
 
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_8__defaults__(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_8__defaults__(CYTHON_UNUSED PyObject *__pyx_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4517,7 +4510,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_8__defaults__(C
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4526,16 +4519,16 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_8__defaults__(C
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pyqumo_11simulations_8networks_5model_3simulate_gg1(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_3simulate_gg1(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pyqumo_11simulations_8networks_5model_2simulate_gg1, "simulate_gg1(arrival, service, int queue_capacity: int, int max_packets: int = 100000) -> GG1Results\n\n    Wrapper for C++ implementation of G/G/1/N or G/G/1 model.\n\n    Returns result in the same dataclass as defined for G/G/1 model\n    in `pyqumo.sim.gg1.Results`.\n\n    Parameters\n    ----------\n    arrival : callable `() -> double`\n    service : callable `() -> double`\n    queue_capacity : int\n    max_packets : int, optional\n        By default 100'000\n\n    Returns\n    -------\n    results : Results\n    ");
-static PyMethodDef __pyx_mdef_6pyqumo_11simulations_8networks_5model_3simulate_gg1 = {"simulate_gg1", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyqumo_11simulations_8networks_5model_3simulate_gg1, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pyqumo_11simulations_8networks_5model_2simulate_gg1};
-static PyObject *__pyx_pw_6pyqumo_11simulations_8networks_5model_3simulate_gg1(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_6pyqumo_5cqumo_6models_5oqnet_5model_2simulate_gg1, "simulate_gg1(arrival, service, int queue_capacity: int, int max_packets: int = 100000) -> GG1Results\n\n    Wrapper for C++ implementation of G/G/1/N or G/G/1 model.\n\n    Returns result in the same dataclass as defined for G/G/1 model\n    in `pyqumo.sim.gg1.Results`.\n\n    Parameters\n    ----------\n    arrival : callable `() -> double`\n    service : callable `() -> double`\n    queue_capacity : int\n    max_packets : int, optional\n        By default 100'000\n\n    Returns\n    -------\n    results : Results\n    ");
+static PyMethodDef __pyx_mdef_6pyqumo_5cqumo_6models_5oqnet_5model_3simulate_gg1 = {"simulate_gg1", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_3simulate_gg1, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pyqumo_5cqumo_6models_5oqnet_5model_2simulate_gg1};
+static PyObject *__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_3simulate_gg1(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4652,13 +4645,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.simulate_gg1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.simulate_gg1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_queue_capacity), (&PyInt_Type), 0, "queue_capacity", 1))) __PYX_ERR(0, 159, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_max_packets), (&PyInt_Type), 0, "max_packets", 1))) __PYX_ERR(0, 160, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(__pyx_self, __pyx_v_arrival, __pyx_v_service, __pyx_v_queue_capacity, __pyx_v_max_packets);
+  __pyx_r = __pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_2simulate_gg1(__pyx_self, __pyx_v_arrival, __pyx_v_service, __pyx_v_queue_capacity, __pyx_v_max_packets);
 
   /* function exit code */
   goto __pyx_L0;
@@ -4675,7 +4668,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arrival, PyObject *__pyx_v_service, PyObject *__pyx_v_queue_capacity, PyObject *__pyx_v_max_packets) {
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_2simulate_gg1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arrival, PyObject *__pyx_v_service, PyObject *__pyx_v_queue_capacity, PyObject *__pyx_v_max_packets) {
   void *__pyx_v_pyArrival;
   void *__pyx_v_pyService;
   PyObject *__pyx_r = NULL;
@@ -4691,7 +4684,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
   __Pyx_RefNannySetupContext("simulate_gg1", 0);
   __Pyx_INCREF(__pyx_v_queue_capacity);
 
-  /* "pyqumo/simulations/networks/model.pyx":180
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":180
  *     results : Results
  *     """
  *     cdef void* pyArrival = <void*>arrival.rnd             # <<<<<<<<<<<<<<
@@ -4703,7 +4696,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
   __pyx_v_pyArrival = ((void *)__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":181
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":181
  *     """
  *     cdef void* pyArrival = <void*>arrival.rnd
  *     cdef void* pyService = <void*>service.rnd             # <<<<<<<<<<<<<<
@@ -4715,7 +4708,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
   __pyx_v_pyService = ((void *)__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":182
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":182
  *     cdef void* pyArrival = <void*>arrival.rnd
  *     cdef void* pyService = <void*>service.rnd
  *     if queue_capacity == np.inf:             # <<<<<<<<<<<<<<
@@ -4733,7 +4726,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_3) {
 
-    /* "pyqumo/simulations/networks/model.pyx":183
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":183
  *     cdef void* pyService = <void*>service.rnd
  *     if queue_capacity == np.inf:
  *         queue_capacity = -1             # <<<<<<<<<<<<<<
@@ -4746,7 +4739,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
     __Pyx_DECREF_SET(__pyx_v_queue_capacity, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":182
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":182
  *     cdef void* pyArrival = <void*>arrival.rnd
  *     cdef void* pyService = <void*>service.rnd
  *     if queue_capacity == np.inf:             # <<<<<<<<<<<<<<
@@ -4755,7 +4748,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
  */
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":184
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":184
  *     if queue_capacity == np.inf:
  *         queue_capacity = -1
  *     return call_simGG1(pyArrival, pyService, queue_capacity, max_packets)             # <<<<<<<<<<<<<<
@@ -4765,13 +4758,13 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_v_queue_capacity); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L1_error)
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_max_packets); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_6pyqumo_11simulations_8networks_5model_call_simGG1(__pyx_v_pyArrival, __pyx_v_pyService, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simGG1(__pyx_v_pyArrival, __pyx_v_pyService, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":156
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":156
  * 
  * 
  * def simulate_gg1(             # <<<<<<<<<<<<<<
@@ -4783,7 +4776,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.simulate_gg1", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.simulate_gg1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_queue_capacity);
@@ -4792,7 +4785,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
   return __pyx_r;
 }
 
-/* "pyqumo/simulations/networks/model.pyx":187
+/* "pyqumo/cqumo/models/oqnet/model.pyx":187
  * 
  * 
  * def simulate_gg1_tandem(             # <<<<<<<<<<<<<<
@@ -4800,7 +4793,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_2simulate_gg1(C
  *         services: Sequence[Distribution],
  */
 
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_10__defaults__(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_10__defaults__(CYTHON_UNUSED PyObject *__pyx_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4811,7 +4804,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_10__defaults__(
   __Pyx_RefNannySetupContext("__defaults__", 0);
   __Pyx_XDECREF(__pyx_r);
 
-  /* "pyqumo/simulations/networks/model.pyx":191
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":191
  *         services: Sequence[Distribution],
  *         queue_capacity: int = 1,
  *         fixed_service: bool = False,             # <<<<<<<<<<<<<<
@@ -4821,7 +4814,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_10__defaults__(
   __pyx_t_1 = __Pyx_PyBool_FromLong(((int)0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pyqumo/simulations/networks/model.pyx":187
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":187
  * 
  * 
  * def simulate_gg1_tandem(             # <<<<<<<<<<<<<<
@@ -4855,7 +4848,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_10__defaults__(
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4864,16 +4857,16 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_10__defaults__(
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pyqumo_11simulations_8networks_5model_5simulate_gg1_tandem(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_5simulate_gg1_tandem(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pyqumo_11simulations_8networks_5model_4simulate_gg1_tandem, "simulate_gg1_tandem(arrivals: Distribution | Sequence[Distribution | None], services: Sequence[Distribution], int queue_capacity: int = 1, bool fixed_service: bool = False, int max_packets: int = 100000) -> GG1TandemResults\n\n    Simulate map_ph_tandem using C++ implementation.\n\n    Example\n    -------\n\n    To simulate a network without cross-traffic, pass a single arrival:\n\n    >>> simulate_gg1_tandem(\n    >>>     Erlang(2, 1),\n    >>>     [Exponential(5), Exponential(6), Exponential(3)],\n    >>>     10,  # queue capacity\n    >>>     1000000)  # number of packets (1 million)\n\n    To simulate a network, where cross-traffic arrives at stations 0, 2 and 3,\n    and network has length 5:\n\n    >>> simulate_gg1_tandem(\n    >>>     [Erlang(2, 1), None, Exponential(2), Exponential(2.3), None],\n    >>>     [Exponential(3) for _ in range(5)],\n    >>>     10,  # queue capacity\n    >>>     1000000)  # number of packets (1 million)\n\n    To simulate a network with a fixed service, i.e. when all the nodes\n    use the smae service time for a single packet, as was selected by the\n    first node (to model a packet of a fixed length):\n\n    >>> simulate_gg1_tandem(\n    >>>     Erlang(2, 1),\n    >>>     [Exponential(5), Exponential(6), Exponential(3)],\n    >>>     10,  # queue capacity\n    >>>     true,  # fixed service\n    >>>     1000000)  # number of packets (1 million)\n\n    Results returned are defined in pyqumo.sim.map_ph_tandem.Results.\n\n    Parameters\n    ----------\n    arrivals : Distribution instance, or list-like with optional Distributions\n        if list-like, non-None values should be given for nodes with external\n        traffic arrivals. When given as a single Distribution, it is assumed\n        that all traffic comes to the first node only.\n    services : list of Distribution instances, this list size is the number\n        of nodes in the map_ph_tandem network\n    queue_capacity: int or np.inf\n    fixed_service: bool, default ""is False\n        if True, then service time is selected when the packet is served for\n        the first time, and then this service time is used all over the network.\n    max_packets: int, default: 100'000\n        total number of packets (over all sources) to simulate.\n    ");
-static PyMethodDef __pyx_mdef_6pyqumo_11simulations_8networks_5model_5simulate_gg1_tandem = {"simulate_gg1_tandem", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyqumo_11simulations_8networks_5model_5simulate_gg1_tandem, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pyqumo_11simulations_8networks_5model_4simulate_gg1_tandem};
-static PyObject *__pyx_pw_6pyqumo_11simulations_8networks_5model_5simulate_gg1_tandem(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_6pyqumo_5cqumo_6models_5oqnet_5model_4simulate_gg1_tandem, "simulate_gg1_tandem(arrivals: Distribution | Sequence[Distribution | None], services: Sequence[Distribution], int queue_capacity: int = 1, bool fixed_service: bool = False, int max_packets: int = 100000) -> GG1TandemResults\n\n    Simulate map_ph_tandem using C++ implementation.\n\n    Example\n    -------\n\n    To simulate a network without cross-traffic, pass a single arrival:\n\n    >>> simulate_gg1_tandem(\n    >>>     Erlang(2, 1),\n    >>>     [Exponential(5), Exponential(6), Exponential(3)],\n    >>>     10,  # queue capacity\n    >>>     1000000)  # number of packets (1 million)\n\n    To simulate a network, where cross-traffic arrives at stations 0, 2 and 3,\n    and network has length 5:\n\n    >>> simulate_gg1_tandem(\n    >>>     [Erlang(2, 1), None, Exponential(2), Exponential(2.3), None],\n    >>>     [Exponential(3) for _ in range(5)],\n    >>>     10,  # queue capacity\n    >>>     1000000)  # number of packets (1 million)\n\n    To simulate a network with a fixed service, i.e. when all the nodes\n    use the smae service time for a single packet, as was selected by the\n    first node (to model a packet of a fixed length):\n\n    >>> simulate_gg1_tandem(\n    >>>     Erlang(2, 1),\n    >>>     [Exponential(5), Exponential(6), Exponential(3)],\n    >>>     10,  # queue capacity\n    >>>     true,  # fixed service\n    >>>     1000000)  # number of packets (1 million)\n\n    Results returned are defined in pyqumo.sim.map_ph_tandem.Results.\n\n    Parameters\n    ----------\n    arrivals : Distribution instance, or list-like with optional Distributions\n        if list-like, non-None values should be given for nodes with external\n        traffic arrivals. When given as a single Distribution, it is assumed\n        that all traffic comes to the first node only.\n    services : list of Distribution instances, this list size is the number\n        of nodes in the map_ph_tandem network\n    queue_capacity: int or np.inf\n    fixed_service: bool, default ""is False\n        if True, then service time is selected when the packet is served for\n        the first time, and then this service time is used all over the network.\n    max_packets: int, default: 100'000\n        total number of packets (over all sources) to simulate.\n    ");
+static PyMethodDef __pyx_mdef_6pyqumo_5cqumo_6models_5oqnet_5model_5simulate_gg1_tandem = {"simulate_gg1_tandem", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_5simulate_gg1_tandem, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pyqumo_5cqumo_6models_5oqnet_5model_4simulate_gg1_tandem};
+static PyObject *__pyx_pw_6pyqumo_5cqumo_6models_5oqnet_5model_5simulate_gg1_tandem(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5006,13 +4999,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.simulate_gg1_tandem", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.simulate_gg1_tandem", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_queue_capacity), (&PyInt_Type), 0, "queue_capacity", 1))) __PYX_ERR(0, 190, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_max_packets), (&PyInt_Type), 0, "max_packets", 1))) __PYX_ERR(0, 192, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_tandem(__pyx_self, __pyx_v_arrivals, __pyx_v_services, __pyx_v_queue_capacity, __pyx_v_fixed_service, __pyx_v_max_packets);
+  __pyx_r = __pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_4simulate_gg1_tandem(__pyx_self, __pyx_v_arrivals, __pyx_v_services, __pyx_v_queue_capacity, __pyx_v_fixed_service, __pyx_v_max_packets);
 
   /* function exit code */
   goto __pyx_L0;
@@ -5029,7 +5022,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_tandem(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arrivals, PyObject *__pyx_v_services, PyObject *__pyx_v_queue_capacity, bool __pyx_v_fixed_service, PyObject *__pyx_v_max_packets) {
+static PyObject *__pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_4simulate_gg1_tandem(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arrivals, PyObject *__pyx_v_services, PyObject *__pyx_v_queue_capacity, bool __pyx_v_fixed_service, PyObject *__pyx_v_max_packets) {
   std::vector<void *>  __pyx_v_pyServices;
   unsigned int __pyx_v_i;
   std::map<int,void *>  __pyx_v_pyArrivals;
@@ -5051,7 +5044,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
   __Pyx_RefNannySetupContext("simulate_gg1_tandem", 0);
   __Pyx_INCREF(__pyx_v_queue_capacity);
 
-  /* "pyqumo/simulations/networks/model.pyx":246
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":246
  *     """
  *     cdef vector[void*] pyServices
  *     cdef unsigned i = 0             # <<<<<<<<<<<<<<
@@ -5060,7 +5053,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
  */
   __pyx_v_i = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":247
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":247
  *     cdef vector[void*] pyServices
  *     cdef unsigned i = 0
  *     for i in range(len(services)):             # <<<<<<<<<<<<<<
@@ -5072,7 +5065,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pyqumo/simulations/networks/model.pyx":248
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":248
  *     cdef unsigned i = 0
  *     for i in range(len(services)):
  *         pyServices.push_back(<void*>services[i].rnd)             # <<<<<<<<<<<<<<
@@ -5093,7 +5086,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":251
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":251
  * 
  *     cdef map[int,void*] pyArrivals
  *     if isinstance(arrivals, Distribution):             # <<<<<<<<<<<<<<
@@ -5106,7 +5099,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_6) {
 
-    /* "pyqumo/simulations/networks/model.pyx":252
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":252
  *     cdef map[int,void*] pyArrivals
  *     if isinstance(arrivals, Distribution):
  *         pyArrivals[0] = <void*>arrivals.rnd             # <<<<<<<<<<<<<<
@@ -5118,7 +5111,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
     (__pyx_v_pyArrivals[0]) = ((void *)__pyx_t_5);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":251
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":251
  * 
  *     cdef map[int,void*] pyArrivals
  *     if isinstance(arrivals, Distribution):             # <<<<<<<<<<<<<<
@@ -5128,7 +5121,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
     goto __pyx_L5;
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":254
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":254
  *         pyArrivals[0] = <void*>arrivals.rnd
  *     else:
  *         for i, arrival in enumerate(arrivals):             # <<<<<<<<<<<<<<
@@ -5181,7 +5174,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
       __pyx_v_i = __pyx_t_3;
       __pyx_t_3 = (__pyx_t_3 + 1);
 
-      /* "pyqumo/simulations/networks/model.pyx":255
+      /* "pyqumo/cqumo/models/oqnet/model.pyx":255
  *     else:
  *         for i, arrival in enumerate(arrivals):
  *             if arrival is not None:             # <<<<<<<<<<<<<<
@@ -5191,7 +5184,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
       __pyx_t_6 = (__pyx_v_arrival != Py_None);
       if (__pyx_t_6) {
 
-        /* "pyqumo/simulations/networks/model.pyx":256
+        /* "pyqumo/cqumo/models/oqnet/model.pyx":256
  *         for i, arrival in enumerate(arrivals):
  *             if arrival is not None:
  *                 pyArrivals[i] = <void*>arrival.rnd             # <<<<<<<<<<<<<<
@@ -5203,7 +5196,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
         (__pyx_v_pyArrivals[__pyx_v_i]) = ((void *)__pyx_t_4);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "pyqumo/simulations/networks/model.pyx":255
+        /* "pyqumo/cqumo/models/oqnet/model.pyx":255
  *     else:
  *         for i, arrival in enumerate(arrivals):
  *             if arrival is not None:             # <<<<<<<<<<<<<<
@@ -5212,7 +5205,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
  */
       }
 
-      /* "pyqumo/simulations/networks/model.pyx":254
+      /* "pyqumo/cqumo/models/oqnet/model.pyx":254
  *         pyArrivals[0] = <void*>arrivals.rnd
  *     else:
  *         for i, arrival in enumerate(arrivals):             # <<<<<<<<<<<<<<
@@ -5224,7 +5217,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
   }
   __pyx_L5:;
 
-  /* "pyqumo/simulations/networks/model.pyx":258
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":258
  *                 pyArrivals[i] = <void*>arrival.rnd
  * 
  *     if queue_capacity == np.inf:             # <<<<<<<<<<<<<<
@@ -5242,7 +5235,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_6) {
 
-    /* "pyqumo/simulations/networks/model.pyx":259
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":259
  * 
  *     if queue_capacity == np.inf:
  *         queue_capacity = -1             # <<<<<<<<<<<<<<
@@ -5255,7 +5248,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
     __Pyx_DECREF_SET(__pyx_v_queue_capacity, ((PyObject*)__pyx_t_5));
     __pyx_t_5 = 0;
 
-    /* "pyqumo/simulations/networks/model.pyx":258
+    /* "pyqumo/cqumo/models/oqnet/model.pyx":258
  *                 pyArrivals[i] = <void*>arrival.rnd
  * 
  *     if queue_capacity == np.inf:             # <<<<<<<<<<<<<<
@@ -5264,7 +5257,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
  */
   }
 
-  /* "pyqumo/simulations/networks/model.pyx":261
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":261
  *         queue_capacity = -1
  * 
  *     return call_simTandem(pyArrivals, pyServices, queue_capacity,             # <<<<<<<<<<<<<<
@@ -5273,26 +5266,26 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_queue_capacity); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 261, __pyx_L1_error)
 
-  /* "pyqumo/simulations/networks/model.pyx":262
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":262
  * 
  *     return call_simTandem(pyArrivals, pyServices, queue_capacity,
  *                           fixed_service, max_packets)             # <<<<<<<<<<<<<<
  */
   __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_max_packets); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 262, __pyx_L1_error)
 
-  /* "pyqumo/simulations/networks/model.pyx":261
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":261
  *         queue_capacity = -1
  * 
  *     return call_simTandem(pyArrivals, pyServices, queue_capacity,             # <<<<<<<<<<<<<<
  *                           fixed_service, max_packets)
  */
-  __pyx_t_5 = __pyx_f_6pyqumo_11simulations_8networks_5model_call_simTandem(__pyx_v_pyArrivals, __pyx_v_pyServices, __pyx_t_8, __pyx_v_fixed_service, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_6pyqumo_5cqumo_6models_5oqnet_5model_call_simTandem(__pyx_v_pyArrivals, __pyx_v_pyServices, __pyx_t_8, __pyx_v_fixed_service, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "pyqumo/simulations/networks/model.pyx":187
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":187
  * 
  * 
  * def simulate_gg1_tandem(             # <<<<<<<<<<<<<<
@@ -5304,7 +5297,7 @@ static PyObject *__pyx_pf_6pyqumo_11simulations_8networks_5model_4simulate_gg1_t
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pyqumo.simulations.networks.model.simulate_gg1_tandem", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyqumo.cqumo.models.oqnet.model.simulate_gg1_tandem", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_arrival);
@@ -5332,7 +5325,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
   __Pyx_StringTabEntry __pyx_string_tab[] = {
     {&__pyx_kp_u_, __pyx_k_, sizeof(__pyx_k_), 0, 1, 0, 0},
     {&__pyx_n_s_CountableDistribution, __pyx_k_CountableDistribution, sizeof(__pyx_k_CountableDistribution), 0, 0, 1, 1},
-    {&__pyx_n_s_Cython, __pyx_k_Cython, sizeof(__pyx_k_Cython), 0, 0, 1, 1},
     {&__pyx_n_s_Distribution, __pyx_k_Distribution, sizeof(__pyx_k_Distribution), 0, 0, 1, 1},
     {&__pyx_kp_s_Distribution_Sequence_Distributi, __pyx_k_Distribution_Sequence_Distributi, sizeof(__pyx_k_Distribution_Sequence_Distributi), 0, 0, 1, 0},
     {&__pyx_n_s_Exponential, __pyx_k_Exponential, sizeof(__pyx_k_Exponential), 0, 0, 1, 1},
@@ -5353,7 +5345,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_bool, __pyx_k_bool, sizeof(__pyx_k_bool), 0, 0, 1, 1},
     {&__pyx_n_s_busy, __pyx_k_busy, sizeof(__pyx_k_busy), 0, 0, 1, 1},
     {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
-    {&__pyx_n_s_contract, __pyx_k_contract, sizeof(__pyx_k_contract), 0, 0, 1, 1},
     {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
     {&__pyx_n_s_delivery_delays, __pyx_k_delivery_delays, sizeof(__pyx_k_delivery_delays), 0, 0, 1, 1},
     {&__pyx_n_s_delivery_prob, __pyx_k_delivery_prob, sizeof(__pyx_k_delivery_prob), 0, 0, 1, 1},
@@ -5380,9 +5371,10 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_pyArrivals, __pyx_k_pyArrivals, sizeof(__pyx_k_pyArrivals), 0, 0, 1, 1},
     {&__pyx_n_s_pyService, __pyx_k_pyService, sizeof(__pyx_k_pyService), 0, 0, 1, 1},
     {&__pyx_n_s_pyServices, __pyx_k_pyServices, sizeof(__pyx_k_pyServices), 0, 0, 1, 1},
+    {&__pyx_kp_s_pyqumo_cqumo_models_oqnet_model, __pyx_k_pyqumo_cqumo_models_oqnet_model, sizeof(__pyx_k_pyqumo_cqumo_models_oqnet_model), 0, 0, 1, 0},
+    {&__pyx_n_s_pyqumo_cqumo_models_oqnet_model_2, __pyx_k_pyqumo_cqumo_models_oqnet_model_2, sizeof(__pyx_k_pyqumo_cqumo_models_oqnet_model_2), 0, 0, 1, 1},
     {&__pyx_n_s_pyqumo_randoms, __pyx_k_pyqumo_randoms, sizeof(__pyx_k_pyqumo_randoms), 0, 0, 1, 1},
-    {&__pyx_kp_s_pyqumo_simulations_networks_mode, __pyx_k_pyqumo_simulations_networks_mode, sizeof(__pyx_k_pyqumo_simulations_networks_mode), 0, 0, 1, 0},
-    {&__pyx_n_s_pyqumo_simulations_networks_mode_2, __pyx_k_pyqumo_simulations_networks_mode_2, sizeof(__pyx_k_pyqumo_simulations_networks_mode_2), 0, 0, 1, 1},
+    {&__pyx_n_s_pyqumo_simulations_networks_cont, __pyx_k_pyqumo_simulations_networks_cont, sizeof(__pyx_k_pyqumo_simulations_networks_cont), 0, 0, 1, 1},
     {&__pyx_n_s_pyqumo_stats, __pyx_k_pyqumo_stats, sizeof(__pyx_k_pyqumo_stats), 0, 0, 1, 1},
     {&__pyx_n_s_queue_capacity, __pyx_k_queue_capacity, sizeof(__pyx_k_queue_capacity), 0, 0, 1, 1},
     {&__pyx_n_s_queue_size, __pyx_k_queue_size, sizeof(__pyx_k_queue_size), 0, 0, 1, 1},
@@ -5412,7 +5404,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 20, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 254, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -5424,7 +5416,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pyqumo/simulations/networks/model.pyx":129
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":129
  * 
  * 
  * def simulate_mm1(             # <<<<<<<<<<<<<<
@@ -5434,9 +5426,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__3 = PyTuple_Pack(4, __pyx_n_s_arrival_rate, __pyx_n_s_service_rate, __pyx_n_s_queue_capacity, __pyx_n_s_max_packets); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyqumo_simulations_networks_mode, __pyx_n_s_simulate_mm1, 129, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyqumo_cqumo_models_oqnet_model, __pyx_n_s_simulate_mm1, 129, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 129, __pyx_L1_error)
 
-  /* "pyqumo/simulations/networks/model.pyx":156
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":156
  * 
  * 
  * def simulate_gg1(             # <<<<<<<<<<<<<<
@@ -5446,9 +5438,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__5 = PyTuple_Pack(6, __pyx_n_s_arrival, __pyx_n_s_service, __pyx_n_s_queue_capacity, __pyx_n_s_max_packets, __pyx_n_s_pyArrival, __pyx_n_s_pyService); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyqumo_simulations_networks_mode, __pyx_n_s_simulate_gg1, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyqumo_cqumo_models_oqnet_model, __pyx_n_s_simulate_gg1, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 156, __pyx_L1_error)
 
-  /* "pyqumo/simulations/networks/model.pyx":187
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":187
  * 
  * 
  * def simulate_gg1_tandem(             # <<<<<<<<<<<<<<
@@ -5458,7 +5450,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__7 = PyTuple_Pack(9, __pyx_n_s_arrivals, __pyx_n_s_services, __pyx_n_s_queue_capacity, __pyx_n_s_fixed_service, __pyx_n_s_max_packets, __pyx_n_s_pyServices, __pyx_n_s_i, __pyx_n_s_pyArrivals, __pyx_n_s_arrival); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyqumo_simulations_networks_mode, __pyx_n_s_simulate_gg1_tandem, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyqumo_cqumo_models_oqnet_model, __pyx_n_s_simulate_gg1_tandem, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5800,14 +5792,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_pyqumo__simulations__networks__model) {
+  if (__pyx_module_is_main_pyqumo__cqumo__models__oqnet__model) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pyqumo.simulations.networks.model")) {
-      if (unlikely((PyDict_SetItemString(modules, "pyqumo.simulations.networks.model", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pyqumo.cqumo.models.oqnet.model")) {
+      if (unlikely((PyDict_SetItemString(modules, "pyqumo.cqumo.models.oqnet.model", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -5828,10 +5820,10 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pyqumo/simulations/networks/model.pyx":1
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":1
  * from typing import Sequence             # <<<<<<<<<<<<<<
  * 
- * import Cython
+ * import cython
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -5847,115 +5839,103 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":3
- * from typing import Sequence
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":4
  * 
- * import Cython             # <<<<<<<<<<<<<<
- * import cython
- * import numpy as np
- */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_Cython, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Cython, __pyx_t_3) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "pyqumo/simulations/networks/model.pyx":5
- * import Cython
  * import cython
  * import numpy as np             # <<<<<<<<<<<<<<
  * from libcpp.vector cimport vector
  * from libcpp.map cimport map, pair
  */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_numpy, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_numpy, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_3) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_3) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":9
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":8
  * from libcpp.map cimport map, pair
  * 
  * from pyqumo.stats import Statistics             # <<<<<<<<<<<<<<
  * from pyqumo.randoms import CountableDistribution, Exponential, Distribution
  * 
  */
-  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_n_s_Statistics);
   __Pyx_GIVEREF(__pyx_n_s_Statistics);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_Statistics)) __PYX_ERR(0, 9, __pyx_L1_error);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pyqumo_stats, __pyx_t_3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_Statistics)) __PYX_ERR(0, 8, __pyx_L1_error);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pyqumo_stats, __pyx_t_3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Statistics); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Statistics); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Statistics, __pyx_t_3) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Statistics, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":10
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":9
  * 
  * from pyqumo.stats import Statistics
  * from pyqumo.randoms import CountableDistribution, Exponential, Distribution             # <<<<<<<<<<<<<<
  * 
  * from .model cimport SimData, NodeData, simMM1, VarData, simGG1, \
  */
-  __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_CountableDistribution);
   __Pyx_GIVEREF(__pyx_n_s_CountableDistribution);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_CountableDistribution)) __PYX_ERR(0, 10, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_CountableDistribution)) __PYX_ERR(0, 9, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_Exponential);
   __Pyx_GIVEREF(__pyx_n_s_Exponential);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_Exponential)) __PYX_ERR(0, 10, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_Exponential)) __PYX_ERR(0, 9, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_Distribution);
   __Pyx_GIVEREF(__pyx_n_s_Distribution);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_n_s_Distribution)) __PYX_ERR(0, 10, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_Import(__pyx_n_s_pyqumo_randoms, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_n_s_Distribution)) __PYX_ERR(0, 9, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_Import(__pyx_n_s_pyqumo_randoms, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_CountableDistribution); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_CountableDistribution, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_CountableDistribution, __pyx_t_2) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Exponential); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Exponential); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Exponential, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Exponential, __pyx_t_2) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Distribution); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Distribution); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Distribution, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Distribution, __pyx_t_2) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":14
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":13
  * from .model cimport SimData, NodeData, simMM1, VarData, simGG1, \
  *     makeDblFn, DblFn
- * from .contract import GG1Results, GG1TandemResults             # <<<<<<<<<<<<<<
+ * from pyqumo.simulations.networks.contract import GG1Results, GG1TandemResults             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_n_s_GG1Results);
   __Pyx_GIVEREF(__pyx_n_s_GG1Results);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_GG1Results)) __PYX_ERR(0, 14, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_GG1Results)) __PYX_ERR(0, 13, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_GG1TandemResults);
   __Pyx_GIVEREF(__pyx_n_s_GG1TandemResults);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 1, __pyx_n_s_GG1TandemResults)) __PYX_ERR(0, 14, __pyx_L1_error);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_contract, __pyx_t_3, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 1, __pyx_n_s_GG1TandemResults)) __PYX_ERR(0, 13, __pyx_L1_error);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pyqumo_simulations_networks_cont, __pyx_t_3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_GG1Results); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_GG1Results); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_GG1Results, __pyx_t_3) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_GG1Results, __pyx_t_3) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_GG1TandemResults); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_GG1TandemResults); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_GG1TandemResults, __pyx_t_3) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_GG1TandemResults, __pyx_t_3) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":129
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":129
  * 
  * 
  * def simulate_mm1(             # <<<<<<<<<<<<<<
@@ -5969,11 +5949,11 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_queue_capacity, __pyx_n_s_int) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_max_packets, __pyx_n_s_int) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_GG1Results) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6pyqumo_11simulations_8networks_5model_1simulate_mm1, 0, __pyx_n_s_simulate_mm1, NULL, __pyx_n_s_pyqumo_simulations_networks_mode_2, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6pyqumo_5cqumo_6models_5oqnet_5model_1simulate_mm1, 0, __pyx_n_s_simulate_mm1, NULL, __pyx_n_s_pyqumo_cqumo_models_oqnet_model_2, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (!__Pyx_CyFunction_InitDefaults(__pyx_t_3, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 129, __pyx_L1_error)
 
-  /* "pyqumo/simulations/networks/model.pyx":133
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":133
  *         service_rate: float,
  *         queue_capacity: int,
  *         max_packets: int = 100000             # <<<<<<<<<<<<<<
@@ -5984,13 +5964,13 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_int_100000);
   __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_3)->__pyx_arg_max_packets = ((PyObject*)__pyx_int_100000);
   __Pyx_GIVEREF(__pyx_int_100000);
-  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_3, __pyx_pf_6pyqumo_11simulations_8networks_5model_6__defaults__);
+  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_3, __pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_6__defaults__);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_simulate_mm1, __pyx_t_3) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":156
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":156
  * 
  * 
  * def simulate_gg1(             # <<<<<<<<<<<<<<
@@ -6002,11 +5982,11 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_queue_capacity, __pyx_n_s_int) < 0) __PYX_ERR(0, 156, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_max_packets, __pyx_n_s_int) < 0) __PYX_ERR(0, 156, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_return, __pyx_n_s_GG1Results) < 0) __PYX_ERR(0, 156, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyqumo_11simulations_8networks_5model_3simulate_gg1, 0, __pyx_n_s_simulate_gg1, NULL, __pyx_n_s_pyqumo_simulations_networks_mode_2, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyqumo_5cqumo_6models_5oqnet_5model_3simulate_gg1, 0, __pyx_n_s_simulate_gg1, NULL, __pyx_n_s_pyqumo_cqumo_models_oqnet_model_2, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (!__Pyx_CyFunction_InitDefaults(__pyx_t_2, sizeof(__pyx_defaults1), 1)) __PYX_ERR(0, 156, __pyx_L1_error)
 
-  /* "pyqumo/simulations/networks/model.pyx":160
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":160
  *         service,
  *         queue_capacity: int,
  *         max_packets: int = 100000             # <<<<<<<<<<<<<<
@@ -6017,13 +5997,13 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_int_100000);
   __Pyx_CyFunction_Defaults(__pyx_defaults1, __pyx_t_2)->__pyx_arg_max_packets = ((PyObject*)__pyx_int_100000);
   __Pyx_GIVEREF(__pyx_int_100000);
-  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_2, __pyx_pf_6pyqumo_11simulations_8networks_5model_8__defaults__);
+  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_2, __pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_8__defaults__);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_simulate_gg1, __pyx_t_2) < 0) __PYX_ERR(0, 156, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":187
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":187
  * 
  * 
  * def simulate_gg1_tandem(             # <<<<<<<<<<<<<<
@@ -6038,11 +6018,11 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_fixed_service, __pyx_n_s_bool) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_max_packets, __pyx_n_s_int) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_GG1TandemResults) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6pyqumo_11simulations_8networks_5model_5simulate_gg1_tandem, 0, __pyx_n_s_simulate_gg1_tandem, NULL, __pyx_n_s_pyqumo_simulations_networks_mode_2, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6pyqumo_5cqumo_6models_5oqnet_5model_5simulate_gg1_tandem, 0, __pyx_n_s_simulate_gg1_tandem, NULL, __pyx_n_s_pyqumo_cqumo_models_oqnet_model_2, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (!__Pyx_CyFunction_InitDefaults(__pyx_t_3, sizeof(__pyx_defaults2), 2)) __PYX_ERR(0, 187, __pyx_L1_error)
 
-  /* "pyqumo/simulations/networks/model.pyx":190
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":190
  *         arrivals: Distribution | Sequence[Distribution | None],
  *         services: Sequence[Distribution],
  *         queue_capacity: int = 1,             # <<<<<<<<<<<<<<
@@ -6054,7 +6034,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_CyFunction_Defaults(__pyx_defaults2, __pyx_t_3)->__pyx_arg_queue_capacity = ((PyObject*)__pyx_int_1);
   __Pyx_GIVEREF(__pyx_int_1);
 
-  /* "pyqumo/simulations/networks/model.pyx":192
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":192
  *         queue_capacity: int = 1,
  *         fixed_service: bool = False,
  *         max_packets: int = 100000             # <<<<<<<<<<<<<<
@@ -6065,16 +6045,16 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_int_100000);
   __Pyx_CyFunction_Defaults(__pyx_defaults2, __pyx_t_3)->__pyx_arg_max_packets = ((PyObject*)__pyx_int_100000);
   __Pyx_GIVEREF(__pyx_int_100000);
-  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_3, __pyx_pf_6pyqumo_11simulations_8networks_5model_10__defaults__);
+  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_3, __pyx_pf_6pyqumo_5cqumo_6models_5oqnet_5model_10__defaults__);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_simulate_gg1_tandem, __pyx_t_3) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyqumo/simulations/networks/model.pyx":1
+  /* "pyqumo/cqumo/models/oqnet/model.pyx":1
  * from typing import Sequence             # <<<<<<<<<<<<<<
  * 
- * import Cython
+ * import cython
  */
   __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -6090,7 +6070,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_3);
   if (__pyx_m) {
     if (__pyx_d && stringtab_initialized) {
-      __Pyx_AddTraceback("init pyqumo.simulations.networks.model", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pyqumo.cqumo.models.oqnet.model", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     #if !CYTHON_USE_MODULE_STATE
     Py_CLEAR(__pyx_m);
@@ -6104,7 +6084,7 @@ if (!__Pyx_RefNanny) {
     }
     #endif
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pyqumo.simulations.networks.model");
+    PyErr_SetString(PyExc_ImportError, "init pyqumo.cqumo.models.oqnet.model");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

@@ -2,10 +2,11 @@ from functools import cached_property, lru_cache
 from typing import Sequence, Mapping, Union, Callable, Iterator, Tuple
 
 import numpy as np
+import math
 
 from .base import Distribution
 from .mixins import DiscreteDistributionMixin, AbstractCdfMixin
-from .variables import VariablesFactory, Variable
+from pyqumo.cqumo.variables import VariablesFactory, Variable
 from ..matrix import fix_stochastic, is_pmf, str_array
 
 
@@ -373,7 +374,7 @@ class CountableDistribution(DiscreteDistributionMixin,
         """
         if self._hard_max_value:
             def hard_fn(x: float) -> float:
-                fl, num = np.math.modf(x)
+                fl, num = math.modf(x)
                 if (abs(fl) <= 1e-12 and
                         0 <= (num := int(num)) <= self._truncated_at):
                     return self._pmf[num]
@@ -381,7 +382,7 @@ class CountableDistribution(DiscreteDistributionMixin,
             return hard_fn
 
         def soft_fn(x: float) -> float:
-            fl, num = np.math.modf(x)
+            fl, num = math.modf(x)
             if abs(fl) <= 1e-12 and (num := int(num)) >= 0:
                 return self.get_prob_at(num)
             return 0.0
@@ -402,12 +403,12 @@ class CountableDistribution(DiscreteDistributionMixin,
         """
         if self._hard_max_value:
             def hard_fn(x: float) -> float:
-                num = min(int(np.math.modf(x)[1]), self._truncated_at)
+                num = min(int(math.modf(x)[1]), self._truncated_at)
                 return self._trunc_cdf[num] if num >= 0 else 0.0
             return hard_fn
 
         def soft_fn(x: float) -> float:
-            _, num = np.math.modf(x)
+            _, num = math.modf(x)
             num = int(num)
             if num < 0:
                 return 0.0

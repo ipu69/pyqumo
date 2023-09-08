@@ -1,6 +1,5 @@
 from typing import Sequence
 
-import Cython
 import cython
 import numpy as np
 from libcpp.vector cimport vector
@@ -11,7 +10,7 @@ from pyqumo.randoms import CountableDistribution, Exponential, Distribution
 
 from .model cimport SimData, NodeData, simMM1, VarData, simGG1, \
     makeDblFn, DblFn
-from .contract import GG1Results, GG1TandemResults
+from pyqumo.simulations.networks.contract import GG1Results, GG1TandemResults
 
 
 # noinspection PyUnresolvedReferences
